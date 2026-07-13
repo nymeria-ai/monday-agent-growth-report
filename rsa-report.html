@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSA Optimization Report — Task Management Cluster</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+header { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #1e293b, #334155); border-radius: 16px; margin-bottom: 30px; }
+header h1 { font-size: 28px; color: #f8fafc; margin-bottom: 8px; }
+header p { color: #94a3b8; font-size: 14px; }
+.stats { display: flex; gap: 16px; margin-bottom: 30px; flex-wrap: wrap; }
+.stat-card { flex: 1; min-width: 200px; background: #1e293b; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #334155; }
+.stat-card .number { font-size: 36px; font-weight: 700; color: #38bdf8; }
+.stat-card .label { font-size: 13px; color: #94a3b8; margin-top: 4px; }
+.group { background: #1e293b; border-radius: 12px; margin-bottom: 24px; border: 1px solid #334155; overflow: hidden; }
+.group-header { padding: 20px 24px; background: #334155; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.group-header h2 { font-size: 18px; color: #f8fafc; }
+.group-header .badge { background: #38bdf8; color: #0f172a; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.group-body { padding: 24px; }
+.section-title { font-size: 15px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; }
+.diff-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+.diff-table th { background: #334155; color: #94a3b8; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.diff-table td { padding: 8px 12px; border-bottom: 1px solid #334155; }
+.diff-table .diff-row { background: #1a1a2e; }
+.diff-table .diff-row td { color: #fbbf24; }
+.diff-table .diff-row td:nth-child(2) { text-decoration: line-through; color: #ef4444; opacity: 0.7; }
+.diff-table .diff-row td:nth-child(3) { color: #22c55e; font-weight: 600; }
+.ad-list { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
+.ad-list th { background: #334155; color: #94a3b8; padding: 8px 10px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; }
+.ad-list td { padding: 6px 10px; border-bottom: 1px solid #334155; }
+.ad-list code { background: #334155; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+.pin { background: #7c3aed; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.pattern { background: #475569; color: #e2e8f0; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.note { color: #f59e0b; font-size: 11px; }
+.changes-summary { background: #1a1a2e; border: 1px solid #334155; border-radius: 8px; padding: 16px; margin-bottom: 20px; }
+.changes-summary h3 { color: #38bdf8; font-size: 14px; margin-bottom: 8px; }
+.changes-summary ul { list-style: none; padding: 0; }
+.changes-summary li { padding: 4px 0; font-size: 13px; }
+.changes-summary li::before { content: "→ "; color: #22c55e; }
+.warning { background: #451a03; border: 1px solid #92400e; border-radius: 8px; padding: 12px 16px; margin: 12px 0; color: #fbbf24; font-size: 13px; }
+.warning::before { content: "⚠️ "; }
+.execution-plan { background: #0c1e0c; border: 1px solid #166534; border-radius: 8px; padding: 16px; margin-top: 20px; }
+.execution-plan h3 { color: #22c55e; margin-bottom: 8px; }
+.execution-plan ol { padding-left: 20px; font-size: 13px; }
+.execution-plan li { padding: 4px 0; }
+.footer { text-align: center; padding: 30px; color: #475569; font-size: 12px; }
+.status-banner { background: linear-gradient(135deg, #92400e, #78350f); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 24px; }
+.status-banner h2 { color: #fbbf24; font-size: 20px; }
+.status-banner p { color: #fcd34d; font-size: 14px; }
+.collapsible { display: block; }
+.pattern-label { display: inline-block; background: #475569; color: #e2e8f0; padding: 4px 10px; border-radius: 6px; font-size: 13px; margin: 8px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+<h1>🔧 RSA Optimization Report</h1>
+<p>Task Management Cluster • Account: 3746504118 (Main) • Generated: 2026-07-13 15:10</p>
+</header>
+
+<div class="status-banner">
+<h2>⏳ PENDING APPROVAL</h2>
+<p>42 ads across 3 variant groups • Review before/after content below</p>
+</div>
+
+<div class="stats">
+<div class="stat-card">
+<div class="number">42</div>
+<div class="label">Ads to Replace</div>
+</div>
+<div class="stat-card">
+<div class="number">3</div>
+<div class="label">Variant Groups</div>
+</div>
+<div class="stat-card">
+<div class="number">8</div>
+<div class="label">Campaigns Affected</div>
+</div>
+<div class="stat-card">
+<div class="number">5</div>
+<div class="label">GEOs (US/GB/AU/EU1/WW)</div>
+</div>
+</div>
+
+<!-- GROUP 1 -->
+<div class="group">
+<div class="group-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+<h2>Group 1: Task Management - AI</h2>
+<span class="badge">19 ads</span>
+</div>
+<div class="group-body collapsible">
+
+<div class="changes-summary">
+<h3>Changes Summary</h3>
+<ul>
+<li><strong>H2:</strong> "Simple AI Task Management" → "#1 {KeyWord:Task Management with AI}" (adds KW insertion)</li>
+<li><strong>D4:</strong> "AI Task Management That Scales From Small Teams To Enterprises" → "Best AI Task Management App That Scales From Small Teams To Enterprises" [pin to DESCRIPTION_1]</li>
+<li><strong>Path:</strong> Standardize to <code>task_management/AI</code> (some currently have "Task-Management")</li>
+</ul>
+</div>
+
+<div class="warning">Ad 794490855056 (AU, task management excel- old) currently has H2 with wrong KW insertion format: "Simple AI {KeyWord: Task Management}" (space before colon). Will be replaced entirely.</div>
+<div class="warning">Ad 815682872778 (EU1, task + list) has PENDING strength — newly created, rating not yet assigned.</div>
+
+<p class="section-title">Content Diff (Current → Proposed)</p>
+<table class="diff-table">
+<thead><tr><th>Pos</th><th>Current</th><th>Proposed</th><th></th></tr></thead>
+<tbody><tr class=""><td>H1</td><td>Manage Anything With AI</td><td>Manage Anything With AI</td><td>✅</td></tr>
+<tr class="diff-row"><td>H2</td><td>Simple AI Task Management</td><td>#1 {KeyWord:Task Management with AI}</td><td>🔄</td></tr>
+<tr class=""><td>H3</td><td>Agile Task Management AI Tool</td><td>Agile Task Management AI Tool</td><td>✅</td></tr>
+<tr class=""><td>H4</td><td>Ready-Made AI Task Mgmt. Tool</td><td>Ready-Made AI Task Mgmt. Tool</td><td>✅</td></tr>
+<tr class=""><td>H5</td><td>Custom AI Task Management Tool</td><td>Custom AI Task Management Tool</td><td>✅</td></tr>
+<tr class=""><td>H6</td><td>Mark This Task As Done With AI</td><td>Mark This Task As Done With AI</td><td>✅</td></tr>
+<tr class=""><td>H7</td><td>Get More Done Faster With AI</td><td>Get More Done Faster With AI</td><td>✅</td></tr>
+<tr class=""><td>H8</td><td>Team Task Management AI Tool</td><td>Team Task Management AI Tool</td><td>✅</td></tr>
+<tr class=""><td>H9</td><td>AI-Run Online Task Management</td><td>AI-Run Online Task Management</td><td>✅</td></tr>
+<tr class=""><td>H10</td><td>#1 AI Task Management</td><td>#1 AI Task Management</td><td>✅</td></tr>
+<tr class=""><td>H11</td><td>Manage Your Team Tasks With AI</td><td>Manage Your Team Tasks With AI</td><td>✅</td></tr>
+<tr class=""><td>H12</td><td>Grow Team Productivity With AI</td><td>Grow Team Productivity With AI</td><td>✅</td></tr>
+<tr class=""><td>H13</td><td>#1 AI Task Management Software</td><td>#1 AI Task Management Software</td><td>✅</td></tr>
+<tr class=""><td>H14</td><td>Simple AI Task Management Plan</td><td>Simple AI Task Management Plan</td><td>✅</td></tr>
+<tr class=""><td>H15</td><td>Stay Focused, Do More With AI</td><td>Stay Focused, Do More With AI</td><td>✅</td></tr>
+<tr class=""><td>D1</td><td>Check Off Tasks Faster With Easy To Use AI Work Management Software. Start Your Free Trial</td><td>Check Off Tasks Faster With Easy To Use AI Work Management Software. Start Your Free Trial</td><td>✅</td></tr>
+<tr class=""><td>D2</td><td>Simplify Workflows With Powerful AI Task Management Features And Get More Done. Start Free</td><td>Simplify Workflows With Powerful AI Task Management Features And Get More Done. Start Free</td><td>✅</td></tr>
+<tr class=""><td>D3</td><td>Cut Manual Work With AI Automations That Run Tasks And Projects Automatically. Try It Free</td><td>Cut Manual Work With AI Automations That Run Tasks And Projects Automatically. Try It Free</td><td>✅</td></tr>
+<tr class="diff-row"><td>D4</td><td>AI Task Management That Scales From Small Teams To Enterprises</td><td>Best AI Task Management App That Scales From Small Teams To Enterprises <span class="pin">[pin:DESCRIPTION_1]</span></td><td>🔄</td></tr>
+<tr class="diff-row"><td>Path</td><td>Task-Management/AI</td><td>task_management/AI</td><td>🔄</td></tr>
+</tbody>
+</table>
+
+<p class="section-title">Affected Ads (19)</p>
+<table class="ad-list">
+<thead><tr><th>Ad ID</th><th>GEO</th><th>Ad Group</th><th>AG ID</th><th>Campaign ID</th><th>Current Strength</th><th>Current Path</th><th>Notes</th></tr></thead>
+<tbody><tr>
+<td><code>813102478052</code></td>
+<td>US</td>
+<td>task + google</td>
+<td>176002754050</td>
+<td>1007550663</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task_Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682871650</code></td>
+<td>GB</td>
+<td>task + organizer</td>
+<td>198860187795</td>
+<td>999494601</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682953727</code></td>
+<td>WW</td>
+<td>task + list</td>
+<td>198860191195</td>
+<td>15265452191</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815791756787</code></td>
+<td>AU</td>
+<td>task + list</td>
+<td>198860184195</td>
+<td>998703539</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815718538309</code></td>
+<td>WW</td>
+<td>task + organizer</td>
+<td>198860191355</td>
+<td>15265452191</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815718492163</code></td>
+<td>EU1</td>
+<td>task + google</td>
+<td>198860185195</td>
+<td>992783192</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task_Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682871626</code></td>
+<td>GB</td>
+<td>task + list</td>
+<td>198860187755</td>
+<td>999494601</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>812469744935</code></td>
+<td>US</td>
+<td>task + list</td>
+<td>201107673807</td>
+<td>1007550663</td>
+<td><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">GOOD</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>813112425578</code></td>
+<td>WW</td>
+<td>task log- old</td>
+<td>197609240837</td>
+<td>15265452191</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>812369623644</code></td>
+<td>US</td>
+<td>task + organizer</td>
+<td>201107673727</td>
+<td>1007550663</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>813112425521</code></td>
+<td>WW</td>
+<td>task list- old</td>
+<td>197609240397</td>
+<td>15265452191</td>
+<td><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">GOOD</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815718550207</code></td>
+<td>WW</td>
+<td>task + google</td>
+<td>198860190475</td>
+<td>15265452191</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task_Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815718549796</code></td>
+<td>AU</td>
+<td>task + organizer</td>
+<td>198860184235</td>
+<td>998703539</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815791755809</code></td>
+<td>GB</td>
+<td>task + google</td>
+<td>198860187035</td>
+<td>999494601</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task_Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815718538450</code></td>
+<td>WW</td>
+<td>task + track</td>
+<td>198860191435</td>
+<td>15265452191</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682894621</code></td>
+<td>AU</td>
+<td>task + google</td>
+<td>198860183475</td>
+<td>998703539</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task_Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682872802</code></td>
+<td>EU1</td>
+<td>task + organizer</td>
+<td>198860186075</td>
+<td>992783192</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>794490855056</code></td>
+<td>AU</td>
+<td>task management excel- old</td>
+<td>115564789418</td>
+<td>998703539</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task-Management/AI</td>
+<td><br><span class="note">H2 has wrong KW insertion format: 'Simple AI {KeyWord: Task Management}' (space before colon)</span></td>
+</tr>
+<tr>
+<td><code>815682872778</code></td>
+<td>EU1</td>
+<td>task + list</td>
+<td>198860185155</td>
+<td>992783192</td>
+<td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">PENDING</span></td>
+<td>Task-Management/AI</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p class="section-title">Label to Apply</p>
+<p style="font-size:13px">📏 <strong>Task Management - AI</strong> — <code>customers/3746504118/labels/22105586857</code></p>
+
+</div>
+</div>
+
+<!-- GROUP 2 -->
+<div class="group">
+<div class="group-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+<h2>Group 2: Task Management Tools 3</h2>
+<span class="badge">18 ads</span>
+</div>
+<div class="group-body collapsible">
+
+<div class="changes-summary">
+<h3>Changes Summary</h3>
+<ul>
+<li><strong>H2:</strong> Fix KW insertion → "Simple {KeyWord:Task Management}" (correct format, no space before colon, no pin)</li>
+<li><strong>H10:</strong> Remove KW insertion → "#1 Team Task Manager Tool" (was "#1 {Keyword: Task Management}" in Pattern B; fixes max-1-KW-insertion rule AND H10/H13 duplicate)</li>
+<li><strong>D2:</strong> Standardize to "Simplify your workflow and get more done with powerful task management features. Join us!" (Pattern A currently has different D2)</li>
+<li><strong>Path:</strong> Standardize to <code>task_management/monday</code></li>
+<li><strong>Pins:</strong> Remove all H1 pins (Pattern B currently pins H2 and H10 to HEADLINE_1)</li>
+</ul>
+</div>
+
+<div class="warning">Two content patterns found among current ads — see Pattern A (task+google: no KW insertion, different D2) vs Pattern B (other: 2 KW insertions with wrong format, pins).</div>
+<div class="warning">Ad 714607797506 (GB) appears in 2 ad groups (128914000474 & 199016336298). Verify which is correct.</div>
+<div class="warning">Ad 812910817821 (WW, task management software- old) has no path1/path2 set currently.</div>
+
+<p class="section-title">Pattern A: "task + google" ads (5 ads) — Current Content</p>
+<span class="pattern-label">Pattern A: No KW insertion, different D2, missing path2</span>
+<table class="diff-table">
+<thead><tr><th>Pos</th><th>Current</th><th>Proposed</th><th></th></tr></thead>
+<tbody><tr class=""><td>H1</td><td>Manage Anything & Everything</td><td>Manage Anything & Everything</td><td>✅</td></tr>
+<tr class="diff-row"><td>H2</td><td>Simple Task Management App</td><td>Simple {KeyWord:Task Management}</td><td>🔄</td></tr>
+<tr class=""><td>H3</td><td>Agile Task Management Tool</td><td>Agile Task Management Tool</td><td>✅</td></tr>
+<tr class=""><td>H4</td><td>Ready-Made Task Mgmt. Tool</td><td>Ready-Made Task Mgmt. Tool</td><td>✅</td></tr>
+<tr class=""><td>H5</td><td>Custom Task Management Tool</td><td>Custom Task Management Tool</td><td>✅</td></tr>
+<tr class=""><td>H6</td><td>Mark This Task As Done</td><td>Mark This Task As Done</td><td>✅</td></tr>
+<tr class=""><td>H7</td><td>Get More Done in Less Time</td><td>Get More Done in Less Time</td><td>✅</td></tr>
+<tr class=""><td>H8</td><td>Team Task Management Platform</td><td>Team Task Management Platform</td><td>✅</td></tr>
+<tr class=""><td>H9</td><td>Online Task Management</td><td>Online Task Management</td><td>✅</td></tr>
+<tr class=""><td>H10</td><td>#1 Team Task Manager Tool</td><td>#1 Team Task Manager Tool</td><td>✅</td></tr>
+<tr class=""><td>H11</td><td>Manage Your Team's Tasks</td><td>Manage Your Team's Tasks</td><td>✅</td></tr>
+<tr class=""><td>H12</td><td>Increase Team Productivity</td><td>Increase Team Productivity</td><td>✅</td></tr>
+<tr class=""><td>H13</td><td>#1 Task Management Software</td><td>#1 Task Management Software</td><td>✅</td></tr>
+<tr class=""><td>H14</td><td>Simple Task Management Plan</td><td>Simple Task Management Plan</td><td>✅</td></tr>
+<tr class=""><td>H15</td><td>Stay Focused, Get More Done</td><td>Stay Focused, Get More Done</td><td>✅</td></tr>
+<tr class=""><td>D1</td><td>Check off your tasks faster with our comprehensive work management software. Free trial</td><td>Check off your tasks faster with our comprehensive work management software. Free trial</td><td>✅</td></tr>
+<tr class="diff-row"><td>D2</td><td>Shared task manager for teams - smarter than a spreadsheet. Try the top planner app free</td><td>Simplify your workflow and get more done with powerful task management features. Join us!</td><td>🔄</td></tr>
+<tr class=""><td>D3</td><td>Cut down on manual work. Let automations streamline your tasks and projects efficiently.</td><td>Cut down on manual work. Let automations streamline your tasks and projects efficiently.</td><td>✅</td></tr>
+<tr class=""><td>D4</td><td>From small teams to large enterprises, our task manager scales with your needs. Try now!</td><td>From small teams to large enterprises, our task manager scales with your needs. Try now!</td><td>✅</td></tr>
+<tr class="diff-row"><td>Path</td><td>Task-Management</td><td>task_management/monday</td><td>🔄</td></tr>
+</tbody>
+</table>
+
+<p class="section-title">Pattern B: Other ads (13 ads) — Current Content</p>
+<span class="pattern-label">Pattern B: 2 KW insertions (wrong format), H2+H10 pinned to H1</span>
+<table class="diff-table">
+<thead><tr><th>Pos</th><th>Current</th><th>Proposed</th><th></th></tr></thead>
+<tbody><tr class=""><td>H1</td><td>Manage Anything & Everything</td><td>Manage Anything & Everything</td><td>✅</td></tr>
+<tr class="diff-row"><td>H2</td><td>Simple {KeyWord: Task Management}</td><td>Simple {KeyWord:Task Management}</td><td>🔄</td></tr>
+<tr class=""><td>H3</td><td>Agile Task Management Tool</td><td>Agile Task Management Tool</td><td>✅</td></tr>
+<tr class=""><td>H4</td><td>Ready-Made Task Mgmt. Tool</td><td>Ready-Made Task Mgmt. Tool</td><td>✅</td></tr>
+<tr class=""><td>H5</td><td>Custom Task Management Tool</td><td>Custom Task Management Tool</td><td>✅</td></tr>
+<tr class=""><td>H6</td><td>Mark This Task As Done</td><td>Mark This Task As Done</td><td>✅</td></tr>
+<tr class=""><td>H7</td><td>Get More Done in Less Time</td><td>Get More Done in Less Time</td><td>✅</td></tr>
+<tr class=""><td>H8</td><td>Team Task Management Platform</td><td>Team Task Management Platform</td><td>✅</td></tr>
+<tr class=""><td>H9</td><td>Online Task Management</td><td>Online Task Management</td><td>✅</td></tr>
+<tr class="diff-row"><td>H10</td><td>#1 {Keyword: Task Management}</td><td>#1 Team Task Manager Tool</td><td>🔄</td></tr>
+<tr class=""><td>H11</td><td>Manage Your Team's Tasks</td><td>Manage Your Team's Tasks</td><td>✅</td></tr>
+<tr class=""><td>H12</td><td>Increase Team Productivity</td><td>Increase Team Productivity</td><td>✅</td></tr>
+<tr class=""><td>H13</td><td>#1 Task Management Software</td><td>#1 Task Management Software</td><td>✅</td></tr>
+<tr class=""><td>H14</td><td>Simple Task Management Plan</td><td>Simple Task Management Plan</td><td>✅</td></tr>
+<tr class=""><td>H15</td><td>Stay Focused, Get More Done</td><td>Stay Focused, Get More Done</td><td>✅</td></tr>
+<tr class=""><td>D1</td><td>Check off your tasks faster with our comprehensive work management software. Free trial</td><td>Check off your tasks faster with our comprehensive work management software. Free trial</td><td>✅</td></tr>
+<tr class=""><td>D2</td><td>Simplify your workflow and get more done with powerful task management features. Join us!</td><td>Simplify your workflow and get more done with powerful task management features. Join us!</td><td>✅</td></tr>
+<tr class=""><td>D3</td><td>Cut down on manual work. Let automations streamline your tasks and projects efficiently.</td><td>Cut down on manual work. Let automations streamline your tasks and projects efficiently.</td><td>✅</td></tr>
+<tr class=""><td>D4</td><td>From small teams to large enterprises, our task manager scales with your needs. Try now!</td><td>From small teams to large enterprises, our task manager scales with your needs. Try now!</td><td>✅</td></tr>
+<tr class="diff-row"><td>Path</td><td>Task_Management/monday</td><td>task_management/monday</td><td>🔄</td></tr>
+</tbody>
+</table>
+
+<p class="section-title">Affected Ads (18)</p>
+<table class="ad-list">
+<thead><tr><th>Ad ID</th><th>GEO</th><th>Ad Group</th><th>AG ID</th><th>Campaign ID</th><th>Current Strength</th><th>Current Path</th><th>Notes</th></tr></thead>
+<tbody><tr>
+<td><code>812910817614</code></td>
+<td>US</td>
+<td>task + google <span class="pattern">[Pattern A]</span></td>
+<td>176002754050</td>
+<td>1007550663</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682894624</code></td>
+<td>AU</td>
+<td>task + google <span class="pattern">[Pattern A]</span></td>
+<td>198860183475</td>
+<td>998703539</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815791755812</code></td>
+<td>GB</td>
+<td>task + google <span class="pattern">[Pattern A]</span></td>
+<td>198860187035</td>
+<td>999494601</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task-Management/</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815718492166</code></td>
+<td>EU1</td>
+<td>task + google <span class="pattern">[Pattern A]</span></td>
+<td>198860185195</td>
+<td>992783192</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task-Management/</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815718550210</code></td>
+<td>WW</td>
+<td>task + google <span class="pattern">[Pattern A]</span></td>
+<td>198860190475</td>
+<td>15265452191</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task-Management/</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815718492139</code></td>
+<td>EU1</td>
+<td>task + app <span class="pattern">[Pattern B]</span></td>
+<td>198860185115</td>
+<td>992783192</td>
+<td><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">GOOD</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682894477</code></td>
+<td>AU</td>
+<td>task + app <span class="pattern">[Pattern B]</span></td>
+<td>198860183275</td>
+<td>998703539</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682871434</code></td>
+<td>GB</td>
+<td>task + tool <span class="pattern">[Pattern B]</span></td>
+<td>198860187355</td>
+<td>999494601</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815791755785</code></td>
+<td>GB</td>
+<td>task + app <span class="pattern">[Pattern B]</span></td>
+<td>198860186835</td>
+<td>999494601</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682872586</code></td>
+<td>EU1</td>
+<td>task + tool <span class="pattern">[Pattern B]</span></td>
+<td>198860185635</td>
+<td>992783192</td>
+<td><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">GOOD</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682871575</code></td>
+<td>GB</td>
+<td>task + management <span class="pattern">[Pattern B]</span></td>
+<td>198860187515</td>
+<td>999494601</td>
+<td><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">GOOD</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815791756736</code></td>
+<td>AU</td>
+<td>task + management <span class="pattern">[Pattern B]</span></td>
+<td>198860183955</td>
+<td>998703539</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>714607797506</code></td>
+<td>GB</td>
+<td>online task management system- old <span class="pattern">[Pattern B]</span></td>
+<td>128914000474</td>
+<td>999494601</td>
+<td><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">GOOD</span></td>
+<td>Task-Management/</td>
+<td><br><span class="note">⚠️ This ad appears in 2 ad groups (128914000474 & 199016336298)</span></td>
+</tr>
+<tr>
+<td><code>812910817821</code></td>
+<td>WW</td>
+<td>task management software- old <span class="pattern">[Pattern B]</span></td>
+<td>128538382206</td>
+<td>15265452191</td>
+<td><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">GOOD</span></td>
+<td>/</td>
+<td><br><span class="note">No path set</span></td>
+</tr>
+<tr>
+<td><code>815682953676</code></td>
+<td>WW</td>
+<td>task + management <span class="pattern">[Pattern B]</span></td>
+<td>198860190955</td>
+<td>15265452191</td>
+<td><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">GOOD</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>714607797305</code></td>
+<td>AU</td>
+<td>task management tool- old <span class="pattern">[Pattern B]</span></td>
+<td>115564789418</td>
+<td>998703539</td>
+<td><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">GOOD</span></td>
+<td>Task-Management/</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815791756715</code></td>
+<td>AU</td>
+<td>task + tool <span class="pattern">[Pattern B]</span></td>
+<td>198860183915</td>
+<td>998703539</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682872607</code></td>
+<td>EU1</td>
+<td>task + management <span class="pattern">[Pattern B]</span></td>
+<td>198860185675</td>
+<td>992783192</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p class="section-title">Label to Apply</p>
+<p style="font-size:13px">📏 <strong>Task Management Tools 3</strong> — <code>customers/3746504118/labels/21973373911</code></p>
+
+</div>
+</div>
+
+<!-- GROUP 3 -->
+<div class="group">
+<div class="group-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+<h2>Group 3: Task Management Tools 1</h2>
+<span class="badge">5 ads</span>
+</div>
+<div class="group-body collapsible">
+
+<div class="changes-summary">
+<h3>Changes Summary</h3>
+<ul>
+<li><strong>H1:</strong> "#1 Task Management App" → "Best {KeyWord:Task Management App}" [pin to HEADLINE_1] (adds KW insertion)</li>
+<li><strong>H3:</strong> "#1 Task Management Software" → "Best Task Management App" [pin to HEADLINE_1]</li>
+<li><strong>D2:</strong> "monday.com makes managing tasks easy for teams of any size. Start your free trial today!" → "Best task management application for teams - track, allocate & get more done.Try now!" [pin to DESCRIPTION_1]</li>
+</ul>
+</div>
+
+<div class="warning">Ad 757471033911 (US) also appears in a second ad group (197021565788 - "google task management"). Only replacing in AG 176002754050 per the task spec.</div>
+
+<p class="section-title">Content Diff (Current → Proposed)</p>
+<table class="diff-table">
+<thead><tr><th>Pos</th><th>Current</th><th>Proposed</th><th></th></tr></thead>
+<tbody><tr class="diff-row"><td>H1</td><td>#1 Task Management App</td><td>Best {KeyWord:Task Management App} <span class="pin">[pin:HEADLINE_1]</span></td><td>🔄</td></tr>
+<tr class=""><td>H2</td><td>Simplify Task Management</td><td>Simplify Task Management</td><td>✅</td></tr>
+<tr class="diff-row"><td>H3</td><td>#1 Task Management Software</td><td>Best Task Management App <span class="pin">[pin:HEADLINE_1]</span></td><td>🔄</td></tr>
+<tr class=""><td>H4</td><td>Automate Team Workflows</td><td>Automate Team Workflows</td><td>✅</td></tr>
+<tr class=""><td>H5</td><td>Best Team Task Management App</td><td>Best Team Task Management App</td><td>✅</td></tr>
+<tr class=""><td>H6</td><td>monday.com Task Management</td><td>monday.com Task Management</td><td>✅</td></tr>
+<tr class=""><td>H7</td><td>Get Tasks Done, Effortlessly</td><td>Get Tasks Done, Effortlessly</td><td>✅</td></tr>
+<tr class=""><td>H8</td><td>Your Task Chaos, Solved</td><td>Your Task Chaos, Solved</td><td>✅</td></tr>
+<tr class=""><td>H9</td><td>Online Task Management Tool</td><td>Online Task Management Tool</td><td>✅</td></tr>
+<tr class=""><td>H10</td><td>Tasks Done. Teams Synced.</td><td>Tasks Done. Teams Synced.</td><td>✅</td></tr>
+<tr class=""><td>H11</td><td>Boost Team Productivity</td><td>Boost Team Productivity</td><td>✅</td></tr>
+<tr class=""><td>H12</td><td>Better Way To Manage Tasks</td><td>Better Way To Manage Tasks</td><td>✅</td></tr>
+<tr class=""><td>H13</td><td>Stay on Top of Every Task</td><td>Stay on Top of Every Task</td><td>✅</td></tr>
+<tr class=""><td>H14</td><td>Smarter Task Management App</td><td>Smarter Task Management App</td><td>✅</td></tr>
+<tr class=""><td>H15</td><td>Plan, Track & Manage Tasks</td><td>Plan, Track & Manage Tasks</td><td>✅</td></tr>
+<tr class=""><td>D1</td><td>Boost team focus with the task management software that helps you hit every deadline!</td><td>Boost team focus with the task management software that helps you hit every deadline!</td><td>✅</td></tr>
+<tr class="diff-row"><td>D2</td><td>monday.com makes managing tasks easy for teams of any size. Start your free trial today!</td><td>Best task management application for teams - track, allocate & get more done.Try now! <span class="pin">[pin:DESCRIPTION_1]</span></td><td>🔄</td></tr>
+<tr class=""><td>D3</td><td>Stay organized, automate workflows, and manage team tasks in one powerful online tool.</td><td>Stay organized, automate workflows, and manage team tasks in one powerful online tool.</td><td>✅</td></tr>
+<tr class=""><td>D4</td><td>Get work aligned and tasks moving with the #1 team task management app built for clarity.</td><td>Get work aligned and tasks moving with the #1 team task management app built for clarity.</td><td>✅</td></tr>
+<tr class=""><td>Path</td><td>Task_Management/monday</td><td>Task_Management/monday</td><td>✅</td></tr>
+</tbody>
+</table>
+
+<p class="section-title">Affected Ads (5)</p>
+<table class="ad-list">
+<thead><tr><th>Ad ID</th><th>GEO</th><th>Ad Group</th><th>AG ID</th><th>Campaign ID</th><th>Current Strength</th><th>Current Path</th><th>Notes</th></tr></thead>
+<tbody><tr>
+<td><code>815791755815</code></td>
+<td>GB</td>
+<td>task + google</td>
+<td>198860187035</td>
+<td>999494601</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815682894627</code></td>
+<td>AU</td>
+<td>task + google</td>
+<td>198860183475</td>
+<td>998703539</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>815718550213</code></td>
+<td>WW</td>
+<td>task + google</td>
+<td>198860190475</td>
+<td>15265452191</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+<tr>
+<td><code>757471033911</code></td>
+<td>US</td>
+<td>task + google</td>
+<td>176002754050</td>
+<td>1007550663</td>
+<td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">EXCELLENT</span></td>
+<td>Task_Management/monday</td>
+<td><br><span class="note">⚠️ Also appears in AG 197021565788 (google task management)</span></td>
+</tr>
+<tr>
+<td><code>815718492169</code></td>
+<td>EU1</td>
+<td>task + google</td>
+<td>198860185195</td>
+<td>992783192</td>
+<td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600">AVERAGE</span></td>
+<td>Task_Management/monday</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p class="section-title">Label to Apply</p>
+<p style="font-size:13px">📏 <strong>Task Management Tools 1</strong> — <code>customers/3746504118/labels/21965301010</code></p>
+
+</div>
+</div>
+
+<!-- EXECUTION PLAN -->
+<div class="group">
+<div class="group-header">
+<h2>Execution Plan</h2>
+<span class="badge">Per Ad</span>
+</div>
+<div class="group-body">
+<div class="execution-plan">
+<h3>For Each of the 42 Ads:</h3>
+<ol>
+<li><strong>Safety check:</strong> Verify ≥1 other ENABLED ad exists in the ad group (never pause the last ad)</li>
+<li><strong>Pause old ad:</strong> <code>pause_ad</code> with ad_group_id + ad_id</li>
+<li><strong>Create new ad:</strong> <code>create_rsa</code> with Excellent template content, status=ENABLED</li>
+<li><strong>Apply label:</strong> <code>add_ad_label</code> with variant label resource name</li>
+</ol>
+</div>
+
+<div class="changes-summary" style="margin-top:16px">
+<h3>Key Rules Enforced</h3>
+<ul>
+<li>Max 1 keyword insertion per ad ({KeyWord:Default Text} format — no space before colon)</li>
+<li>Never pause all ads in an ad group</li>
+<li>Apply variant label only (not tracking labels)</li>
+<li>Preserve Path1/Path2 from Excellent template</li>
+<li>All ads point to: https://monday.com/ap/task-management</li>
+</ul>
+</div>
+
+<div class="warning" style="background:#0c1e0c;border-color:#166534;color:#22c55e">
+✅ All 42 ads use the same Final URL — no URL changes needed.
+</div>
+</div>
+</div>
+
+<div class="footer">
+<p>RSA Optimization Report • monday.com Google Ads • Account 3746504118 (Main)</p>
+<p>Prepared by Nymeria 🐺 • Pending approval from Alex Abramovich</p>
+</div>
+
+</div>
+</body>
+</html>
