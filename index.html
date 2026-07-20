@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent Growth Report — Week of Jul 14, 2026</title>
+<title>Agent Weekly Growth Report — Jul 20, 2026</title>
 <style>
 :root {
     --bg: #0f0f0f;
@@ -11,21 +11,20 @@
     --surface-1: #222;
     --surface-2: #272727;
     --border: #333;
-    --text: #e5e5e5;
-    --text-secondary: #888;
-    --green: #4ade80;
-    --red: #f87171;
-    --good: #1D9E75;
-    --bad: #D85A30;
-    --mid: #eda100;
+    --text: #e8e8e8;
+    --text-secondary: #999;
+    --green: #1D9E75;
+    --red: #D85A30;
+    --amber: #eda100;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
     color: var(--text);
-    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 13px;
     line-height: 1.5;
+    padding: 24px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -34,9 +33,9 @@ h1 {
     font-weight: 600;
     margin-bottom: 4px;
 }
-.report-sub {
-    font-size: 12px;
+.subtitle {
     color: var(--text-secondary);
+    font-size: 12px;
     margin-bottom: 24px;
 }
 .section-label {
@@ -46,24 +45,19 @@ h1 {
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border);
     padding-bottom: 6px;
-    margin: 32px 0 16px;
+    margin-bottom: 12px;
+    font-weight: 500;
 }
 .subtitle2 {
     font-size: 12px;
     color: var(--text-secondary);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
-/* KPI Block */
 .kpi-block {
     background: var(--surface-0);
     border-radius: 12px;
     padding: 16px;
     margin-bottom: 16px;
-}
-.kpi-title {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 12px;
 }
 .kpi-grid {
     display: grid;
@@ -79,59 +73,114 @@ h1 {
     font-size: 10px;
     text-transform: uppercase;
     color: var(--text-secondary);
+    letter-spacing: 0.3px;
     margin-bottom: 4px;
 }
-.kpi-value {
-    font-size: 20px;
+.kpi-val {
+    font-size: 22px;
     font-weight: 600;
 }
 .kpi-delta {
     font-size: 11px;
     margin-top: 2px;
 }
-.kpi-delta.up { color: var(--green); }
-.kpi-delta.dn { color: var(--red); }
-.kpi-delta.neu { color: var(--text-secondary); }
+.kpi-delta .up { color: #4ade80; }
+.kpi-delta .dn { color: #f87171; }
+.kpi-delta .neu { color: #888; }
 .payers-tag {
     font-size: 10px;
-    color: var(--green);
+    color: #4ade80;
     display: block;
     margin-top: 2px;
 }
-/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
     font-size: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 th {
     text-align: left;
-    padding: 8px 10px;
     font-size: 10px;
     text-transform: uppercase;
     color: var(--text-secondary);
+    padding: 8px 6px;
     border-bottom: 1px solid var(--border);
     font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 td {
-    padding: 7px 10px;
+    padding: 7px 6px;
     border-bottom: 1px solid #1a1a1a;
+    white-space: nowrap;
 }
 .tr-alt { background: var(--surface-1); }
-.up { color: var(--good); font-weight: 500; }
-.dn { color: var(--bad); font-weight: 500; }
-.neu { color: var(--text-secondary); }
-.good { color: var(--good); font-weight: 500; }
-.bad { color: var(--bad); font-weight: 500; }
-.mid { color: var(--mid); font-weight: 500; }
 .tfoot-row td {
     background: var(--surface-0);
     color: #fff;
     font-weight: 500;
     border-top: 2px solid var(--border);
 }
-/* Funnel */
+.up { color: var(--green); font-weight: 500; }
+.dn { color: var(--red); font-weight: 500; }
+.neu { color: var(--text-secondary); }
+.good { color: var(--green); font-weight: 500; }
+.bad { color: var(--red); font-weight: 500; }
+.mid { color: var(--amber); font-weight: 500; }
+.camp-block {
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.camp-block .kpi-block {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+.camp-block table {
+    margin-bottom: 0;
+}
+.kw-note {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    background: var(--surface-1);
+    border-top: 1px solid var(--border);
+    padding: 8px 12px;
+}
+.acc-divider {
+    display: inline-block;
+    background: var(--surface-1);
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin: 20px 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.badge-struct {
+    background: #FAEEDA;
+    color: #633806;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+}
+.badge-new {
+    background: #E6F1FB;
+    color: #0C447C;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+}
 .funnel-steps {
     display: flex;
     margin-bottom: 20px;
@@ -141,16 +190,21 @@ td {
     background: var(--surface-1);
     border: 1px solid var(--border);
     border-right: none;
-    padding: 12px;
+    padding: 12px 10px;
     text-align: center;
 }
-.funnel-step:last-child { border-right: 1px solid var(--border); }
-.funnel-step:first-child { border-radius: 8px 0 0 8px; }
-.funnel-step:last-child { border-radius: 0 8px 8px 0; }
+.funnel-step:first-child {
+    border-radius: 8px 0 0 8px;
+}
+.funnel-step:last-child {
+    border-radius: 0 8px 8px 0;
+    border-right: 1px solid var(--border);
+}
 .f-label {
     font-size: 9.5px;
     text-transform: uppercase;
     color: var(--text-secondary);
+    letter-spacing: 0.3px;
     margin-bottom: 4px;
 }
 .f-val {
@@ -162,7 +216,6 @@ td {
     color: var(--text-secondary);
     margin-top: 2px;
 }
-/* Observations */
 .obs-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -178,1198 +231,1093 @@ td {
 .obs-title {
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 .obs-text {
     font-size: 11.5px;
     color: var(--text-secondary);
     line-height: 1.65;
 }
-/* Campaign blocks */
-.camp-block {
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-.camp-block .kpi-block {
-    border-radius: 0;
-    margin-bottom: 0;
-}
-.camp-block table {
-    margin-bottom: 0;
-}
-.acc-divider {
-    display: inline-block;
-    background: var(--surface-1);
-    border-radius: 8px;
-    padding: 6px 14px;
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin: 24px 0 12px;
-}
-.kw-note {
-    font-size: 11.5px;
-    border-top: 1px solid var(--border);
-    background: var(--surface-1);
-    padding: 10px 14px;
-    color: var(--text-secondary);
-}
-.badge-struct {
-    background: #FAEEDA;
-    color: #633806;
-    font-size: 9px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-left: 6px;
-}
-.badge-new {
-    background: #E6F1FB;
-    color: #0C447C;
-    font-size: 9px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-left: 6px;
-}
 .comp1-table {
     margin-top: 8px;
-    font-size: 11px;
 }
 .comp1-table th {
-    font-size: 9px;
+    font-size: 10px;
 }
 .comp1-table td {
-    font-size: 11px;
-    padding: 5px 8px;
+    font-size: 11.5px;
+}
+.trend-table { }
+.section-gap {
+    margin-top: 32px;
+    margin-bottom: 8px;
 }
 .footer {
-    font-size: 10px;
-    color: var(--text-secondary);
     margin-top: 32px;
-    padding-top: 16px;
+    font-size: 10.5px;
+    color: var(--text-secondary);
     border-top: 1px solid var(--border);
+    padding-top: 12px;
 }
 @media (max-width: 768px) {
     .kpi-grid { grid-template-columns: repeat(2, 1fr); }
     .obs-grid { grid-template-columns: 1fr; }
     .funnel-steps { flex-wrap: wrap; }
-    .funnel-step { flex: 0 0 33.33%; }
-    body { padding: 12px; }
-    table { font-size: 10px; }
+    .funnel-step { flex: 1 1 30%; }
+    body { padding: 12px; font-size: 12px; }
+    table { font-size: 11px; overflow-x: auto; display: block; }
 }
 </style>
 </head>
 <body>
 
-<h1>🤖 Agent AI Campaigns — Weekly Growth Report</h1>
-<div class="report-sub">monday.com · New Demand · Week of Jul 14–19, 2026 · Generated Jul 20, 2026 08:17</div>
+<h1>🤖 Agent Weekly Growth Report</h1>
+<div class="subtitle">Week of Jul 13-19, 2026 · Generated Jul 20, 2026 · All agent campaigns across 4 accounts</div>
 
-<!-- Section 1: Overall Summary -->
-<div class="section-label">Overall Summary — KPI & Weekly Trend</div>
-
+<!-- ═══ Section 1A: Overall KPI + Weekly Trend ═══ -->
 <div class="kpi-block">
-        <div class="kpi-title">Agent Campaigns — Week of Jul 14-19, 2026</div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Total Spend</div>
-            <div class="kpi-value">$212,917</div>
-            <div class="kpi-delta up">+14%</div>
-            
-        </div><div class="kpi-card">
+    <div class="section-label">Overall Performance — Last Week</div>
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">Spend</div>
+            <div class="kpi-val">$212,917</div>
+            <div class="kpi-delta"><span class="up">▲ 14.4%</span></div>
+        </div>
+        <div class="kpi-card">
             <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">355,025</div>
-            <div class="kpi-delta up">+16%</div>
-            
-        </div><div class="kpi-card">
+            <div class="kpi-val">355,023</div>
+            <div class="kpi-delta"><span class="up">▲ 16.0%</span></div>
+        </div>
+        <div class="kpi-card">
             <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">2,377</div>
-            <div class="kpi-delta up">+13%</div>
-            
-        </div><div class="kpi-card">
+            <div class="kpi-val">2,376.7</div>
+            <div class="kpi-delta"><span class="up">▲ 13.4%</span></div>
+        </div>
+        <div class="kpi-card">
             <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">24</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">+0 this week</span>
-        </div></div>
+            <div class="kpi-val">24.0</div>
+            <span class="payers-tag">+0.0 this week</span>
+        </div>
     </div>
-<table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>Jun 16</td>
-            <td>$85,560</td><td class="neu">—</td>
-            <td>139,090</td><td class="neu">—</td>
-            <td>629.5</td><td class="neu">—</td>
-            <td>$135.91</td>
-            <td>0</td>
-            <td>43.5</td><td class="neu">—</td>
-        </tr><tr class="tr-alt">
-            <td>Jun 23</td>
-            <td>$173,012</td><td class="up">+102%</td>
-            <td>263,573</td><td class="up">+89%</td>
-            <td>1,453</td><td class="up">+131%</td>
-            <td>$119.09</td>
-            <td>5</td>
-            <td>52.3</td><td class="up">+20%</td>
-        </tr><tr>
-            <td>Jun 30</td>
-            <td>$162,816</td><td class="dn">-6%</td>
-            <td>266,220</td><td class="up">+1%</td>
-            <td>1,721</td><td class="up">+18%</td>
-            <td>$94.60</td>
-            <td>3</td>
-            <td>66.2</td><td class="up">+26%</td>
-        </tr><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$186,041</td><td class="up">+14%</td>
-            <td>305,969</td><td class="up">+15%</td>
-            <td>2,095</td><td class="up">+22%</td>
-            <td>$88.79</td>
-            <td>3</td>
-            <td>258.2</td><td class="up">+290%</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$212,917</td><td class="up">+14%</td>
-            <td>355,025</td><td class="up">+16%</td>
-            <td>2,377</td><td class="up">+13%</td>
-            <td>$89.59</td>
-            <td>0</td>
-            <td>468.2</td><td class="up">+81%</td>
-        </tr></tbody>
-    </table>
+</div>
 
-<div class="section-label">Funnel & Paying Analysis (since launch)</div>
-<div class="subtitle2">May 6 – Jul 19, 2026 · All accounts · Sorted by spend</div>
+<table class="trend-table">
+    <thead><tr>
+        <th>Week</th><th>Spend</th><th>Δ</th><th>Impressions</th><th>Δ</th>
+        <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers (new)</th>
+        <th>Agent Created</th><th>Δ</th>
+    </tr></thead>
+    <tbody>
+        <tr>
+        <td>Jun 15-21</td>
+        <td>$95,898</td><td><span class="neu">—</span></td>
+        <td>154,599</td><td><span class="neu">—</span></td>
+        <td>714.2</td><td><span class="neu">—</span></td>
+        <td>$134.28</td>
+        <td>0.0</td>
+        <td>46.5</td><td><span class="neu">—</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jun 22-28</td>
+        <td>$173,012</td><td><span class="up">▲ 80.4%</span></td>
+        <td>263,573</td><td><span class="up">▲ 70.5%</span></td>
+        <td>1,452.8</td><td><span class="up">▲ 103.4%</span></td>
+        <td>$119.09</td>
+        <td>5.0</td>
+        <td>52.3</td><td><span class="up">▲ 12.5%</span></td>
+    </tr><tr>
+        <td>Jun 29-Jul 5</td>
+        <td>$162,816</td><td><span class="dn">▼ 5.9%</span></td>
+        <td>266,220</td><td><span class="up">▲ 1.0%</span></td>
+        <td>1,721.2</td><td><span class="up">▲ 18.5%</span></td>
+        <td>$94.60</td>
+        <td>3.0</td>
+        <td>66.2</td><td><span class="up">▲ 26.5%</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$186,041</td><td><span class="up">▲ 14.3%</span></td>
+        <td>305,969</td><td><span class="up">▲ 14.9%</span></td>
+        <td>2,095.2</td><td><span class="up">▲ 21.7%</span></td>
+        <td>$88.79</td>
+        <td>3.0</td>
+        <td>258.2</td><td><span class="up">▲ 290.4%</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$212,917</td><td><span class="up">▲ 14.4%</span></td>
+        <td>355,023</td><td><span class="up">▲ 16.0%</span></td>
+        <td>2,376.7</td><td><span class="up">▲ 13.4%</span></td>
+        <td>$89.59</td>
+        <td>0.0</td>
+        <td>468.2</td><td><span class="up">▲ 81.3%</span></td>
+    </tr>
+    </tbody>
+</table>
 
-<div class="funnel-steps"><div class="funnel-step">
-            <div class="f-label">IMPRESSIONS</div>
-            <div class="f-val">1,869,483</div>
-            <div class="f-sub"></div>
-        </div><div class="funnel-step">
-            <div class="f-label">CTR</div>
-            <div class="f-val">3.4%</div>
-            <div class="f-sub">63,509 clicks</div>
-        </div><div class="funnel-step">
-            <div class="f-label">CR TO SIGNUP</div>
-            <div class="f-val">16.8%</div>
-            <div class="f-sub">10,642 signups</div>
-        </div><div class="funnel-step">
-            <div class="f-label">%WORK</div>
-            <div class="f-val">33.2%</div>
-            <div class="f-sub">3,529 work SU</div>
-        </div><div class="funnel-step">
-            <div class="f-label">CVR PAYING</div>
-            <div class="f-val">0.2%</div>
-            <div class="f-sub">24 payers</div>
-        </div><div class="funnel-step">
-            <div class="f-label">AGENT CREATED</div>
-            <div class="f-val">8.7%</div>
-            <div class="f-sub">922.9 agents</div>
-        </div></div>
+<!-- ═══ Section 1B: Funnel & Paying Analysis ═══ -->
+<div class="section-gap">
+    <div class="section-label">Funnel & Paying Analysis (since launch)</div>
+    <div class="subtitle2">May 6 – Jul 19, 2026 · All accounts · Sorted by spend</div>
+</div>
+
+
+<div class="funnel-steps">
+    <div class="funnel-step">
+        <div class="f-label">Impressions</div>
+        <div class="f-val">1,869,626</div>
+    </div>
+    <div class="funnel-step">
+        <div class="f-label">CTR</div>
+        <div class="f-val">3.4%</div>
+        <div class="f-sub">63,509 clicks</div>
+    </div>
+    <div class="funnel-step">
+        <div class="f-label">CR to Signup</div>
+        <div class="f-val">16.8%</div>
+        <div class="f-sub">10,641.9 signups</div>
+    </div>
+    <div class="funnel-step">
+        <div class="f-label">%Work</div>
+        <div class="f-val">45.1%</div>
+        <div class="f-sub">4,802.8 work SU</div>
+    </div>
+    <div class="funnel-step">
+        <div class="f-label">CVR Paying</div>
+        <div class="f-val">0.2%</div>
+        <div class="f-sub">24.0 payers</div>
+    </div>
+    <div class="funnel-step">
+        <div class="f-label">Agent Created</div>
+        <div class="f-val">8.7%</div>
+        <div class="f-sub">922.9 agents</div>
+    </div>
+</div>
+
+
+<div style="overflow-x:auto;">
 <table>
-        <thead><tr>
-            <th>Campaign</th><th>Spend</th><th>Imp</th><th>CTR</th>
-            <th>CR to SU</th><th>Signups</th><th>CPS</th>
-            <th>Work SU</th><th>%Work</th>
-            <th>Paying</th><th>CAC</th><th>CVR Payer</th>
-            <th>Agent Created</th><th>AC %</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>AI HR</td>
-            <td>$332,575</td>
-            <td>503,573</td>
-            <td class="good">3.4%</td>
-            <td class="mid">9.4%</td>
-            <td>1,603</td>
-            <td>$207.52</td>
-            <td>835.1</td>
-            <td class="good">52.1%</td>
-            <td>11</td>
-            <td>$30,234</td>
-            <td class="good">0.7%</td>
-            <td>116.6</td>
-            <td>7.3%</td>
-        </tr><tr class="tr-alt">
-            <td>Work Builder</td>
-            <td>$240,111</td>
-            <td>359,666</td>
-            <td class="good">3.9%</td>
-            <td class="good">23.2%</td>
-            <td>3,273</td>
-            <td>$73.35</td>
-            <td>1,251</td>
-            <td class="mid">38.2%</td>
-            <td>4</td>
-            <td>$60,028</td>
-            <td class="mid">0.1%</td>
-            <td>337.1</td>
-            <td>10.3%</td>
-        </tr><tr>
-            <td>AI Marketing</td>
-            <td>$158,592</td>
-            <td>217,491</td>
-            <td class="good">4.6%</td>
-            <td class="good">23.0%</td>
-            <td>2,306</td>
-            <td>$68.78</td>
-            <td>—</td>
-            <td class="">—</td>
-            <td>7</td>
-            <td>$22,656</td>
-            <td class="mid">0.3%</td>
-            <td>242.8</td>
-            <td>10.5%</td>
-        </tr><tr class="tr-alt">
-            <td>AI Comp</td>
-            <td>$146,580</td>
-            <td>316,930</td>
-            <td class="mid">2.3%</td>
-            <td class="mid">13.0%</td>
-            <td>961.7</td>
-            <td>$152.41</td>
-            <td>239.3</td>
-            <td class="bad">24.9%</td>
-            <td>1</td>
-            <td>$146,580</td>
-            <td class="mid">0.1%</td>
-            <td>66.5</td>
-            <td>6.9%</td>
-        </tr><tr>
-            <td>AI Legal</td>
-            <td>$132,419</td>
-            <td>210,519</td>
-            <td class="good">3.6%</td>
-            <td class="good">17.3%</td>
-            <td>1,298</td>
-            <td>$102.03</td>
-            <td>722.0</td>
-            <td class="good">55.6%</td>
-            <td>1</td>
-            <td>$132,419</td>
-            <td class="bad">0.1%</td>
-            <td>91.3</td>
-            <td>7.0%</td>
-        </tr><tr class="tr-alt">
-            <td>AI IT</td>
-            <td>$70,505</td>
-            <td>156,393</td>
-            <td class="mid">1.7%</td>
-            <td class="mid">13.0%</td>
-            <td>354.8</td>
-            <td>$198.73</td>
-            <td>159.8</td>
-            <td class="mid">45.0%</td>
-            <td>0</td>
-            <td>—</td>
-            <td class="">—</td>
-            <td>50.1</td>
-            <td>14.1%</td>
-        </tr><tr>
-            <td>AI Note Taker <span class="badge-new">NEW</span></td>
-            <td>$38,213</td>
-            <td>79,623</td>
-            <td class="good">4.4%</td>
-            <td class="good">19.5%</td>
-            <td>691.9</td>
-            <td>$55.23</td>
-            <td>234.2</td>
-            <td class="mid">33.9%</td>
-            <td>0</td>
-            <td>—</td>
-            <td class="">—</td>
-            <td>7.0</td>
-            <td>1.0%</td>
-        </tr><tr class="tr-alt">
-            <td>AI Finance <span class="badge-new">NEW</span></td>
-            <td>$11,317</td>
-            <td>7,674</td>
-            <td class="good">6.0%</td>
-            <td class="good">17.9%</td>
-            <td>82.5</td>
-            <td>$137.20</td>
-            <td>47.5</td>
-            <td class="good">57.6%</td>
-            <td>0</td>
-            <td>—</td>
-            <td class="">—</td>
-            <td>3.0</td>
-            <td>3.6%</td>
-        </tr><tr>
-            <td>AI Real Estate <span class="badge-new">NEW</span></td>
-            <td>$9,721</td>
-            <td>14,074</td>
-            <td class="good">4.5%</td>
-            <td class="mid">8.0%</td>
-            <td>51.0</td>
-            <td>$190.61</td>
-            <td>33.0</td>
-            <td class="good">64.7%</td>
-            <td>0</td>
-            <td>—</td>
-            <td class="">—</td>
-            <td>3.0</td>
-            <td>5.9%</td>
-        </tr><tr class="tr-alt">
-            <td>AI Work Process <span class="badge-new">NEW</span></td>
-            <td>$1,274</td>
-            <td>2,308</td>
-            <td class="good">3.6%</td>
-            <td class="good">20.8%</td>
-            <td>17.5</td>
-            <td>$72.81</td>
-            <td>7.0</td>
-            <td class="mid">40.0%</td>
-            <td>0</td>
-            <td>—</td>
-            <td class="">—</td>
-            <td>5.5</td>
-            <td>31.4%</td>
-        </tr><tr>
-            <td>AI Construction <span class="badge-new">NEW</span></td>
-            <td>$750.41</td>
-            <td>1,232</td>
-            <td class="mid">2.5%</td>
-            <td class="mid">9.7%</td>
-            <td>3.0</td>
-            <td>$250.14</td>
-            <td>—</td>
-            <td class="">—</td>
-            <td>0</td>
-            <td>—</td>
-            <td class="">—</td>
-            <td>0.0</td>
-            <td>0.0%</td>
-        </tr><tr class="tfoot-row">
-        <td><strong>TOTAL</strong></td>
-        <td>$1,142,058</td>
-        <td>1,869,483</td>
-        <td>3.4%</td>
-        <td>16.8%</td>
-        <td>10,642</td>
-        <td>$107.32</td>
-        <td>3,529</td>
-        <td>33.2%</td>
-        <td>24</td>
-        <td>$47,586</td>
-        <td>0.2%</td>
-        <td>922.9</td>
-        <td>8.7%</td>
-    </tr></tbody>
-    </table>
+    <thead><tr>
+        <th>Campaign</th><th>Spend</th><th>Imp</th><th>CTR</th><th>CR to SU</th>
+        <th>Signups</th><th>CPS</th><th>Work SU</th><th>%Work</th>
+        <th>Paying</th><th>CAC</th><th>CVR Payer</th>
+        <th>Agent Created</th><th>AC %</th>
+    </tr></thead>
+    <tbody>
+        <tr>
+        <td><strong>AI HR</strong></td>
+        <td>$332,575</td>
+        <td>503,573</td>
+        <td class="mid">3.4%</td>
+        <td class="mid">9.4%</td>
+        <td>1,602.6</td>
+        <td>$207.52</td>
+        <td>835.1</td>
+        <td class="mid">52.1%</td>
+        <td>11.0</td>
+        <td>$30,234</td>
+        <td class="good">0.7%</td>
+        <td>116.6</td>
+        <td class="mid">7.3%</td>
+    </tr><tr class="tr-alt">
+        <td><strong>Work Builder</strong></td>
+        <td>$240,111</td>
+        <td>359,664</td>
+        <td class="mid">3.9%</td>
+        <td class="good">23.2%</td>
+        <td>3,273.4</td>
+        <td>$73.35</td>
+        <td>1,251.3</td>
+        <td class="mid">38.2%</td>
+        <td>4.0</td>
+        <td>$60,028</td>
+        <td class="bad">0.1%</td>
+        <td>337.1</td>
+        <td class="good">10.3%</td>
+    </tr><tr>
+        <td><strong>AI Marketing</strong></td>
+        <td>$158,592</td>
+        <td>217,491</td>
+        <td class="good">4.6%</td>
+        <td class="good">23.0%</td>
+        <td>2,305.7</td>
+        <td>$68.78</td>
+        <td>1,168.6</td>
+        <td class="mid">50.7%</td>
+        <td>7.0</td>
+        <td>$22,656</td>
+        <td class="mid">0.3%</td>
+        <td>242.8</td>
+        <td class="good">10.5%</td>
+    </tr><tr class="tr-alt">
+        <td><strong>AI Comp</strong></td>
+        <td>$146,580</td>
+        <td>317,075</td>
+        <td class="mid">2.3%</td>
+        <td class="good">13.0%</td>
+        <td>961.7</td>
+        <td>$152.41</td>
+        <td>343.3</td>
+        <td class="mid">35.7%</td>
+        <td>1.0</td>
+        <td>$146,580</td>
+        <td class="bad">0.1%</td>
+        <td>66.5</td>
+        <td class="mid">6.9%</td>
+    </tr><tr>
+        <td><strong>AI Legal</strong></td>
+        <td>$132,419</td>
+        <td>210,519</td>
+        <td class="mid">3.6%</td>
+        <td class="good">17.3%</td>
+        <td>1,297.8</td>
+        <td>$102.03</td>
+        <td>722.0</td>
+        <td class="good">55.6%</td>
+        <td>1.0</td>
+        <td>$132,419</td>
+        <td class="bad">0.1%</td>
+        <td>91.3</td>
+        <td class="mid">7.0%</td>
+    </tr><tr class="tr-alt">
+        <td><strong>AI IT</strong></td>
+        <td>$70,505</td>
+        <td>156,393</td>
+        <td class="bad">1.7%</td>
+        <td class="good">13.0%</td>
+        <td>354.8</td>
+        <td>$198.73</td>
+        <td>159.8</td>
+        <td class="mid">45.0%</td>
+        <td>0.0</td>
+        <td>—</td>
+        <td class="bad">—</td>
+        <td>50.1</td>
+        <td class="good">14.1%</td>
+    </tr><tr>
+        <td><strong>AI Note Taker</strong></td>
+        <td>$38,213</td>
+        <td>79,623</td>
+        <td class="good">4.4%</td>
+        <td class="good">19.5%</td>
+        <td>691.9</td>
+        <td>$55.23</td>
+        <td>234.2</td>
+        <td class="bad">33.9%</td>
+        <td>0.0</td>
+        <td>—</td>
+        <td class="bad">—</td>
+        <td>7.0</td>
+        <td class="bad">1.0%</td>
+    </tr><tr class="tr-alt">
+        <td><strong>AI Finance</strong></td>
+        <td>$11,317</td>
+        <td>7,674</td>
+        <td class="good">6.0%</td>
+        <td class="good">17.9%</td>
+        <td>82.5</td>
+        <td>$137.20</td>
+        <td>47.5</td>
+        <td class="good">57.6%</td>
+        <td>0.0</td>
+        <td>—</td>
+        <td class="bad">—</td>
+        <td>3.0</td>
+        <td class="mid">3.6%</td>
+    </tr><tr>
+        <td><strong>AI Real Estate</strong></td>
+        <td>$9,721</td>
+        <td>14,074</td>
+        <td class="good">4.5%</td>
+        <td class="mid">8.0%</td>
+        <td>51.0</td>
+        <td>$190.61</td>
+        <td>33.0</td>
+        <td class="good">64.7%</td>
+        <td>0.0</td>
+        <td>—</td>
+        <td class="bad">—</td>
+        <td>3.0</td>
+        <td class="mid">5.9%</td>
+    </tr><tr class="tr-alt">
+        <td><strong>AI Work Process</strong></td>
+        <td>$1,274</td>
+        <td>2,308</td>
+        <td class="mid">3.6%</td>
+        <td class="good">20.8%</td>
+        <td>17.5</td>
+        <td>$72.81</td>
+        <td>7.0</td>
+        <td class="mid">40.0%</td>
+        <td>0.0</td>
+        <td>—</td>
+        <td class="bad">—</td>
+        <td>5.5</td>
+        <td class="good">31.4%</td>
+    </tr><tr>
+        <td><strong>AI Construction</strong></td>
+        <td>$750.41</td>
+        <td>1,232</td>
+        <td class="mid">2.5%</td>
+        <td class="mid">9.7%</td>
+        <td>3.0</td>
+        <td>$250.14</td>
+        <td>1.0</td>
+        <td class="bad">33.3%</td>
+        <td>0.0</td>
+        <td>—</td>
+        <td class="bad">—</td>
+        <td>0.0</td>
+        <td class="bad">—</td>
+    </tr><tr class="tfoot-row">
+    <td><strong>Total</strong></td>
+    <td>$1,142,058</td>
+    <td>1,869,626</td>
+    <td class="mid">3.4%</td>
+    <td class="good">16.8%</td>
+    <td>10,641.9</td>
+    <td>$107.32</td>
+    <td>4,802.8</td>
+    <td class="mid">45.1%</td>
+    <td>24.0</td>
+    <td>$47,586</td>
+    <td class="mid">0.2%</td>
+    <td>922.9</td>
+    <td class="good">8.7%</td>
+</tr>
+    </tbody>
+</table>
+</div>
+
 <div class="obs-grid">
-        <div class="obs-box">
-            <div class="obs-title">Click → Signup drops</div>
-            <div class="obs-text">Lowest CR to signup: AI Real Estate (8.0%), AI HR (9.4%), AI Construction (9.7%). These campaigns have high impressions but low conversion, suggesting keyword or LP mismatch.</div>
-        </div>
-        <div class="obs-box">
-            <div class="obs-title">%Work signals intent quality</div>
-            <div class="obs-text">Highest: AI Real Estate (65%), AI Finance (58%). Lowest: AI Note Taker (34%), AI Comp (25%). High %Work signals users who chose "Work" as their goal — a quality intent signal.</div>
-        </div>
-        <div class="obs-box">
-            <div class="obs-title">CVR Paying gap</div>
-            <div class="obs-text">Payers concentrated in: AI HR (0.69%), AI Marketing (0.30%), Work Builder (0.12%). Zero payers despite significant signups: AI IT, AI Finance, AI Note Taker.</div>
-        </div>
-        <div class="obs-box">
-            <div class="obs-title">Agent Created outlier</div>
-            <div class="obs-text">Highest agent creation rate: AI Work Process (31.4%), AI IT (14.1%), AI Marketing (10.5%). High AC% with low paying CVR suggests users explore agents but don't convert to paid plans.</div>
-        </div>
+    <div class="obs-box">
+        <div class="obs-title">📉 Click to signup drops</div>
+        <div class="obs-text">Lowest CR: AI Real Estate (8.0%), AI HR (9.4%). Highest: Work Builder (23.2%), AI Marketing (23.0%).</div>
     </div>
+    <div class="obs-box">
+        <div class="obs-title">🎯 %Work signals intent quality</div>
+        <div class="obs-text">Highest %Work: AI Real Estate (64.7%), AI Finance (57.6%). Lowest: AI Note Taker (33.9%), AI Comp (35.7%).</div>
+    </div>
+    <div class="obs-box">
+        <div class="obs-title">💰 CVR Paying gap</div>
+        <div class="obs-text">Top converters: AI HR (0.7%), AI Marketing (0.3%), Work Builder (0.1%).</div>
+    </div>
+    <div class="obs-box">
+        <div class="obs-title">🤖 Agent Created outlier</div>
+        <div class="obs-text">Highest AC rate: AI Work Process (31.4%), AI IT (14.1%), AI Marketing (10.5%).</div>
+    </div>
+</div>
 
-<!-- Section 2: Per-Campaign Detail -->
-<div class="section-label">Per-Campaign Detail</div>
+<!-- ═══ Section 2: Per-Campaign Detail ═══ -->
+<div class="section-gap">
+    <div class="section-label">Per-Campaign Detail</div>
+</div>
 
-<div class="acc-divider">Main (3746504118)</div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">Work Builder</div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$43,872</div>
-            <div class="kpi-delta dn">-28%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">57,809</div>
-            <div class="kpi-delta dn">-33%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">539.9</div>
-            <div class="kpi-delta dn">-39%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">4</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            <div class="kw-note">Includes US (primary) + AU/GB geo variants (paused after Jun 30 week).</div>
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>Jun 16</td>
-            <td>$9,958</td><td class="neu">—</td>
-            <td>13,534</td><td class="neu">—</td>
-            <td>134.8</td><td class="neu">—</td>
-            <td>$73.85</td>
-            <td>0</td>
-            <td>11.0</td><td class="neu">—</td>
-        </tr><tr class="tr-alt">
-            <td>Jun 23</td>
-            <td>$40,454</td><td class="up">+306%</td>
-            <td>50,357</td><td class="up">+272%</td>
-            <td>590.4</td><td class="up">+338%</td>
-            <td>$68.52</td>
-            <td>2</td>
-            <td>19.0</td><td class="up">+73%</td>
-        </tr><tr>
-            <td>Jun 30</td>
-            <td>$52,481</td><td class="up">+30%</td>
-            <td>78,975</td><td class="up">+57%</td>
-            <td>732.2</td><td class="up">+24%</td>
-            <td>$71.67</td>
-            <td>0</td>
-            <td>33.0</td><td class="up">+74%</td>
-        </tr><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$61,349</td><td class="up">+17%</td>
-            <td>85,724</td><td class="up">+9%</td>
-            <td>887.2</td><td class="up">+21%</td>
-            <td>$69.15</td>
-            <td>1</td>
-            <td>82.1</td><td class="up">+149%</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$43,872</td><td class="dn">-28%</td>
-            <td>57,809</td><td class="dn">-33%</td>
-            <td>539.9</td><td class="dn">-39%</td>
-            <td>$81.26</td>
-            <td>0</td>
-            <td>181.0</td><td class="up">+120%</td>
-        </tr></tbody>
-    </table>
-            
-        </div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI Comp <span class="badge-struct">RESTRUCTURED</span></div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$7,916</div>
-            <div class="kpi-delta up">+0%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">21,510</div>
-            <div class="kpi-delta dn">-3%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">85.4</div>
-            <div class="kpi-delta up">+6%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">1</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            <div class="kw-note">Since Jun 22: US comp migrated to comp1 merged campaign. Data = comp1 agent ad groups.</div>
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>Jun 16</td>
-            <td>$5,427</td><td class="neu">—</td>
-            <td>16,821</td><td class="neu">—</td>
-            <td>27.0</td><td class="neu">—</td>
-            <td>$201.01</td>
-            <td>0</td>
-            <td>3.4</td><td class="neu">—</td>
-        </tr><tr class="tr-alt">
-            <td>Jun 23</td>
-            <td>$7,676</td><td class="up">+41%</td>
-            <td>22,421</td><td class="up">+33%</td>
-            <td>65.3</td><td class="up">+142%</td>
-            <td>$117.56</td>
-            <td>0</td>
-            <td>9.3</td><td class="up">+177%</td>
-        </tr><tr>
-            <td>Jun 30</td>
-            <td>$8,545</td><td class="up">+11%</td>
-            <td>24,212</td><td class="up">+8%</td>
-            <td>92.0</td><td class="up">+41%</td>
-            <td>$92.92</td>
-            <td>0</td>
-            <td>8.8</td><td class="dn">-5%</td>
-        </tr><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$7,902</td><td class="dn">-8%</td>
-            <td>22,179</td><td class="dn">-8%</td>
-            <td>80.3</td><td class="dn">-13%</td>
-            <td>$98.43</td>
-            <td>0</td>
-            <td>14.0</td><td class="up">+59%</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$7,916</td><td class="up">+0%</td>
-            <td>21,510</td><td class="dn">-3%</td>
-            <td>85.4</td><td class="up">+6%</td>
-            <td>$92.70</td>
-            <td>0</td>
-            <td>26.0</td><td class="up">+86%</td>
-        </tr></tbody>
-    </table>
-            <div class="kw-note">
-        <strong>comp1 agent ad groups breakdown</strong>
-        <table class="comp1-table">
-            <thead><tr><th>Ad Group</th><th>Spend</th><th>Imp</th><th>Clicks</th><th>SU</th><th>AC</th><th>CPS</th></tr></thead>
-            <tbody><tr>
-            <td>agent ai comp</td>
-            <td>$6,261</td>
-            <td>15,294</td>
-            <td>319</td>
-            <td>66.9</td>
-            <td>16.0</td>
-            <td>$93.60</td>
-        </tr><tr>
-            <td>agent ai comp IT</td>
-            <td>$1,271</td>
-            <td>3,703</td>
-            <td>98</td>
-            <td>14.0</td>
-            <td>9.0</td>
-            <td>$90.80</td>
-        </tr><tr>
-            <td>agent ai comp marketing</td>
-            <td>$213.54</td>
-            <td>333</td>
-            <td>8</td>
-            <td>2.5</td>
-            <td>1.0</td>
-            <td>$85.41</td>
-        </tr><tr>
-            <td>manus ai agent</td>
-            <td>$57.33</td>
-            <td>1,470</td>
-            <td>4</td>
-            <td>2.0</td>
-            <td>0.0</td>
-            <td>$28.66</td>
-        </tr></tbody>
-        </table>
-    </div>
-        </div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI HR</div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$59,437</div>
-            <div class="kpi-delta up">+9%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">102,163</div>
-            <div class="kpi-delta up">+21%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">324.0</div>
-            <div class="kpi-delta up">+16%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">11</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>Jun 16</td>
-            <td>$23,541</td><td class="neu">—</td>
-            <td>27,279</td><td class="neu">—</td>
-            <td>92.5</td><td class="neu">—</td>
-            <td>$254.50</td>
-            <td>0</td>
-            <td>5.5</td><td class="neu">—</td>
-        </tr><tr class="tr-alt">
-            <td>Jun 23</td>
-            <td>$61,650</td><td class="up">+162%</td>
-            <td>86,799</td><td class="up">+218%</td>
-            <td>276.6</td><td class="up">+199%</td>
-            <td>$222.92</td>
-            <td>2</td>
-            <td>3.0</td><td class="dn">-45%</td>
-        </tr><tr>
-            <td>Jun 30</td>
-            <td>$40,791</td><td class="dn">-34%</td>
-            <td>60,523</td><td class="dn">-30%</td>
-            <td>197.0</td><td class="dn">-29%</td>
-            <td>$207.10</td>
-            <td>2</td>
-            <td>4.5</td><td class="up">+50%</td>
-        </tr><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$54,548</td><td class="up">+34%</td>
-            <td>84,256</td><td class="up">+39%</td>
-            <td>278.1</td><td class="up">+41%</td>
-            <td>$196.11</td>
-            <td>0</td>
-            <td>37.5</td><td class="up">+733%</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$59,437</td><td class="up">+9%</td>
-            <td>102,163</td><td class="up">+21%</td>
-            <td>324.0</td><td class="up">+16%</td>
-            <td>$183.47</td>
-            <td>0</td>
-            <td>62.6</td><td class="up">+67%</td>
-        </tr></tbody>
-    </table>
-            
-        </div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI IT</div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$9,980</div>
-            <div class="kpi-delta up">+41%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">21,788</div>
-            <div class="kpi-delta dn">-4%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">66.5</div>
-            <div class="kpi-delta up">+37%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">0</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>Jun 16</td>
-            <td>$18,688</td><td class="neu">—</td>
-            <td>44,121</td><td class="neu">—</td>
-            <td>92.2</td><td class="neu">—</td>
-            <td>$202.62</td>
-            <td>0</td>
-            <td>8.0</td><td class="neu">—</td>
-        </tr><tr class="tr-alt">
-            <td>Jun 23</td>
-            <td>$11,486</td><td class="dn">-39%</td>
-            <td>27,564</td><td class="dn">-38%</td>
-            <td>50.7</td><td class="dn">-45%</td>
-            <td>$226.70</td>
-            <td>0</td>
-            <td>5.0</td><td class="dn">-38%</td>
-        </tr><tr>
-            <td>Jun 30</td>
-            <td>$3,801</td><td class="dn">-67%</td>
-            <td>9,941</td><td class="dn">-64%</td>
-            <td>26.0</td><td class="dn">-49%</td>
-            <td>$146.18</td>
-            <td>0</td>
-            <td>3.0</td><td class="dn">-40%</td>
-        </tr><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$7,083</td><td class="up">+86%</td>
-            <td>22,742</td><td class="up">+129%</td>
-            <td>48.5</td><td class="up">+87%</td>
-            <td>$146.07</td>
-            <td>0</td>
-            <td>5.0</td><td class="up">+67%</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$9,980</td><td class="up">+41%</td>
-            <td>21,788</td><td class="dn">-4%</td>
-            <td>66.5</td><td class="up">+37%</td>
-            <td>$150.07</td>
-            <td>0</td>
-            <td>26.1</td><td class="up">+423%</td>
-        </tr></tbody>
-    </table>
-            
-        </div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI Legal</div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$10,779</div>
-            <div class="kpi-delta dn">-47%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">21,536</div>
-            <div class="kpi-delta dn">-39%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">133.0</div>
-            <div class="kpi-delta dn">-43%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">1</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            <div class="kw-note">Includes ailegal + ailegal_contract campaigns combined.</div>
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>Jun 16</td>
-            <td>$19,573</td><td class="neu">—</td>
-            <td>28,175</td><td class="neu">—</td>
-            <td>192.5</td><td class="neu">—</td>
-            <td>$101.68</td>
-            <td>0</td>
-            <td>5.6</td><td class="neu">—</td>
-        </tr><tr class="tr-alt">
-            <td>Jun 23</td>
-            <td>$37,075</td><td class="up">+89%</td>
-            <td>61,459</td><td class="up">+118%</td>
-            <td>339.3</td><td class="up">+76%</td>
-            <td>$109.26</td>
-            <td>1</td>
-            <td>9.0</td><td class="up">+60%</td>
-        </tr><tr>
-            <td>Jun 30</td>
-            <td>$29,038</td><td class="dn">-22%</td>
-            <td>47,925</td><td class="dn">-22%</td>
-            <td>229.1</td><td class="dn">-32%</td>
-            <td>$126.76</td>
-            <td>0</td>
-            <td>9.0</td><td class="neu">0%</td>
-        </tr><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$20,408</td><td class="dn">-30%</td>
-            <td>35,244</td><td class="dn">-26%</td>
-            <td>231.8</td><td class="up">+1%</td>
-            <td>$88.04</td>
-            <td>0</td>
-            <td>31.6</td><td class="up">+252%</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$10,779</td><td class="dn">-47%</td>
-            <td>21,536</td><td class="dn">-39%</td>
-            <td>133.0</td><td class="dn">-43%</td>
-            <td>$81.05</td>
-            <td>0</td>
-            <td>35.0</td><td class="up">+11%</td>
-        </tr></tbody>
-    </table>
-            
-        </div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI Finance <span class="badge-new">NEW</span></div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$6,597</div>
-            <div class="kpi-delta up">+40%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">3,758</div>
-            <div class="kpi-delta dn">-4%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">45.0</div>
-            <div class="kpi-delta up">+20%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">0</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$4,721</td><td class="neu">—</td>
-            <td>3,916</td><td class="neu">—</td>
-            <td>37.5</td><td class="neu">—</td>
-            <td>$125.88</td>
-            <td>0</td>
-            <td>1.0</td><td class="neu">—</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$6,597</td><td class="up">+40%</td>
-            <td>3,758</td><td class="dn">-4%</td>
-            <td>45.0</td><td class="up">+20%</td>
-            <td>$146.63</td>
-            <td>0</td>
-            <td>2.0</td><td class="up">+100%</td>
-        </tr></tbody>
-    </table>
-            
-        </div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI Note Taker <span class="badge-new">NEW</span></div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$36,249</div>
-            <div class="kpi-delta up">+1745%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">76,046</div>
-            <div class="kpi-delta up">+2026%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">660.9</div>
-            <div class="kpi-delta up">+2032%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">0</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$1,964</td><td class="neu">—</td>
-            <td>3,577</td><td class="neu">—</td>
-            <td>31.0</td><td class="neu">—</td>
-            <td>$63.36</td>
-            <td>0</td>
-            <td>1.0</td><td class="neu">—</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$36,249</td><td class="up">+1745%</td>
-            <td>76,046</td><td class="up">+2026%</td>
-            <td>660.9</td><td class="up">+2032%</td>
-            <td>$54.85</td>
-            <td>0</td>
-            <td>6.0</td><td class="up">+500%</td>
-        </tr></tbody>
-    </table>
-            
-        </div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI Real Estate <span class="badge-new">NEW</span></div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$6,586</div>
-            <div class="kpi-delta up">+110%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">9,426</div>
-            <div class="kpi-delta up">+103%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">39.5</div>
-            <div class="kpi-delta up">+243%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">0</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$3,135</td><td class="neu">—</td>
-            <td>4,648</td><td class="neu">—</td>
-            <td>11.5</td><td class="neu">—</td>
-            <td>$272.64</td>
-            <td>0</td>
-            <td>0.0</td><td class="neu">—</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$6,586</td><td class="up">+110%</td>
-            <td>9,426</td><td class="up">+103%</td>
-            <td>39.5</td><td class="up">+243%</td>
-            <td>$166.73</td>
-            <td>0</td>
-            <td>3.0</td><td class="neu">—</td>
-        </tr></tbody>
-    </table>
-            
-        </div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI Work Process <span class="badge-new">NEW</span></div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$1,274</div>
-            <div class="kpi-delta neu">—</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">2,308</div>
-            <div class="kpi-delta neu">—</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">17.5</div>
-            <div class="kpi-delta neu">—</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">0</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>Jul 14</td>
-            <td>$1,274</td><td class="neu">—</td>
-            <td>2,308</td><td class="neu">—</td>
-            <td>17.5</td><td class="neu">—</td>
-            <td>$72.81</td>
-            <td>0</td>
-            <td>5.5</td><td class="neu">—</td>
-        </tr></tbody>
-    </table>
-            
-        </div><div class="acc-divider">Verticals (6629846296)</div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI Marketing</div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$29,478</div>
-            <div class="kpi-delta up">+18%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">37,449</div>
-            <div class="kpi-delta dn">-14%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">462.0</div>
-            <div class="kpi-delta dn">-6%</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">7</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            <div class="kw-note">Includes US (primary) + AU/GB geo variants (paused). %Work not available.</div>
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>Jun 16</td>
-            <td>$8,374</td><td class="neu">—</td>
-            <td>9,160</td><td class="neu">—</td>
-            <td>90.5</td><td class="neu">—</td>
-            <td>$92.55</td>
-            <td>0</td>
-            <td>10.0</td><td class="neu">—</td>
-        </tr><tr class="tr-alt">
-            <td>Jun 23</td>
-            <td>$14,671</td><td class="up">+75%</td>
-            <td>14,973</td><td class="up">+63%</td>
-            <td>130.5</td><td class="up">+44%</td>
-            <td>$112.42</td>
-            <td>0</td>
-            <td>7.0</td><td class="dn">-30%</td>
-        </tr><tr>
-            <td>Jun 30</td>
-            <td>$28,160</td><td class="up">+92%</td>
-            <td>44,644</td><td class="up">+198%</td>
-            <td>445.0</td><td class="up">+241%</td>
-            <td>$63.28</td>
-            <td>1</td>
-            <td>7.8</td><td class="up">+12%</td>
-        </tr><tr class="tr-alt">
-            <td>Jul 7</td>
-            <td>$24,931</td><td class="dn">-11%</td>
-            <td>43,683</td><td class="dn">-2%</td>
-            <td>489.3</td><td class="up">+10%</td>
-            <td>$50.96</td>
-            <td>2</td>
-            <td>86.0</td><td class="up">+999%</td>
-        </tr><tr>
-            <td>Jul 14</td>
-            <td>$29,478</td><td class="up">+18%</td>
-            <td>37,449</td><td class="dn">-14%</td>
-            <td>462.0</td><td class="dn">-6%</td>
-            <td>$63.80</td>
-            <td>0</td>
-            <td>121.0</td><td class="up">+41%</td>
-        </tr></tbody>
-    </table>
-            
-        </div><div class="camp-block">
-            <div class="kpi-block">
-        <div class="kpi-title">AI Construction <span class="badge-new">NEW</span></div>
-        <div class="kpi-grid"><div class="kpi-card">
-            <div class="kpi-label">Spend (this week)</div>
-            <div class="kpi-value">$750.41</div>
-            <div class="kpi-delta neu">—</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Impressions</div>
-            <div class="kpi-value">1,232</div>
-            <div class="kpi-delta neu">—</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Hard Signups</div>
-            <div class="kpi-value">3.0</div>
-            <div class="kpi-delta neu">—</div>
-            
-        </div><div class="kpi-card">
-            <div class="kpi-label">Payers (since launch)</div>
-            <div class="kpi-value">0</div>
-            <div class="kpi-delta neu"></div>
-            <span class="payers-tag">this week: 0</span>
-        </div></div>
-    </div>
-            
-            <table>
-        <thead><tr>
-            <th>Week</th>
-            <th>Spend ($)</th><th>Δ</th>
-            <th>Impressions</th><th>Δ</th>
-            <th>Signups</th><th>Δ</th>
-            <th>CPS</th>
-            <th>Payers</th>
-            <th>Agent Created</th><th>Δ</th>
-        </tr></thead>
-        <tbody><tr>
-            <td>Jul 14</td>
-            <td>$750.41</td><td class="neu">—</td>
-            <td>1,232</td><td class="neu">—</td>
-            <td>3.0</td><td class="neu">—</td>
-            <td>$250.14</td>
-            <td>0</td>
-            <td>0.0</td><td class="neu">—</td>
-        </tr></tbody>
-    </table>
-            
+<div class="acc-divider">Main (3746504118)</div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">Work Builder</div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$43,872</div>
+                    <div class="kpi-delta"><span class="dn">▼ 28.5%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">57,807</div>
+                    <div class="kpi-delta"><span class="dn">▼ 32.6%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">539.9</div>
+                    <div class="kpi-delta"><span class="dn">▼ 39.1%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">4.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
         </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr>
+        <td>Jun 15-21</td>
+        <td>$11,415</td><td><span class="neu">—</span></td>
+        <td>15,694</td><td><span class="neu">—</span></td>
+        <td>154.8</td><td><span class="neu">—</span></td>
+        <td>$73.73</td>
+        <td>0.0</td>
+        <td>11.0</td><td><span class="neu">—</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jun 22-28</td>
+        <td>$40,454</td><td><span class="up">▲ 254.4%</span></td>
+        <td>50,357</td><td><span class="up">▲ 220.9%</span></td>
+        <td>590.4</td><td><span class="up">▲ 281.3%</span></td>
+        <td>$68.52</td>
+        <td>2.0</td>
+        <td>19.0</td><td><span class="up">▲ 72.7%</span></td>
+    </tr><tr>
+        <td>Jun 29-Jul 5</td>
+        <td>$52,481</td><td><span class="up">▲ 29.7%</span></td>
+        <td>78,975</td><td><span class="up">▲ 56.8%</span></td>
+        <td>732.2</td><td><span class="up">▲ 24.0%</span></td>
+        <td>$71.67</td>
+        <td>0.0</td>
+        <td>33.0</td><td><span class="up">▲ 73.7%</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$61,349</td><td><span class="up">▲ 16.9%</span></td>
+        <td>85,724</td><td><span class="up">▲ 8.5%</span></td>
+        <td>887.2</td><td><span class="up">▲ 21.2%</span></td>
+        <td>$69.15</td>
+        <td>1.0</td>
+        <td>82.1</td><td><span class="up">▲ 148.9%</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$43,872</td><td><span class="dn">▼ 28.5%</span></td>
+        <td>57,807</td><td><span class="dn">▼ 32.6%</span></td>
+        <td>539.9</td><td><span class="dn">▼ 39.1%</span></td>
+        <td>$81.26</td>
+        <td>0.0</td>
+        <td>181.0</td><td><span class="up">▲ 120.3%</span></td>
+    </tr></tbody></table></div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI Comp <span class="badge-struct">restructured Jun 22</span></div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$7,916</div>
+                    <div class="kpi-delta"><span class="up">▲ 0.2%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">21,510</div>
+                    <div class="kpi-delta"><span class="dn">▼ 3.0%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">85.4</div>
+                    <div class="kpi-delta"><span class="up">▲ 6.4%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">1.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        <div class="kw-note">From Jun 22: agent ad groups within comp1 merged campaign</div>
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr>
+        <td>Jun 15-21</td>
+        <td>$6,780</td><td><span class="neu">—</span></td>
+        <td>20,519</td><td><span class="neu">—</span></td>
+        <td>33.5</td><td><span class="neu">—</span></td>
+        <td>$202.40</td>
+        <td>0.0</td>
+        <td>3.4</td><td><span class="neu">—</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jun 22-28</td>
+        <td>$7,676</td><td><span class="up">▲ 13.2%</span></td>
+        <td>22,421</td><td><span class="up">▲ 9.3%</span></td>
+        <td>65.3</td><td><span class="up">▲ 94.9%</span></td>
+        <td>$117.56</td>
+        <td>0.0</td>
+        <td>9.3</td><td><span class="up">▲ 176.9%</span></td>
+    </tr><tr>
+        <td>Jun 29-Jul 5</td>
+        <td>$8,545</td><td><span class="up">▲ 11.3%</span></td>
+        <td>24,212</td><td><span class="up">▲ 8.0%</span></td>
+        <td>92.0</td><td><span class="up">▲ 40.8%</span></td>
+        <td>$92.92</td>
+        <td>0.0</td>
+        <td>8.8</td><td><span class="dn">▼ 5.1%</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$7,902</td><td><span class="dn">▼ 7.5%</span></td>
+        <td>22,179</td><td><span class="dn">▼ 8.4%</span></td>
+        <td>80.3</td><td><span class="dn">▼ 12.7%</span></td>
+        <td>$98.43</td>
+        <td>0.0</td>
+        <td>14.0</td><td><span class="up">▲ 58.5%</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$7,916</td><td><span class="up">▲ 0.2%</span></td>
+        <td>21,510</td><td><span class="dn">▼ 3.0%</span></td>
+        <td>85.4</td><td><span class="up">▲ 6.4%</span></td>
+        <td>$92.70</td>
+        <td>0.0</td>
+        <td>26.0</td><td><span class="up">▲ 85.7%</span></td>
+    </tr></tbody></table><div class="kw-note"><strong>comp1 ad group breakdown (since Jun 22)</strong><table class="comp1-table"><thead><tr><th>Ad Group</th><th>Spend</th><th>Imp</th><th>Clicks</th><th>Signups</th><th>AC</th></tr></thead><tbody><tr><td>agent ai comp</td><td>$21,257</td><td>49,712</td><td>1,009</td><td>226.3</td><td>36.0</td></tr><tr><td>agent ai comp IT</td><td>$3,268</td><td>12,565</td><td>254</td><td>31.0</td><td>10.0</td></tr><tr><td>manus ai agent</td><td>$2,108</td><td>11,624</td><td>94</td><td>25.0</td><td>5.8</td></tr><tr><td>notion agent</td><td>$1,091</td><td>3,609</td><td>55</td><td>8.5</td><td>1.0</td></tr><tr><td>agent ai comp marketing</td><td>$507.95</td><td>1,620</td><td>18</td><td>5.5</td><td>1.0</td></tr><tr><td>agent ai comp legal</td><td>$39.39</td><td>215</td><td>3</td><td>0.0</td><td>0.0</td></tr><tr><td>agent ai comp HR</td><td>$31.44</td><td>325</td><td>2</td><td>0.0</td><td>0.0</td></tr><tr><td>atlassian agent</td><td>$0.00</td><td>121</td><td>0</td><td>0.0</td><td>0.0</td></tr></tbody></table></div></div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI HR</div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$59,437</div>
+                    <div class="kpi-delta"><span class="up">▲ 9.0%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">102,163</div>
+                    <div class="kpi-delta"><span class="up">▲ 21.3%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">324.0</div>
+                    <div class="kpi-delta"><span class="up">▲ 16.5%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">11.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr>
+        <td>Jun 15-21</td>
+        <td>$26,759</td><td><span class="neu">—</span></td>
+        <td>32,117</td><td><span class="neu">—</span></td>
+        <td>105.5</td><td><span class="neu">—</span></td>
+        <td>$253.64</td>
+        <td>0.0</td>
+        <td>5.5</td><td><span class="neu">—</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jun 22-28</td>
+        <td>$61,650</td><td><span class="up">▲ 130.4%</span></td>
+        <td>86,799</td><td><span class="up">▲ 170.3%</span></td>
+        <td>276.6</td><td><span class="up">▲ 162.1%</span></td>
+        <td>$222.92</td>
+        <td>2.0</td>
+        <td>3.0</td><td><span class="dn">▼ 45.5%</span></td>
+    </tr><tr>
+        <td>Jun 29-Jul 5</td>
+        <td>$40,791</td><td><span class="dn">▼ 33.8%</span></td>
+        <td>60,523</td><td><span class="dn">▼ 30.3%</span></td>
+        <td>197.0</td><td><span class="dn">▼ 28.8%</span></td>
+        <td>$207.10</td>
+        <td>2.0</td>
+        <td>4.5</td><td><span class="up">▲ 50.0%</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$54,548</td><td><span class="up">▲ 33.7%</span></td>
+        <td>84,256</td><td><span class="up">▲ 39.2%</span></td>
+        <td>278.1</td><td><span class="up">▲ 41.2%</span></td>
+        <td>$196.11</td>
+        <td>0.0</td>
+        <td>37.5</td><td><span class="up">▲ 733.3%</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$59,437</td><td><span class="up">▲ 9.0%</span></td>
+        <td>102,163</td><td><span class="up">▲ 21.3%</span></td>
+        <td>324.0</td><td><span class="up">▲ 16.5%</span></td>
+        <td>$183.47</td>
+        <td>0.0</td>
+        <td>62.6</td><td><span class="up">▲ 67.0%</span></td>
+    </tr></tbody></table></div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI IT</div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$9,980</div>
+                    <div class="kpi-delta"><span class="up">▲ 40.9%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">21,788</div>
+                    <div class="kpi-delta"><span class="dn">▼ 4.2%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">66.5</div>
+                    <div class="kpi-delta"><span class="up">▲ 37.1%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">0.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr>
+        <td>Jun 15-21</td>
+        <td>$19,756</td><td><span class="neu">—</span></td>
+        <td>44,949</td><td><span class="neu">—</span></td>
+        <td>96.2</td><td><span class="neu">—</span></td>
+        <td>$205.34</td>
+        <td>0.0</td>
+        <td>9.0</td><td><span class="neu">—</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jun 22-28</td>
+        <td>$11,486</td><td><span class="dn">▼ 41.9%</span></td>
+        <td>27,564</td><td><span class="dn">▼ 38.7%</span></td>
+        <td>50.7</td><td><span class="dn">▼ 47.3%</span></td>
+        <td>$226.70</td>
+        <td>0.0</td>
+        <td>5.0</td><td><span class="dn">▼ 44.4%</span></td>
+    </tr><tr>
+        <td>Jun 29-Jul 5</td>
+        <td>$3,801</td><td><span class="dn">▼ 66.9%</span></td>
+        <td>9,941</td><td><span class="dn">▼ 63.9%</span></td>
+        <td>26.0</td><td><span class="dn">▼ 48.7%</span></td>
+        <td>$146.18</td>
+        <td>0.0</td>
+        <td>3.0</td><td><span class="dn">▼ 40.0%</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$7,083</td><td><span class="up">▲ 86.4%</span></td>
+        <td>22,742</td><td><span class="up">▲ 128.8%</span></td>
+        <td>48.5</td><td><span class="up">▲ 86.5%</span></td>
+        <td>$146.07</td>
+        <td>0.0</td>
+        <td>5.0</td><td><span class="up">▲ 66.7%</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$9,980</td><td><span class="up">▲ 40.9%</span></td>
+        <td>21,788</td><td><span class="dn">▼ 4.2%</span></td>
+        <td>66.5</td><td><span class="up">▲ 37.1%</span></td>
+        <td>$150.07</td>
+        <td>0.0</td>
+        <td>26.1</td><td><span class="up">▲ 422.7%</span></td>
+    </tr></tbody></table></div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI Legal</div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$10,779</div>
+                    <div class="kpi-delta"><span class="dn">▼ 47.2%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">21,536</div>
+                    <div class="kpi-delta"><span class="dn">▼ 38.9%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">133.0</div>
+                    <div class="kpi-delta"><span class="dn">▼ 42.6%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">1.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr>
+        <td>Jun 15-21</td>
+        <td>$21,190</td><td><span class="neu">—</span></td>
+        <td>30,300</td><td><span class="neu">—</span></td>
+        <td>214.6</td><td><span class="neu">—</span></td>
+        <td>$98.72</td>
+        <td>0.0</td>
+        <td>5.6</td><td><span class="neu">—</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jun 22-28</td>
+        <td>$37,075</td><td><span class="up">▲ 75.0%</span></td>
+        <td>61,459</td><td><span class="up">▲ 102.8%</span></td>
+        <td>339.3</td><td><span class="up">▲ 58.1%</span></td>
+        <td>$109.26</td>
+        <td>1.0</td>
+        <td>9.0</td><td><span class="up">▲ 59.6%</span></td>
+    </tr><tr>
+        <td>Jun 29-Jul 5</td>
+        <td>$29,038</td><td><span class="dn">▼ 21.7%</span></td>
+        <td>47,925</td><td><span class="dn">▼ 22.0%</span></td>
+        <td>229.1</td><td><span class="dn">▼ 32.5%</span></td>
+        <td>$126.76</td>
+        <td>0.0</td>
+        <td>9.0</td><td><span class="neu">– 0.0%</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$20,408</td><td><span class="dn">▼ 29.7%</span></td>
+        <td>35,244</td><td><span class="dn">▼ 26.5%</span></td>
+        <td>231.8</td><td><span class="up">▲ 1.2%</span></td>
+        <td>$88.04</td>
+        <td>0.0</td>
+        <td>31.6</td><td><span class="up">▲ 251.6%</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$10,779</td><td><span class="dn">▼ 47.2%</span></td>
+        <td>21,536</td><td><span class="dn">▼ 38.9%</span></td>
+        <td>133.0</td><td><span class="dn">▼ 42.6%</span></td>
+        <td>$81.05</td>
+        <td>0.0</td>
+        <td>35.0</td><td><span class="up">▲ 10.6%</span></td>
+    </tr></tbody></table></div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI Finance <span class="badge-new">new</span></div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$6,597</div>
+                    <div class="kpi-delta"><span class="up">▲ 39.7%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">3,758</div>
+                    <div class="kpi-delta"><span class="dn">▼ 4.0%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">45.0</div>
+                    <div class="kpi-delta"><span class="up">▲ 20.0%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">0.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$4,721</td><td><span class="neu">—</span></td>
+        <td>3,916</td><td><span class="neu">—</span></td>
+        <td>37.5</td><td><span class="neu">—</span></td>
+        <td>$125.88</td>
+        <td>0.0</td>
+        <td>1.0</td><td><span class="neu">—</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$6,597</td><td><span class="up">▲ 39.7%</span></td>
+        <td>3,758</td><td><span class="dn">▼ 4.0%</span></td>
+        <td>45.0</td><td><span class="up">▲ 20.0%</span></td>
+        <td>$146.63</td>
+        <td>0.0</td>
+        <td>2.0</td><td><span class="up">▲ 100.0%</span></td>
+    </tr></tbody></table></div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI Note Taker <span class="badge-new">new</span></div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$36,249</div>
+                    <div class="kpi-delta"><span class="up">▲ 1745.5%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">76,046</div>
+                    <div class="kpi-delta"><span class="up">▲ 2026.0%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">660.9</div>
+                    <div class="kpi-delta"><span class="up">▲ 2032.0%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">0.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$1,964</td><td><span class="neu">—</span></td>
+        <td>3,577</td><td><span class="neu">—</span></td>
+        <td>31.0</td><td><span class="neu">—</span></td>
+        <td>$63.36</td>
+        <td>0.0</td>
+        <td>1.0</td><td><span class="neu">—</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$36,249</td><td><span class="up">▲ 1745.5%</span></td>
+        <td>76,046</td><td><span class="up">▲ 2026.0%</span></td>
+        <td>660.9</td><td><span class="up">▲ 2032.0%</span></td>
+        <td>$54.85</td>
+        <td>0.0</td>
+        <td>6.0</td><td><span class="up">▲ 500.0%</span></td>
+    </tr></tbody></table></div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI Real Estate <span class="badge-new">new</span></div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$6,586</div>
+                    <div class="kpi-delta"><span class="up">▲ 110.1%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">9,426</div>
+                    <div class="kpi-delta"><span class="up">▲ 102.8%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">39.5</div>
+                    <div class="kpi-delta"><span class="up">▲ 243.5%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">0.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$3,135</td><td><span class="neu">—</span></td>
+        <td>4,648</td><td><span class="neu">—</span></td>
+        <td>11.5</td><td><span class="neu">—</span></td>
+        <td>$272.64</td>
+        <td>0.0</td>
+        <td>0.0</td><td><span class="neu">—</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$6,586</td><td><span class="up">▲ 110.1%</span></td>
+        <td>9,426</td><td><span class="up">▲ 102.8%</span></td>
+        <td>39.5</td><td><span class="up">▲ 243.5%</span></td>
+        <td>$166.73</td>
+        <td>0.0</td>
+        <td>3.0</td><td><span class="neu">—</span></td>
+    </tr></tbody></table></div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI Work Process <span class="badge-new">new</span></div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$1,274</div>
+                    <div class="kpi-delta"><span class="neu">—</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">2,308</div>
+                    <div class="kpi-delta"><span class="neu">—</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">17.5</div>
+                    <div class="kpi-delta"><span class="neu">—</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">0.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr>
+        <td>Jul 13-19</td>
+        <td>$1,274</td><td><span class="neu">—</span></td>
+        <td>2,308</td><td><span class="neu">—</span></td>
+        <td>17.5</td><td><span class="neu">—</span></td>
+        <td>$72.81</td>
+        <td>0.0</td>
+        <td>5.5</td><td><span class="neu">—</span></td>
+    </tr></tbody></table></div><div class="acc-divider">Verticals (6629846296)</div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI Marketing</div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$29,478</div>
+                    <div class="kpi-delta"><span class="up">▲ 18.2%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">37,449</div>
+                    <div class="kpi-delta"><span class="dn">▼ 14.3%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">462.0</div>
+                    <div class="kpi-delta"><span class="dn">▼ 5.6%</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">7.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr>
+        <td>Jun 15-21</td>
+        <td>$9,997</td><td><span class="neu">—</span></td>
+        <td>11,020</td><td><span class="neu">—</span></td>
+        <td>109.5</td><td><span class="neu">—</span></td>
+        <td>$91.32</td>
+        <td>0.0</td>
+        <td>12.0</td><td><span class="neu">—</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jun 22-28</td>
+        <td>$14,671</td><td><span class="up">▲ 46.7%</span></td>
+        <td>14,973</td><td><span class="up">▲ 35.9%</span></td>
+        <td>130.5</td><td><span class="up">▲ 19.2%</span></td>
+        <td>$112.42</td>
+        <td>0.0</td>
+        <td>7.0</td><td><span class="dn">▼ 41.7%</span></td>
+    </tr><tr>
+        <td>Jun 29-Jul 5</td>
+        <td>$28,160</td><td><span class="up">▲ 91.9%</span></td>
+        <td>44,644</td><td><span class="up">▲ 198.2%</span></td>
+        <td>445.0</td><td><span class="up">▲ 241.0%</span></td>
+        <td>$63.28</td>
+        <td>1.0</td>
+        <td>7.8</td><td><span class="up">▲ 11.7%</span></td>
+    </tr><tr class="tr-alt">
+        <td>Jul 6-12</td>
+        <td>$24,931</td><td><span class="dn">▼ 11.5%</span></td>
+        <td>43,683</td><td><span class="dn">▼ 2.2%</span></td>
+        <td>489.3</td><td><span class="up">▲ 10.0%</span></td>
+        <td>$50.96</td>
+        <td>2.0</td>
+        <td>86.0</td><td><span class="up">▲ 999.1%</span></td>
+    </tr><tr>
+        <td>Jul 13-19</td>
+        <td>$29,478</td><td><span class="up">▲ 18.2%</span></td>
+        <td>37,449</td><td><span class="dn">▼ 14.3%</span></td>
+        <td>462.0</td><td><span class="dn">▼ 5.6%</span></td>
+        <td>$63.80</td>
+        <td>0.0</td>
+        <td>121.0</td><td><span class="up">▲ 40.8%</span></td>
+    </tr></tbody></table></div>
+    <div class="camp-block">
+        <div class="kpi-block">
+            <div class="section-label">AI Construction <span class="badge-new">new</span></div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Spend</div>
+                    <div class="kpi-val">$750.41</div>
+                    <div class="kpi-delta"><span class="neu">—</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Impressions</div>
+                    <div class="kpi-val">1,232</div>
+                    <div class="kpi-delta"><span class="neu">—</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Hard Signups</div>
+                    <div class="kpi-val">3.0</div>
+                    <div class="kpi-delta"><span class="neu">—</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Payers</div>
+                    <div class="kpi-val">0.0</div>
+                    <span class="payers-tag">+0.0 this week</span>
+                </div>
+            </div>
+        </div>
+        
+    
+        <table class="trend-table">
+            <thead><tr>
+                <th>Week</th><th>Spend</th><th>Δ</th><th>Imp</th><th>Δ</th>
+                <th>Signups</th><th>Δ</th><th>CPS</th><th>Payers</th>
+                <th>Agent Created</th><th>Δ</th>
+            </tr></thead>
+            <tbody>
+    <tr>
+        <td>Jul 13-19</td>
+        <td>$750.41</td><td><span class="neu">—</span></td>
+        <td>1,232</td><td><span class="neu">—</span></td>
+        <td>3.0</td><td><span class="neu">—</span></td>
+        <td>$250.14</td>
+        <td>0.0</td>
+        <td>0.0</td><td><span class="neu">—</span></td>
+    </tr></tbody></table></div>
 
 <div class="footer">
-    <strong>Structural changes detected this week:</strong><br>
-    • 5 new campaigns launched: aifinance, ainote_taker, aireal_estate, aiwork_process (Main), aiconstruction (Verticals)<br>
-    • ainote_taker saw massive scaling in Jul 14 week: $36.2K spend, 660.9 signups (from $2.0K / 31 SU prior week)<br>
-    • AU and GB geo variants for work_builder and aimarketing remain paused<br>
-    • aicomp continues running through comp1 merged campaign agent ad groups<br>
-    <br>
-    Data source: Google Ads API via Funnel Gate · Accounts: Main (3746504118), Verticals (6629846296)<br>
-    Report: <a href="https://nymeria-ai.github.io/monday-agent-growth-report/" style="color:#4ade80">nymeria-ai.github.io/monday-agent-growth-report</a>
+    Report covers 5 weeks (Jun 15 – Jul 19, 2026). Funnel analysis covers May 6 – Jul 19 (since launch).
+    aicomp includes comp1 agent ad groups from Jun 22. ailegal includes ailegal_contract.
+    New campaigns detected: AI Finance, AI Note Taker, AI Real Estate, AI Work Process (Main), AI Construction (Verticals).
+    Conversions use all_conversions_by_conversion_date. cost_micros divided by 1M for USD.
+    Payers column in weekly tables shows new payers per week; Paying Analysis shows cumulative since launch.
 </div>
 
 </body>
