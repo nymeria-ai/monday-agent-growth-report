@@ -1506,14 +1506,27 @@ td {
     var results = [];
     for (var name in CAMPAIGN_WEEKLY) {
       var c = CAMPAIGN_WEEKLY[name];
-      var totalImpAll = 0, totalSignupsAll = 0;
+      var totalImpAll = 0, totalSignupsAll = 0, totalDaysAll = 0;
       c.weeks.forEach(function(w) { totalImpAll += w.imp; totalSignupsAll += w.signups; });
 
       var spend=0, imp=0, signups=0, payers=0, ac=0;
       c.weeks.forEach(function(w) {
-        if (w.start <= endDate && w.end >= startDate) {
-          spend += w.spend; imp += w.imp; signups += w.signups; payers += w.payers; ac += w.ac;
-        }
+        // Calculate overlap ratio for partial week inclusion
+        var wStart = new Date(w.start + 'T00:00:00');
+        var wEnd = new Date(w.end + 'T00:00:00');
+        var fStart = new Date(startDate + 'T00:00:00');
+        var fEnd = new Date(endDate + 'T00:00:00');
+        var overlapStart = wStart > fStart ? wStart : fStart;
+        var overlapEnd = wEnd < fEnd ? wEnd : fEnd;
+        if (overlapStart > overlapEnd) return; // no overlap
+        var weekDays = (wEnd - wStart) / 86400000 + 1;
+        var overlapDays = (overlapEnd - overlapStart) / 86400000 + 1;
+        var ratio = weekDays > 0 ? overlapDays / weekDays : 0;
+        spend += w.spend * ratio;
+        imp += w.imp * ratio;
+        signups += w.signups * ratio;
+        payers += w.payers * ratio;
+        ac += w.ac * ratio;
       });
       if (imp === 0) continue;
 
@@ -1646,7 +1659,9 @@ td {
   }
 
   startInput.addEventListener('change', onDateChange);
+  startInput.addEventListener('input', onDateChange);
   endInput.addEventListener('change', onDateChange);
+  endInput.addEventListener('input', onDateChange);
   resetBtn.addEventListener('click', function() {
     startInput.value = ALL_DATA_START;
     endInput.value = ALL_DATA_END;
