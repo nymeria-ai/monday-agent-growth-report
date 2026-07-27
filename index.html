@@ -252,6 +252,49 @@ td {
     margin-top: 32px;
     margin-bottom: 8px;
 }
+.date-filter-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+.date-filter-row label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.date-filter-row input[type="date"] {
+    background: var(--surface-1);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    outline: none;
+    color-scheme: dark;
+}
+.date-filter-row input[type="date"]:focus {
+    border-color: #555;
+}
+.date-filter-row .reset-btn {
+    background: var(--surface-1);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.date-filter-row .reset-btn:hover {
+    background: var(--surface-2);
+    color: var(--text);
+}
 .footer {
     margin-top: 32px;
     font-size: 10.5px;
@@ -363,7 +406,15 @@ td {
 <!-- ═══ Section 1B: Funnel & Paying Analysis ═══ -->
 <div class="section-gap">
     <div class="section-label">Funnel & Paying Analysis (since launch)</div>
-    <div class="subtitle2">May 6 – Jul 26, 2026 · All accounts · Sorted by spend</div>
+    <div class="subtitle2" id="funnel-subtitle">May 6 – Jul 26, 2026 · All accounts · Sorted by spend</div>
+</div>
+
+<div class="date-filter-row">
+    <label>From</label>
+    <input type="date" id="funnel-date-start" value="" min="2026-05-06" max="2026-07-20">
+    <label>To</label>
+    <input type="date" id="funnel-date-end" value="2026-07-20" min="2026-05-06" max="2026-07-20">
+    <button class="reset-btn" id="funnel-date-reset">All Data</button>
 </div>
 
 
@@ -408,7 +459,7 @@ td {
         <th>Paying</th><th>CAC</th><th>CVR Payer</th>
         <th>Agent Created</th><th>AC %</th>
     </tr></thead>
-    <tbody>
+    <tbody id="funnel-table">
         <tr>
         <td><strong>AI HR</strong></td>
         <td>$415,409</td>
@@ -1416,5 +1467,139 @@ td {
     Payers column in weekly tables shows new payers per week; Paying Analysis shows cumulative since launch.
 </div>
 
+<script>
+(function() {
+  const ALL_DATA_START = '2026-05-06';
+  const ALL_DATA_END = '2026-07-20';
+  function toLast7() {
+    var end = new Date(ALL_DATA_END + 'T00:00:00');
+    var start = new Date(end);
+    start.setDate(start.getDate() - 6);
+    return { start: start.toISOString().slice(0,10), end: ALL_DATA_END };
+  }
+  var last7 = toLast7();
+  var DEFAULT_START = last7.start;
+  var DEFAULT_END = last7.end;
+
+  const CAMPAIGN_WEEKLY = {"AI Comp":{"totalClicks":7596,"totalWorkSU":363.3,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":6780,"imp":20519,"signups":33.5,"payers":0,"ac":3.4},{"start":"2026-06-22","end":"2026-06-28","spend":7676,"imp":22421,"signups":65.3,"payers":0,"ac":9.3},{"start":"2026-06-29","end":"2026-07-05","spend":8545,"imp":24212,"signups":92.0,"payers":0,"ac":8.8},{"start":"2026-07-06","end":"2026-07-12","spend":7902,"imp":22173,"signups":80.3,"payers":0,"ac":14},{"start":"2026-07-13","end":"2026-07-19","spend":7916,"imp":21489,"signups":85.4,"payers":0,"ac":26},{"start":"2026-07-20","end":"2026-07-26","spend":2984,"imp":8503,"signups":43.5,"payers":1,"ac":19}]},"AI Construction":{"totalClicks":250,"totalWorkSU":17,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-22","end":"2026-06-28","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-29","end":"2026-07-05","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-07-06","end":"2026-07-12","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-07-13","end":"2026-07-19","spend":750,"imp":1231,"signups":4,"payers":0,"ac":0},{"start":"2026-07-20","end":"2026-07-26","spend":2971,"imp":5775,"signups":30.5,"payers":0,"ac":1}]},"AI Finance":{"totalClicks":1226,"totalWorkSU":97.7,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-22","end":"2026-06-28","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-29","end":"2026-07-05","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-07-06","end":"2026-07-12","spend":4721,"imp":3912,"signups":37.5,"payers":0,"ac":1},{"start":"2026-07-13","end":"2026-07-19","spend":6597,"imp":3753,"signups":45.0,"payers":0,"ac":2},{"start":"2026-07-20","end":"2026-07-26","spend":12012,"imp":12149,"signups":98.2,"payers":0,"ac":1}]},"AI HR":{"totalClicks":20512,"totalWorkSU":1128.5,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":26759,"imp":32117,"signups":105.5,"payers":0,"ac":5.5},{"start":"2026-06-22","end":"2026-06-28","spend":61650,"imp":86799,"signups":276.6,"payers":2,"ac":3},{"start":"2026-06-29","end":"2026-07-05","spend":40791,"imp":60523,"signups":197.0,"payers":2,"ac":4.5},{"start":"2026-07-06","end":"2026-07-12","spend":54331,"imp":84230,"signups":278.1,"payers":0,"ac":37.5},{"start":"2026-07-13","end":"2026-07-19","spend":59437,"imp":101989,"signups":327.0,"payers":1,"ac":62.6},{"start":"2026-07-20","end":"2026-07-26","spend":83052,"imp":108836,"signups":393.9,"payers":2,"ac":52.0}]},"AI IT":{"totalClicks":3562,"totalWorkSU":222.3,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":19756,"imp":44949,"signups":96.2,"payers":0,"ac":9},{"start":"2026-06-22","end":"2026-06-28","spend":11486,"imp":27564,"signups":50.7,"payers":0,"ac":5},{"start":"2026-06-29","end":"2026-07-05","spend":3801,"imp":9941,"signups":26,"payers":0,"ac":3},{"start":"2026-07-06","end":"2026-07-12","spend":7083,"imp":22734,"signups":48.5,"payers":0,"ac":5},{"start":"2026-07-13","end":"2026-07-19","spend":10004,"imp":21752,"signups":67.5,"payers":0,"ac":26.1},{"start":"2026-07-20","end":"2026-07-26","spend":21881,"imp":47228,"signups":117.4,"payers":1,"ac":47.5}]},"AI Legal":{"totalClicks":8106,"totalWorkSU":797.4,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":21190,"imp":30300,"signups":214.6,"payers":0,"ac":5.6},{"start":"2026-06-22","end":"2026-06-28","spend":37075,"imp":61459,"signups":339.3,"payers":1,"ac":9},{"start":"2026-06-29","end":"2026-07-05","spend":29038,"imp":47925,"signups":229.1,"payers":0,"ac":9},{"start":"2026-07-06","end":"2026-07-12","spend":20408,"imp":35235,"signups":231.8,"payers":0,"ac":31.6},{"start":"2026-07-13","end":"2026-07-19","spend":10779,"imp":21489,"signups":139.0,"payers":0,"ac":37},{"start":"2026-07-20","end":"2026-07-26","spend":8022,"imp":15441,"signups":138.8,"payers":0,"ac":47}]},"AI Marketing":{"totalClicks":11878,"totalWorkSU":1353.5,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":9997,"imp":11020,"signups":109.5,"payers":0,"ac":12},{"start":"2026-06-22","end":"2026-06-28","spend":14671,"imp":14973,"signups":130.5,"payers":0,"ac":7},{"start":"2026-06-29","end":"2026-07-05","spend":28148,"imp":44644,"signups":445.0,"payers":1,"ac":7.8},{"start":"2026-07-06","end":"2026-07-12","spend":24931,"imp":43671,"signups":489.3,"payers":2,"ac":86.0},{"start":"2026-07-13","end":"2026-07-19","spend":29473,"imp":37297,"signups":465.0,"payers":0,"ac":121},{"start":"2026-07-20","end":"2026-07-26","spend":24683,"imp":31325,"signups":432.1,"payers":2,"ac":141.9}]},"AI Note Taker":{"totalClicks":7538,"totalWorkSU":528.2,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-22","end":"2026-06-28","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-29","end":"2026-07-05","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-07-06","end":"2026-07-12","spend":1964,"imp":3569,"signups":31,"payers":0,"ac":1},{"start":"2026-07-13","end":"2026-07-19","spend":36249,"imp":75951,"signups":665.9,"payers":0,"ac":6},{"start":"2026-07-20","end":"2026-07-26","spend":38415,"imp":88203,"signups":796.3,"payers":0,"ac":10}]},"AI Real Estate":{"totalClicks":1318,"totalWorkSU":80,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-22","end":"2026-06-28","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-29","end":"2026-07-05","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-07-06","end":"2026-07-12","spend":3135,"imp":4645,"signups":11.5,"payers":0,"ac":0},{"start":"2026-07-13","end":"2026-07-19","spend":6586,"imp":9417,"signups":40.5,"payers":0,"ac":3},{"start":"2026-07-20","end":"2026-07-26","spend":10306,"imp":16403,"signups":70,"payers":0,"ac":0}]},"AI Work Process":{"totalClicks":1361,"totalWorkSU":92.6,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-22","end":"2026-06-28","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-06-29","end":"2026-07-05","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-07-06","end":"2026-07-12","spend":0,"imp":0,"signups":0,"payers":0,"ac":0},{"start":"2026-07-13","end":"2026-07-19","spend":1274,"imp":2307,"signups":18.5,"payers":0,"ac":5.5},{"start":"2026-07-20","end":"2026-07-26","spend":18291,"imp":35614,"signups":214.6,"payers":0,"ac":94.5}]},"Work Builder":{"totalClicks":16119,"totalWorkSU":1485.0,"weeks":[{"start":"2026-06-15","end":"2026-06-21","spend":11415,"imp":15694,"signups":154.8,"payers":0,"ac":11},{"start":"2026-06-22","end":"2026-06-28","spend":40454,"imp":50357,"signups":590.4,"payers":2,"ac":19},{"start":"2026-06-29","end":"2026-07-05","spend":52481,"imp":78975,"signups":732.2,"payers":0,"ac":33},{"start":"2026-07-06","end":"2026-07-12","spend":61290,"imp":85696,"signups":887.2,"payers":1,"ac":82.1},{"start":"2026-07-13","end":"2026-07-19","spend":43884,"imp":57649,"signups":541.9,"payers":1,"ac":181.0},{"start":"2026-07-20","end":"2026-07-26","spend":38295,"imp":43644,"signups":584.9,"payers":2,"ac":262.2}]}};
+
+  function fmt(n) { return n < 10 ? n.toFixed(1) : Math.round(n).toLocaleString(); }
+  function fmtPct(n) { return n.toFixed(1) + '%'; }
+  function fmtDollar(n) { return '$' + Math.round(n).toLocaleString(); }
+  function formatDateLabel(d) {
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var dt = new Date(d + 'T00:00:00');
+    return months[dt.getMonth()] + ' ' + dt.getDate();
+  }
+
+  function filterData(startDate, endDate) {
+    var results = [];
+    for (var name in CAMPAIGN_WEEKLY) {
+      var c = CAMPAIGN_WEEKLY[name];
+      var totalImpAll = 0, totalSignupsAll = 0;
+      c.weeks.forEach(function(w) { totalImpAll += w.imp; totalSignupsAll += w.signups; });
+      var spend=0, imp=0, signups=0, payers=0, ac=0;
+      c.weeks.forEach(function(w) {
+        var wStart = new Date(w.start + 'T00:00:00');
+        var wEnd = new Date(w.end + 'T00:00:00');
+        var fStart = new Date(startDate + 'T00:00:00');
+        var fEnd = new Date(endDate + 'T00:00:00');
+        var overlapStart = wStart > fStart ? wStart : fStart;
+        var overlapEnd = wEnd < fEnd ? wEnd : fEnd;
+        if (overlapStart > overlapEnd) return;
+        var weekDays = (wEnd - wStart) / 86400000 + 1;
+        var overlapDays = (overlapEnd - overlapStart) / 86400000 + 1;
+        var ratio = weekDays > 0 ? overlapDays / weekDays : 0;
+        spend += w.spend * ratio;
+        imp += w.imp * ratio;
+        signups += w.signups * ratio;
+        payers += w.payers * ratio;
+        ac += w.ac * ratio;
+      });
+      if (imp === 0) continue;
+      var impRatio = totalImpAll > 0 ? imp / totalImpAll : 0;
+      var suRatio = totalSignupsAll > 0 ? signups / totalSignupsAll : 0;
+      var clicks = c.totalClicks * impRatio;
+      var workSU = c.totalWorkSU > 0 ? c.totalWorkSU * suRatio : null;
+      results.push({ name:name, spend:spend, imp:imp, clicks:clicks, signups:signups, payers:payers, ac:ac, workSU:workSU });
+    }
+    results.sort(function(a,b) { return b.spend - a.spend; });
+    return results;
+  }
+
+  function render(startDate, endDate) {
+    var data = filterData(startDate, endDate);
+    var tSpend=0, tImp=0, tClicks=0, tSignups=0, tWorkSU=0, tPayers=0, tAC=0;
+    var hasWorkSU = false;
+    data.forEach(function(r) {
+      tSpend += r.spend; tImp += r.imp; tClicks += r.clicks;
+      tSignups += r.signups; tPayers += r.payers; tAC += r.ac;
+      if (r.workSU !== null) { tWorkSU += r.workSU; hasWorkSU = true; }
+    });
+    var sub = document.getElementById('funnel-subtitle');
+    sub.textContent = formatDateLabel(startDate) + ' – ' + formatDateLabel(endDate) + ' · All accounts · Sorted by spend';
+    var bar = document.getElementById('funnel-bar');
+    var ctr = tImp > 0 ? tClicks/tImp : 0;
+    var crSU = tClicks > 0 ? tSignups/tClicks : 0;
+    var pctWork = tSignups > 0 && hasWorkSU ? tWorkSU/tSignups : 0;
+    var cvrPay = tSignups > 0 ? tPayers/tSignups : 0;
+    var acPct = tSignups > 0 ? tAC/tSignups : 0;
+    bar.innerHTML =
+      '<div class="funnel-step"><div class="f-label">Impressions</div><div class="f-val">' + fmt(tImp) + '</div></div>' +
+      '<div class="funnel-step"><div class="f-label">CTR</div><div class="f-val">' + fmtPct(ctr*100) + '</div><div class="f-sub">' + fmt(tClicks) + ' clicks</div></div>' +
+      '<div class="funnel-step"><div class="f-label">CR to Signup</div><div class="f-val">' + fmtPct(crSU*100) + '</div><div class="f-sub">' + fmt(tSignups) + ' signups</div></div>' +
+      '<div class="funnel-step"><div class="f-label">%Work</div><div class="f-val">' + (hasWorkSU ? fmtPct(pctWork*100) : '—') + '</div><div class="f-sub">' + (hasWorkSU ? fmt(tWorkSU) + ' work SU' : '—') + '</div></div>' +
+      '<div class="funnel-step"><div class="f-label">CVR Paying</div><div class="f-val">' + fmtPct(cvrPay*100) + '</div><div class="f-sub">' + fmt(tPayers) + ' payers</div></div>' +
+      '<div class="funnel-step"><div class="f-label">Agent Created</div><div class="f-val">' + fmtPct(acPct*100) + '</div><div class="f-sub">' + fmt(tAC) + ' agents</div></div>';
+    var tbody = '';
+    data.forEach(function(r) {
+      var ctr2 = r.imp > 0 ? r.clicks/r.imp : 0;
+      var cr2 = r.clicks > 0 ? r.signups/r.clicks : 0;
+      var cps2 = r.signups > 0 ? r.spend/r.signups : 0;
+      var workPct2 = r.signups > 0 && r.workSU !== null ? r.workSU/r.signups : null;
+      var cac2 = r.payers > 0 ? r.spend/r.payers : 0;
+      var cvrPay2 = r.signups > 0 ? r.payers/r.signups : 0;
+      var acPct2 = r.signups > 0 ? r.ac/r.signups : 0;
+      tbody += '<tr><td>' + r.name + '</td>';
+      tbody += '<td>' + fmtDollar(r.spend) + '</td>';
+      tbody += '<td>' + fmt(r.imp) + '</td>';
+      tbody += '<td>' + fmtPct(ctr2*100) + '</td>';
+      tbody += '<td>' + fmtPct(cr2*100) + '</td>';
+      tbody += '<td>' + fmt(r.signups) + '</td>';
+      tbody += '<td>' + fmtDollar(cps2) + '</td>';
+      tbody += '<td>' + (r.workSU !== null ? fmt(r.workSU) : '—') + '</td>';
+      tbody += '<td>' + (workPct2 !== null ? fmtPct(workPct2*100) : '—') + '</td>';
+      tbody += '<td>' + fmt(r.payers) + '</td>';
+      tbody += '<td>' + (r.payers > 0 ? fmtDollar(cac2) : '—') + '</td>';
+      tbody += '<td>' + fmtPct(cvrPay2*100) + '</td>';
+      tbody += '<td>' + fmt(r.ac) + '</td>';
+      tbody += '<td>' + fmtPct(acPct2*100) + '</td></tr>';
+    });
+    var tableEl = document.getElementById('funnel-table');
+    if (tableEl) tableEl.innerHTML = tbody;
+  }
+
+  var startInput = document.getElementById('funnel-date-start');
+  var endInput = document.getElementById('funnel-date-end');
+  var resetBtn = document.getElementById('funnel-date-reset');
+  function onDateChange() {
+    var s = startInput.value;
+    var e = endInput.value;
+    if (s && e && s <= e) render(s, e);
+  }
+  startInput.addEventListener('change', onDateChange);
+  startInput.addEventListener('input', onDateChange);
+  endInput.addEventListener('change', onDateChange);
+  endInput.addEventListener('input', onDateChange);
+  resetBtn.addEventListener('click', function() {
+    startInput.value = ALL_DATA_START;
+    endInput.value = ALL_DATA_END;
+    render(ALL_DATA_START, ALL_DATA_END);
+  });
+  startInput.value = DEFAULT_START;
+  endInput.value = DEFAULT_END;
+  render(DEFAULT_START, DEFAULT_END);
+})();
+</script>
 </body>
 </html>
