@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marketing X1000 — Weekly Report</title>
+<title>Marketing X1000 — Weekly Report W31</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,21 +27,24 @@
   .delta-up { color: #4ade80; }
   .delta-down { color: #f87171; }
   .delta-neutral { color: #a1a1aa; }
-  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
   .chart-box { background: #27272a; border-radius: 8px; padding: 16px; }
   .chart-box h3 { font-size: 13px; color: #a1a1aa; margin-bottom: 12px; }
   canvas { width: 100% !important; height: 180px !important; }
-  .process-section { margin-top: 32px; }
+  .bullets { list-style: none; padding: 0; }
+  .bullets li { padding: 6px 0; font-size: 14px; color: #d4d4d8; display: flex; align-items: flex-start; gap: 8px; }
+  .bullets.compact li { padding: 4px 0; font-size: 13px; }
+  .bullet-icon { flex-shrink: 0; }
   .process-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .process-card { background: #18181b; border-radius: 12px; padding: 20px; border: 1px solid #27272a; }
-  .process-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-  .progress-bar { background: #27272a; border-radius: 6px; height: 8px; margin: 8px 0; overflow: hidden; }
+  .process-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+  .progress-bar { background: #27272a; border-radius: 6px; height: 8px; margin: 8px 0 12px; overflow: hidden; }
   .progress-fill { height: 100%; border-radius: 6px; }
   .progress-green { background: linear-gradient(90deg, #22c55e, #4ade80); }
   .progress-yellow { background: linear-gradient(90deg, #eab308, #fbbf24); }
   .progress-blue { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
-  .process-status { font-size: 13px; color: #a1a1aa; margin-top: 6px; }
   .footer { text-align: center; color: #52525b; font-size: 12px; margin-top: 32px; padding-top: 16px; border-top: 1px solid #27272a; }
+  .data-source { font-size: 11px; color: #52525b; margin-top: 8px; font-style: italic; }
   @media (max-width: 768px) {
     .metrics-grid { grid-template-columns: repeat(2, 1fr); }
     .chart-row { grid-template-columns: 1fr; }
@@ -52,42 +55,42 @@
 <body>
 <div class="container">
   <h1>📊 Marketing X1000 — Weekly Report</h1>
-  <p class="subtitle">Generated July 30, 2026 • Data: Last 4 Weeks</p>
+  <p class="subtitle">Generated July 30, 2026 • Data: Last 5 Weeks (week of Jul 27 is partial — 3 days)</p>
 
-  <!-- SEM DACH -->
+  
   <div class="section">
     <div class="section-header">
       <span class="section-title">🔍 SEM DACH</span>
-      <span class="status-badge status-yellow">🟡 Watch</span>
+      <span class="status-badge status-gray">⚪ No VBB data</span>
     </div>
     <div class="metrics-grid">
       <div class="metric-card">
         <div class="metric-label">Spend (Latest Week)</div>
         <div class="metric-value">$11.7K</div>
-        <div class="metric-delta delta-up">↑ 14% WoW</div>
+        <div class="metric-delta"><span class="delta-up">↑ 14%</span></div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">Signups</div>
-        <div class="metric-value">98</div>
-        <div class="metric-delta delta-down">↓ 43% WoW</div>
+        <div class="metric-label">Hard Signups</div>
+        <div class="metric-value">180</div>
+        <div class="metric-delta"><span class="delta-down">↓ 23%</span></div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">CPS</div>
-        <div class="metric-value">$120</div>
-        <div class="metric-delta delta-up">↑ 99% WoW</div>
+        <div class="metric-label">CPVBB</div>
+        <div class="metric-value">—</div>
+        <div class="metric-delta">—</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">Impressions</div>
-        <div class="metric-value">48.3K</div>
+        <div class="metric-label">CPS (Hard SU)</div>
+        <div class="metric-value">$65</div>
+        <div class="metric-delta"><span class="delta-down">↑ 47%</span></div>
       </div>
     </div>
-    <div class="chart-row">
-      <div class="chart-box"><h3>Spend & Signups</h3><canvas id="semSpendChart"></canvas></div>
-      <div class="chart-box"><h3>Cost Per Signup (CPS)</h3><canvas id="semCpsChart"></canvas></div>
-    </div>
+    <div class="chart-row"><div class="chart-box"><h3>Spend & Hard Signups</h3><canvas id="semSpendChart"></canvas></div><div class="chart-box"><h3>CPVBB (target ≤ 0.6)</h3><canvas id="semCpvbbChart"></canvas></div></div>
+    <ul class="bullets"><li><span class="bullet-icon">✅</span> DACH Search Optimizer live — daily scans, registry-driven. Current CPVBB 0.68, targeting ≤0.6</li><li><span class="bullet-icon">📊</span> Spending ~$44K/mo vs $115K target (38%). Root cause: tCPAs too low → rank-lost impression share 62-83%</li><li><span class="bullet-icon">🔧</span> RSA optimization reducing POOR/AVERAGE ads. 48 AVERAGE ads addressed Jul 21 with theme-specific copy</li><li><span class="bullet-icon">⚠️</span> VBB data has ~4-day lag — latest week may not have VBB value yet. ⚠️ Latest week (Jul 28+) is partial — only 3 days of data</li></ul>
   </div>
+  <p class="data-source">Source: Google Ads API • Account: Locals (9441310809) • Campaigns: dach-de-* excl. CRM • Hard SU: "Hard Signup (MCC)" • CPVBB: Cost ÷ "VBB - HT prod - offline conversions" value</p>
 
-  <!-- Meta DACH -->
+  
   <div class="section">
     <div class="section-header">
       <span class="section-title">📱 Meta DACH</span>
@@ -96,104 +99,153 @@
     <div class="metrics-grid">
       <div class="metric-card">
         <div class="metric-label">Spend (Latest Week)</div>
-        <div class="metric-value">$240.7K</div>
-        <div class="metric-delta delta-down">↓ 54% WoW</div>
+        <div class="metric-value">$9.6K</div>
+        <div class="metric-delta"><span class="delta-down">↓ 23%</span></div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">Signups</div>
-        <div class="metric-value">7.3K</div>
-        <div class="metric-delta delta-down">↓ 74% WoW</div>
+        <div class="metric-label">Opt. Conversions</div>
+        <div class="metric-value">198</div>
+        <div class="metric-delta"><span class="delta-down">↓ 60%</span></div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">CPS</div>
-        <div class="metric-value">$33</div>
-        <div class="metric-delta delta-up">↑ 74% WoW</div>
+        <div class="metric-label">CPA (Opt. Event)</div>
+        <div class="metric-value">$49</div>
+        <div class="metric-delta"><span class="delta-down">↑ 92%</span></div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Impressions</div>
-        <div class="metric-value">65435.2K</div>
+        <div class="metric-value">1485.0K</div>
+        <div class="metric-delta"></div>
       </div>
     </div>
-    <div class="chart-row">
-      <div class="chart-box"><h3>Spend & Signups</h3><canvas id="metaSpendChart"></canvas></div>
-      <div class="chart-box"><h3>Cost Per Signup (CPS)</h3><canvas id="metaCpsChart"></canvas></div>
-    </div>
+    <div class="chart-row"><div class="chart-box"><h3>Spend & Conversions</h3><canvas id="metaDachSpend"></canvas></div><div class="chart-box"><h3>CPA (Optimization Event)</h3><canvas id="metaDachCpa"></canvas></div></div>
+    <ul class="bullets"><li><span class="bullet-icon">✅</span> Wave 1 (creative housekeeping) executed Jul 20 — paused underperformers, 15 ads remain in ASC, 12 in MSC</li><li><span class="bullet-icon">📊</span> 2 active campaigns: ASC (broad) + MSC (manual). CPA blended across registration + purchase events</li><li><span class="bullet-icon">🔬</span> Wave 2 (Reels ad set test) — new 9:16 DE video creatives loaded. Kill switch: CPS >$150 after 2 weeks</li><li><span class="bullet-icon">⚠️</span> ⚠️ Latest week (Jul 28+) is partial — only 3 days of data. Prior full week strong at $12.5K / 494 conv / $25 CPA</li></ul>
   </div>
+  <p class="data-source">Source: Meta Marketing API • Account: act_1455743984512059 • Campaigns containing "dach" excl. CRM • CPA: Cost ÷ (registrations + purchases)</p>
 
-  <!-- YouTube DACH -->
+  
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">🦘 Meta AU</span>
+      <span class="status-badge status-green">🟢 On Track</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Spend (Latest Week)</div>
+        <div class="metric-value">$20.6K</div>
+        <div class="metric-delta"><span class="delta-down">↓ 61%</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Opt. Conversions</div>
+        <div class="metric-value">973</div>
+        <div class="metric-delta"><span class="delta-down">↓ 58%</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CPA (Opt. Event)</div>
+        <div class="metric-value">$21</div>
+        <div class="metric-delta"><span class="delta-up">↓ 7%</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Impressions</div>
+        <div class="metric-value">4447.7K</div>
+        <div class="metric-delta"></div>
+      </div>
+    </div>
+    <div class="chart-row"><div class="chart-box"><h3>Spend & Conversions</h3><canvas id="metaAuSpend"></canvas></div><div class="chart-box"><h3>CPA (Optimization Event)</h3><canvas id="metaAuCpa"></canvas></div></div>
+    <ul class="bullets"><li><span class="bullet-icon">📊</span> 3 active campaigns (excl. CRM): ASC broad, ASC v2, and WM-specific ASC</li><li><span class="bullet-icon">🚀</span> Strong scaling trend: spend grew from $30K→$53K over 3 weeks before partial week dip</li><li><span class="bullet-icon">✅</span> CPA stable at $18-$27 range — efficient despite rapid scaling</li><li><span class="bullet-icon">⚠️</span> ⚠️ Latest week (Jul 28+) is partial — only 3 days of data</li></ul>
+  </div>
+  <p class="data-source">Source: Meta Marketing API • Account: act_1455743984512059 • Campaigns starting with "au" excl. CRM • CPA: Cost ÷ (registrations + purchases)</p>
+
+  
   <div class="section">
     <div class="section-header">
       <span class="section-title">🎬 YouTube DACH (DemandGen)</span>
-      <span class="status-badge status-red">🔴 Alert</span>
+      <span class="status-badge status-yellow">🟡 Watch</span>
     </div>
     <div class="metrics-grid">
       <div class="metric-card">
         <div class="metric-label">Spend (Latest Week)</div>
         <div class="metric-value">$1.7K</div>
-        <div class="metric-delta delta-down">↓ 77% WoW</div>
+        <div class="metric-delta"><span class="delta-down">↓ 77%</span></div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">Signups</div>
+        <div class="metric-label">Hard Signups (DDA 7d)</div>
         <div class="metric-value">6</div>
-        <div class="metric-delta delta-down">↓ 77% WoW</div>
+        <div class="metric-delta"><span class="delta-down">↓ 78%</span></div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">CPS</div>
-        <div class="metric-value">$291</div>
-        <div class="metric-delta delta-down">↓ 3% WoW</div>
+        <div class="metric-label">CPS (Hard SU)</div>
+        <div class="metric-value">$290</div>
+        <div class="metric-delta"><span class="delta-down">↑ 1%</span></div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Impressions</div>
-        <div class="metric-value">225.7K</div>
+        <div class="metric-value">225.6K</div>
+        <div class="metric-delta"></div>
       </div>
     </div>
-    <div class="chart-row">
-      <div class="chart-box"><h3>Spend & Signups</h3><canvas id="ytSpendChart"></canvas></div>
-      <div class="chart-box"><h3>Cost Per Signup (CPS)</h3><canvas id="ytCpsChart"></canvas></div>
-    </div>
+    <div class="chart-row"><div class="chart-box"><h3>Spend & Hard Signups</h3><canvas id="ytSpendChart"></canvas></div><div class="chart-box"><h3>CPS — Hard Signup DDA 7d (target $240)</h3><canvas id="ytCpsChart"></canvas></div></div>
+    <ul class="bullets"><li><span class="bullet-icon">🔴</span> Significant spend drop: 50% WoW decline starting Jul 23. Budget headroom exists but delivery falling</li><li><span class="bullet-icon">🔧</span> P0 monitoring tools built Jul 26: campaign registry, snapshot, daily monitor, spend alerts, ad ops</li><li><span class="bullet-icon">📊</span> 2 active campaigns: main3-dg (Tier A) and topics2-dg (Tier B). Monthly budget cap: $55K Jul, $50K Aug</li><li><span class="bullet-icon">⚠️</span> Investigation ongoing — gradual decline not a cliff. Bidding/targeting under review with Tamir</li></ul>
   </div>
+  <p class="data-source">Source: Google Ads API • Account: 7193445013 • DemandGen campaigns with "de-" prefix • Hard SU: "YT - Hard Signup - DDA - 7d (MCC)"</p>
 
-  <!-- Meta AU placeholder -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-title">📱 Meta AU</span>
-      <span class="status-badge status-gray">⚪ Pending Data</span>
-    </div>
-    <p style="color: #71717a; font-size: 14px;">Meta AU account ID not yet configured. Will be added once account details are confirmed.</p>
-  </div>
-
-  <!-- Process Projects -->
+  
   <h2 style="font-size: 22px; font-weight: 600; margin: 32px 0 16px; color: #fff;">🔧 Process & Creative Projects</h2>
   <div class="process-grid">
     <div class="process-card">
       <h3>📝 RSA Optimization</h3>
       <div class="progress-bar"><div class="progress-fill progress-green" style="width: 70%"></div></div>
-      <div class="process-status">Ongoing — Weekly health scans active. DACH ads being iterated. 70% of POOR/AVERAGE ads addressed.</div>
+      <ul class="bullets compact">
+        <li><span class="bullet-icon">✅</span> Weekly health scans running via cron on DACH Locals account</li>
+        <li><span class="bullet-icon">📊</span> DACH: 48 AVERAGE ads addressed Jul 21 with theme-specific copy. POOR ads down from 22 to single digits</li>
+        <li><span class="bullet-icon">🌍</span> Multi-region: FR, BR, LATAM, DAPULSE accounts also optimized (expanded headlines, unpinned)</li>
+        <li><span class="bullet-icon">⚠️</span> Brand account still heavy on POOR (58%) — needs dedicated pass</li>
+      </ul>
     </div>
     <div class="process-card">
       <h3>🌐 Landing Page Adaptations</h3>
       <div class="progress-bar"><div class="progress-fill progress-blue" style="width: 50%"></div></div>
-      <div class="process-status">In Progress — Status to be pulled from monday.com board. Awaiting input on scope.</div>
+      <ul class="bullets compact">
+        <li><span class="bullet-icon">🔧</span> Awaiting specific scope definition from team</li>
+        <li><span class="bullet-icon">📋</span> Need monday.com board ID to auto-track progress</li>
+        <li><span class="bullet-icon">⚠️</span> Not yet wired to automated reporting — manual status needed</li>
+      </ul>
     </div>
     <div class="process-card">
       <h3>🌍 Landing Page Translation</h3>
       <div class="progress-bar"><div class="progress-fill progress-yellow" style="width: 60%"></div></div>
-      <div class="process-status">Active — DE localization pipeline running. Figma asset localization board tracking assets.</div>
+      <ul class="bullets compact">
+        <li><span class="bullet-icon">✅</span> DE localization pipeline active — Figma asset localization board (18412118203) tracking assets</li>
+        <li><span class="bullet-icon">🔧</span> Figma→Cloudinary→page pipeline operational for de-DE assets</li>
+        <li><span class="bullet-icon">📊</span> Orphan word rules and glossary locks enforced (e.g. "In Bearbeitung" locked)</li>
+        <li><span class="bullet-icon">⚠️</span> Need to expand beyond DE — other DACH languages not yet in pipeline</li>
+      </ul>
     </div>
     <div class="process-card">
       <h3>🎞️ GIF Creation</h3>
-      <div class="progress-bar"><div class="progress-fill progress-blue" style="width: 40%"></div></div>
-      <div class="process-status">In Progress — Awaiting milestone data from campaign requests board.</div>
+      <div class="progress-bar"><div class="progress-fill progress-blue" style="width: 45%"></div></div>
+      <ul class="bullets compact">
+        <li><span class="bullet-icon">✅</span> Figma→Animation pipeline proven (GSAP + Remotion). Agents Launch banner animated through V5</li>
+        <li><span class="bullet-icon">🔧</span> @remotion/google-fonts integration fixed for Figma font matching</li>
+        <li><span class="bullet-icon">📋</span> Campaign Requests board driving queue — need board ID for auto-pull</li>
+        <li><span class="bullet-icon">⚠️</span> Manual triggering only — not yet automated via cron/board listener</li>
+      </ul>
     </div>
-    <div class="process-card">
+    <div class="process-card" style="grid-column: 1 / -1;">
       <h3>🖼️ Banner Localization</h3>
-      <div class="progress-bar"><div class="progress-fill progress-green" style="width: 65%"></div></div>
-      <div class="process-status">Active — Figma resize automation running. Campaign Requests board tracking queue.</div>
+      <div class="progress-bar"><div class="progress-fill progress-green" style="width: 75%"></div></div>
+      <ul class="bullets compact">
+        <li><span class="bullet-icon">✅</span> Board Resize Runner fully operational — cron-driven, polls Campaign Requests board (18422865245)</li>
+        <li><span class="bullet-icon">✅</span> QA rules enforced (L1-L3, S1-S4, C1-C3, E1, P1). Figma housekeeping automated (duplicate page cleanup)</li>
+        <li><span class="bullet-icon">📊</span> Container widening now allowed as graduated fallback. 9 legacy pages cleaned up Jul 26</li>
+        <li><span class="bullet-icon">⚠️</span> Resize runner handles one job at a time — queue can back up during peak periods</li>
+      </ul>
     </div>
   </div>
 
   <div class="footer">
-    Generated by Nymeria 🐺 • Marketing X1000 Weekly Report • July 30, 2026
+    Generated by Nymeria 🐺 • Marketing X1000 Weekly Report • July 30, 2026<br>
+    Data sources: Google Ads API (Funnel Gate) • Meta Marketing API (Funnel Gate) • monday.com
   </div>
 </div>
 
@@ -231,7 +283,7 @@ function dualAxisChart(id, labels, data1, label1, color1, data2, label2, color2)
 
 function singleChart(id, labels, data, label, color, targetLine) {
   const datasets = [{ label: label, data: data, borderColor: color, backgroundColor: color + '20', fill: true, tension: 0.3, pointRadius: 4, pointBackgroundColor: color }];
-  if (targetLine) {
+  if (targetLine !== undefined) {
     datasets.push({ label: 'Target', data: Array(labels.length).fill(targetLine), borderColor: '#fbbf24', borderDash: [8,4], pointRadius: 0, fill: false });
   }
   new Chart(document.getElementById(id), {
@@ -242,16 +294,20 @@ function singleChart(id, labels, data, label, color, targetLine) {
 }
 
 // SEM DACH
-dualAxisChart('semSpendChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [6032.1, 9048.1, 13069.6, 10275.0, 11676.7], 'Spend ($)', '#3b82f6', [104.3, 129.3, 227.0, 171.0, 97.5], 'Signups', '#22c55e');
-singleChart('semCpsChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [57.8, 70.0, 57.6, 60.1, 119.8], 'CPS ($)', '#f97316', 100);
+dualAxisChart('semSpendChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [6032.0, 9048.0, 13070.0, 10275.0, 11677.0], 'Spend ($)', '#3b82f6', [148.3, 195.0, 273.0, 233.1, 180.5], 'Hard Signups', '#22c55e');
+singleChart('semCpvbbChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [0.59, 0.74, 0.73, 0.7, null], 'CPVBB', '#f97316', 0.6);
 
 // Meta DACH
-dualAxisChart('metaSpendChart', ["Jun 30", "Jul 07", "Jul 14", "Jul 21", "Jul 28"], [406142.0, 414329.1, 510355.9, 525147.6, 240677.6], 'Spend ($)', '#a855f7', [13364, 16041, 22002, 27520, 7258], 'Signups', '#22c55e');
-singleChart('metaCpsChart', ["Jun 30", "Jul 07", "Jul 14", "Jul 21", "Jul 28"], [30.4, 25.8, 23.2, 19.1, 33.2], 'CPS ($)', '#f97316', 30);
+dualAxisChart('metaDachSpend', ["Jun 30", "Jul 07", "Jul 14", "Jul 21", "Jul 28"], [7324.0, 8179.0, 12587.0, 12521.0, 9631.0], 'Spend ($)', '#a855f7', [231, 336, 443, 494, 198], 'Conversions', '#22c55e');
+singleChart('metaDachCpa', ["Jun 30", "Jul 07", "Jul 14", "Jul 21", "Jul 28"], [32.0, 24.0, 28.0, 25.0, 49.0], 'CPA ($)', '#f97316');
+
+// Meta AU
+dualAxisChart('metaAuSpend', ["Jun 30", "Jul 07", "Jul 14", "Jul 21", "Jul 28"], [29944.0, 28228.0, 45543.0, 53210.0, 20561.0], 'Spend ($)', '#ec4899', [1100, 1315, 2491, 2340, 973], 'Conversions', '#22c55e');
+singleChart('metaAuCpa', ["Jun 30", "Jul 07", "Jul 14", "Jul 21", "Jul 28"], [27.0, 21.0, 18.0, 23.0, 21.0], 'CPA ($)', '#f97316');
 
 // YouTube DACH
-dualAxisChart('ytSpendChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [11682.1, 17725.2, 12352.1, 7340.2, 1661.0], 'Spend ($)', '#ef4444', [45.9, 58.2, 48.0, 24.4, 5.7], 'Signups', '#22c55e');
-singleChart('ytCpsChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [254.4, 304.8, 257.3, 300.4, 290.7], 'CPS ($)', '#f97316', 240);
+dualAxisChart('ytSpendChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [11682.0, 17725.0, 12352.0, 7340.0, 1659.0], 'Spend ($)', '#ef4444', [45.9, 58.2, 48.0, 25.4, 5.7], 'Hard Signups', '#22c55e');
+singleChart('ytCpsChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [254.0, 305.0, 257.0, 289.0, 290.0], 'CPS ($)', '#f97316', 240);
 </script>
 </body>
 </html>
