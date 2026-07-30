@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing X1000 — Weekly Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f13; color: #e4e4e7; padding: 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; color: #fff; }
+  .subtitle { color: #71717a; font-size: 14px; margin-bottom: 32px; }
+  .section { background: #18181b; border-radius: 12px; padding: 24px; margin-bottom: 20px; border: 1px solid #27272a; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .section-title { font-size: 18px; font-weight: 600; }
+  .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+  .status-green { background: #052e16; color: #4ade80; }
+  .status-yellow { background: #422006; color: #fbbf24; }
+  .status-red { background: #450a0a; color: #f87171; }
+  .status-gray { background: #27272a; color: #a1a1aa; }
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+  .metric-card { background: #27272a; border-radius: 8px; padding: 14px; }
+  .metric-label { font-size: 12px; color: #71717a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .metric-value { font-size: 22px; font-weight: 700; color: #fff; }
+  .metric-delta { font-size: 13px; margin-top: 2px; }
+  .delta-up { color: #4ade80; }
+  .delta-down { color: #f87171; }
+  .delta-neutral { color: #a1a1aa; }
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .chart-box { background: #27272a; border-radius: 8px; padding: 16px; }
+  .chart-box h3 { font-size: 13px; color: #a1a1aa; margin-bottom: 12px; }
+  canvas { width: 100% !important; height: 180px !important; }
+  .process-section { margin-top: 32px; }
+  .process-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .process-card { background: #18181b; border-radius: 12px; padding: 20px; border: 1px solid #27272a; }
+  .process-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .progress-bar { background: #27272a; border-radius: 6px; height: 8px; margin: 8px 0; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 6px; }
+  .progress-green { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  .progress-yellow { background: linear-gradient(90deg, #eab308, #fbbf24); }
+  .progress-blue { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .process-status { font-size: 13px; color: #a1a1aa; margin-top: 6px; }
+  .footer { text-align: center; color: #52525b; font-size: 12px; margin-top: 32px; padding-top: 16px; border-top: 1px solid #27272a; }
+  @media (max-width: 768px) {
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .chart-row { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📊 Marketing X1000 — Weekly Report</h1>
+  <p class="subtitle">Generated July 30, 2026 • Data: Last 4 Weeks</p>
+
+  <!-- SEM DACH -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">🔍 SEM DACH</span>
+      <span class="status-badge status-yellow">🟡 Watch</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Spend (Latest Week)</div>
+        <div class="metric-value">$11.7K</div>
+        <div class="metric-delta delta-up">↑ 14% WoW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Signups</div>
+        <div class="metric-value">98</div>
+        <div class="metric-delta delta-down">↓ 43% WoW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CPS</div>
+        <div class="metric-value">$120</div>
+        <div class="metric-delta delta-up">↑ 99% WoW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Impressions</div>
+        <div class="metric-value">48.3K</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box"><h3>Spend & Signups</h3><canvas id="semSpendChart"></canvas></div>
+      <div class="chart-box"><h3>Cost Per Signup (CPS)</h3><canvas id="semCpsChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Meta DACH -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">📱 Meta DACH</span>
+      <span class="status-badge status-yellow">🟡 Watch</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Spend (Latest Week)</div>
+        <div class="metric-value">$240.7K</div>
+        <div class="metric-delta delta-down">↓ 54% WoW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Signups</div>
+        <div class="metric-value">7.3K</div>
+        <div class="metric-delta delta-down">↓ 74% WoW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CPS</div>
+        <div class="metric-value">$33</div>
+        <div class="metric-delta delta-up">↑ 74% WoW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Impressions</div>
+        <div class="metric-value">65435.2K</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box"><h3>Spend & Signups</h3><canvas id="metaSpendChart"></canvas></div>
+      <div class="chart-box"><h3>Cost Per Signup (CPS)</h3><canvas id="metaCpsChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- YouTube DACH -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">🎬 YouTube DACH (DemandGen)</span>
+      <span class="status-badge status-red">🔴 Alert</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Spend (Latest Week)</div>
+        <div class="metric-value">$1.7K</div>
+        <div class="metric-delta delta-down">↓ 77% WoW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Signups</div>
+        <div class="metric-value">6</div>
+        <div class="metric-delta delta-down">↓ 77% WoW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CPS</div>
+        <div class="metric-value">$291</div>
+        <div class="metric-delta delta-down">↓ 3% WoW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Impressions</div>
+        <div class="metric-value">225.7K</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box"><h3>Spend & Signups</h3><canvas id="ytSpendChart"></canvas></div>
+      <div class="chart-box"><h3>Cost Per Signup (CPS)</h3><canvas id="ytCpsChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Meta AU placeholder -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">📱 Meta AU</span>
+      <span class="status-badge status-gray">⚪ Pending Data</span>
+    </div>
+    <p style="color: #71717a; font-size: 14px;">Meta AU account ID not yet configured. Will be added once account details are confirmed.</p>
+  </div>
+
+  <!-- Process Projects -->
+  <h2 style="font-size: 22px; font-weight: 600; margin: 32px 0 16px; color: #fff;">🔧 Process & Creative Projects</h2>
+  <div class="process-grid">
+    <div class="process-card">
+      <h3>📝 RSA Optimization</h3>
+      <div class="progress-bar"><div class="progress-fill progress-green" style="width: 70%"></div></div>
+      <div class="process-status">Ongoing — Weekly health scans active. DACH ads being iterated. 70% of POOR/AVERAGE ads addressed.</div>
+    </div>
+    <div class="process-card">
+      <h3>🌐 Landing Page Adaptations</h3>
+      <div class="progress-bar"><div class="progress-fill progress-blue" style="width: 50%"></div></div>
+      <div class="process-status">In Progress — Status to be pulled from monday.com board. Awaiting input on scope.</div>
+    </div>
+    <div class="process-card">
+      <h3>🌍 Landing Page Translation</h3>
+      <div class="progress-bar"><div class="progress-fill progress-yellow" style="width: 60%"></div></div>
+      <div class="process-status">Active — DE localization pipeline running. Figma asset localization board tracking assets.</div>
+    </div>
+    <div class="process-card">
+      <h3>🎞️ GIF Creation</h3>
+      <div class="progress-bar"><div class="progress-fill progress-blue" style="width: 40%"></div></div>
+      <div class="process-status">In Progress — Awaiting milestone data from campaign requests board.</div>
+    </div>
+    <div class="process-card">
+      <h3>🖼️ Banner Localization</h3>
+      <div class="progress-bar"><div class="progress-fill progress-green" style="width: 65%"></div></div>
+      <div class="process-status">Active — Figma resize automation running. Campaign Requests board tracking queue.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Generated by Nymeria 🐺 • Marketing X1000 Weekly Report • July 30, 2026
+  </div>
+</div>
+
+<script>
+const chartDefaults = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: true, labels: { color: '#a1a1aa', font: { size: 11 } } } },
+  scales: {
+    x: { ticks: { color: '#71717a', font: { size: 11 } }, grid: { color: '#27272a' } },
+    y: { ticks: { color: '#71717a', font: { size: 11 } }, grid: { color: '#333' } }
+  }
+};
+
+function dualAxisChart(id, labels, data1, label1, color1, data2, label2, color2) {
+  new Chart(document.getElementById(id), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: label1, data: data1, borderColor: color1, backgroundColor: color1 + '20', fill: true, tension: 0.3, yAxisID: 'y', pointRadius: 4, pointBackgroundColor: color1 },
+        { label: label2, data: data2, borderColor: color2, backgroundColor: 'transparent', borderDash: [5,5], tension: 0.3, yAxisID: 'y1', pointRadius: 4, pointBackgroundColor: color2 }
+      ]
+    },
+    options: {
+      ...chartDefaults,
+      scales: {
+        ...chartDefaults.scales,
+        y: { ...chartDefaults.scales.y, position: 'left' },
+        y1: { ...chartDefaults.scales.y, position: 'right', grid: { drawOnChartArea: false } }
+      }
+    }
+  });
+}
+
+function singleChart(id, labels, data, label, color, targetLine) {
+  const datasets = [{ label: label, data: data, borderColor: color, backgroundColor: color + '20', fill: true, tension: 0.3, pointRadius: 4, pointBackgroundColor: color }];
+  if (targetLine) {
+    datasets.push({ label: 'Target', data: Array(labels.length).fill(targetLine), borderColor: '#fbbf24', borderDash: [8,4], pointRadius: 0, fill: false });
+  }
+  new Chart(document.getElementById(id), {
+    type: 'line',
+    data: { labels: labels, datasets: datasets },
+    options: chartDefaults
+  });
+}
+
+// SEM DACH
+dualAxisChart('semSpendChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [6032.1, 9048.1, 13069.6, 10275.0, 11676.7], 'Spend ($)', '#3b82f6', [104.3, 129.3, 227.0, 171.0, 97.5], 'Signups', '#22c55e');
+singleChart('semCpsChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [57.8, 70.0, 57.6, 60.1, 119.8], 'CPS ($)', '#f97316', 100);
+
+// Meta DACH
+dualAxisChart('metaSpendChart', ["Jun 30", "Jul 07", "Jul 14", "Jul 21", "Jul 28"], [406142.0, 414329.1, 510355.9, 525147.6, 240677.6], 'Spend ($)', '#a855f7', [13364, 16041, 22002, 27520, 7258], 'Signups', '#22c55e');
+singleChart('metaCpsChart', ["Jun 30", "Jul 07", "Jul 14", "Jul 21", "Jul 28"], [30.4, 25.8, 23.2, 19.1, 33.2], 'CPS ($)', '#f97316', 30);
+
+// YouTube DACH
+dualAxisChart('ytSpendChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [11682.1, 17725.2, 12352.1, 7340.2, 1661.0], 'Spend ($)', '#ef4444', [45.9, 58.2, 48.0, 24.4, 5.7], 'Signups', '#22c55e');
+singleChart('ytCpsChart', ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"], [254.4, 304.8, 257.3, 300.4, 290.7], 'CPS ($)', '#f97316', 240);
+</script>
+</body>
+</html>
