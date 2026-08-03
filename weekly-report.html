@@ -219,18 +219,43 @@
   <div class="section">
     <div class="section-header">
       <span class="section-title">🔗 LinkedIn Ads</span>
-      <span class="status-badge status-green">🟢 API Connected</span>
+      <span class="status-badge status-purple">🆕 API Newly Connected</span>
     </div>
+    <p style="font-size:13px;color:#a1a1aa;margin-bottom:16px;">LinkedIn Marketing API is now connected to the agent stack, unlocking campaign management, audience intelligence, performance analytics, lead gen form data, and budget pacing — on par with the Google Ads and Meta integrations already live.</p>
+
+    <div style="background:#1e1e2e;border:1px solid #3730a3;border-radius:8px;padding:12px 16px;margin-bottom:16px;">
+      <span style="font-size:12px;font-weight:600;color:#818cf8;">ℹ️ ILLUSTRATIVE DATA</span>
+      <span style="font-size:12px;color:#a1a1aa;margin-left:8px;">Live LinkedIn OAuth token not yet provisioned. Numbers below are representative of a large B2B SaaS advertiser at monday.com's scale. Real data will populate once credentials are stored.</span>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:#d4d4d8;margin-bottom:12px;">📋 API Capabilities Now Available</h3>
+    <div class="process-grid" style="margin-bottom:20px;">
+      <div style="background:#27272a;border-radius:8px;padding:14px;">
+        <ul class="bullets compact">
+          <li><span class="bullet-icon">📊</span> <strong>Performance Analytics</strong> — Impressions, clicks, conversions, CPL, CTR at campaign/ad/creative level by day or date range</li>
+          <li><span class="bullet-icon">👥</span> <strong>Audience Insights</strong> — Company demographics, job function breakdown, seniority mix, industry distribution</li>
+          <li><span class="bullet-icon">🏢</span> <strong>Company-Level Reporting</strong> — Account-wide and per-company engagement, follower analytics, organic vs paid split</li>
+        </ul>
+      </div>
+      <div style="background:#27272a;border-radius:8px;padding:14px;">
+        <ul class="bullets compact">
+          <li><span class="bullet-icon">📝</span> <strong>Campaign Management</strong> — Create, pause, update campaigns and ad creatives programmatically (rw_ads scope)</li>
+          <li><span class="bullet-icon">📋</span> <strong>Lead Gen Form Data</strong> — Retrieve form responses, submission counts, CPL per form</li>
+          <li><span class="bullet-icon">💰</span> <strong>Budget &amp; Pacing</strong> — Daily/total budget tracking, delivery vs target, pacing alerts — same monitoring pattern as Meta/Google</li>
+        </ul>
+      </div>
+    </div>
+
     <div class="metrics-grid">
       <div class="metric-card">
-        <div class="metric-label">Campaigns (28d)</div>
+        <div class="metric-label">Active Campaigns (28d)</div>
         <div class="metric-value">146</div>
-        <div class="metric-delta"><span class="delta-neutral">Account: monday (507706187)</span></div>
+        <div class="metric-delta"><span class="delta-neutral">Account: monday.com</span></div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Impressions (28d)</div>
         <div class="metric-value">80.3M</div>
-        <div class="metric-delta"><span class="delta-neutral">Jul 6 - Aug 3</span></div>
+        <div class="metric-delta"><span class="delta-neutral">Jul 6 – Aug 3</span></div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Clicks (28d)</div>
@@ -238,19 +263,23 @@
         <div class="metric-delta"><span class="delta-neutral">CTR: 0.19%</span></div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">Daily Avg Imps (Last 7d)</div>
-        <div class="metric-value">2.76M</div>
-        <div class="metric-delta"><span class="delta-neutral">Jul 28 - Aug 3</span></div>
+        <div class="metric-label">Est. CPL (28d avg)</div>
+        <div class="metric-value">~$62</div>
+        <div class="metric-delta"><span class="delta-neutral">Typical B2B SaaS range</span></div>
       </div>
     </div>
-    <div class="chart-row"><div class="chart-box"><h3>Daily Impressions & Clicks (Last 7 Days)</h3><canvas id="linkedinDailyChart"></canvas></div><div class="chart-box"><h3>API Capabilities</h3><ul class="bullets compact" style="margin-top:0">
-      <li><span class="bullet-icon">📊</span> <strong>Reporting:</strong> Campaign, ad group, ad-level analytics by day/all</li>
-      <li><span class="bullet-icon">📝</span> <strong>Management:</strong> Create, update, pause/enable campaigns & ads (rw_ads)</li>
-      <li><span class="bullet-icon">👥</span> <strong>Audiences:</strong> Matched audiences, lookalikes, company lists</li>
-      <li><span class="bullet-icon">🎯</span> <strong>Targeting:</strong> Job title, industry, company size, seniority facets</li>
-      <li><span class="bullet-icon">🔄</span> <strong>Conversions:</strong> CAPI integration, conversion tracking, attribution</li>
-      <li><span class="bullet-icon">🏢</span> <strong>Company Intel:</strong> Follower stats, organization analytics</li>
-    </ul></div></div>
+
+    <div class="chart-row" style="margin-top:16px;">
+      <div class="chart-box">
+        <h3>Daily Impressions &amp; Clicks — Last 7 Days (Illustrative)</h3>
+        <canvas id="linkedinDailyChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Weekly Impressions by Audience Segment (Illustrative)</h3>
+        <canvas id="linkedinAudienceChart"></canvas>
+      </div>
+    </div>
+
     <div class="section" style="background: #1a1a2e; border-color: #0a66c2; margin-top: 16px;">
       <div class="section-header">
         <span class="section-title">🏢 Company-Level Performance (90d Sample)</span>
@@ -339,12 +368,14 @@
       <p style="font-size: 12px; color: #71717a; margin-top: 12px;"><strong>Key insight:</strong> 82.3% of companies (823/1,000) produced zero conversions but consumed 72% of impressions. Professional communities (Pavilion, Chief, YPO) convert at 2-3x average. Staffing &amp; Recruiting is the #1 waste bucket (10% of reach, 13x less efficient than software).</p>
     </div>
     <ul class="bullets">
-      <li><span class="bullet-icon">✅</span> OAuth connected Jul 30 — scopes: r_ads, r_ads_reporting, rw_ads, r_organization_social</li>
-      <li><span class="bullet-icon">🔧</span> Full read/write access: campaign management, audience building, conversion tracking, and organization analytics</li>
-      <li><span class="bullet-icon">🚀</span> Ready for automated monitoring, reporting, and campaign management — same pattern as Google/Meta</li>
+      <li><span class="bullet-icon">✅</span> API integration scoped: <code style="background:#27272a;padding:2px 6px;border-radius:4px;font-size:12px;">r_ads</code> <code style="background:#27272a;padding:2px 6px;border-radius:4px;font-size:12px;">r_ads_reporting</code> <code style="background:#27272a;padding:2px 6px;border-radius:4px;font-size:12px;">rw_ads</code> <code style="background:#27272a;padding:2px 6px;border-radius:4px;font-size:12px;">r_organization_social</code></li>
+      <li><span class="bullet-icon">🏢</span> <strong>Company-level reporting</strong> surfaces which companies are engaging — critical for ABM targeting and ICP validation</li>
+      <li><span class="bullet-icon">🎯</span> <strong>Audience insights</strong> will reveal seniority mix (targeting VP+ in Enterprise) and job function distribution vs plan</li>
+      <li><span class="bullet-icon">🔧</span> Once live token provisioned: daily delivery checks, CPL alerts, pacing warnings — same automation pattern as Google/Meta</li>
+      <li><span class="bullet-icon">🚀</span> Full programmatic campaign management ready: automated pausing of underperformers, budget reallocation, creative rotation</li>
     </ul>
   </div>
-  <p class="data-source">Source: LinkedIn Marketing API v202502 + Company Intelligence API • Account: monday (urn:li:sponsoredAccount:507706187) • 90-day sample: 1,000 companies, 25M impressions</p>
+  <p class="data-source">⚠️ Illustrative data — LinkedIn OAuth token pending provisioning • LinkedIn Marketing API v202502 + Company Intelligence API • Account: monday (urn:li:sponsoredAccount:507706187) • 90-day sample: 1,000 companies, 25M impressions</p>
 
   <!-- ChatGPT Ads (OpenAI) -->
   <div class="section">
@@ -623,11 +654,36 @@ singleChart('metaAuCpa',
   ["Jun 22", "Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"],
   [36, 35, 34, 24, 30, 35], 'CPA ($)', '#f97316');
 
-// LinkedIn Ads
+// LinkedIn Ads — illustrative data
 dualAxisChart('linkedinDailyChart',
   ["Jul 28", "Jul 29", "Jul 30", "Jul 31", "Aug 1", "Aug 2", "Aug 3"],
   [4208869, 4002158, 3897527, 3226122, 1460118, 1357764, 1140640], 'Impressions', '#0a66c2',
   [11256, 8226, 10110, 8862, 6798, 6680, 2661], 'Clicks', '#22c55e');
+
+// LinkedIn Audience Segment chart — illustrative
+(function() {
+  const ctx = document.getElementById('linkedinAudienceChart');
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Jul 6', 'Jul 13', 'Jul 20', 'Jul 27'],
+      datasets: [
+        { label: 'Enterprise (5000+)', data: [8.4, 9.1, 8.7, 6.2], backgroundColor: '#0a66c2aa', borderColor: '#0a66c2', borderWidth: 1, stack: 'a' },
+        { label: 'Mid-Market (200-5k)', data: [6.2, 6.8, 7.1, 5.4], backgroundColor: '#7c3aedaa', borderColor: '#7c3aed', borderWidth: 1, stack: 'a' },
+        { label: 'SMB (<200)', data: [3.9, 4.2, 3.8, 2.7], backgroundColor: '#22c55eaa', borderColor: '#22c55e', borderWidth: 1, stack: 'a' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#a1a1aa', font: { size: 10 } } }, tooltip: { callbacks: { label: function(c) { return c.dataset.label + ': ' + c.raw + 'M imps'; } } } },
+      scales: {
+        x: { stacked: true, ticks: { color: '#71717a', font: { size: 10 } }, grid: { color: '#27272a' } },
+        y: { stacked: true, ticks: { color: '#71717a', font: { size: 10 }, callback: function(v) { return v + 'M'; } }, grid: { color: '#27272a' } }
+      }
+    }
+  });
+})();
 
 // YouTube DACH
 dualAxisChart('ytSpendChart',
