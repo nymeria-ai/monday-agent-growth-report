@@ -67,11 +67,11 @@
   <div class="section">
     <div class="section-header">
       <span class="section-title">🔍 SEM DACH</span>
-      <span class="status-badge status-yellow">🟡 Watch — CPVBB 0.88 (latest mature wk)</span>
+      <span class="status-badge status-yellow">🟡 Watch - CPVBB 0.88 (latest mature wk)</span>
     </div>
     <div class="metrics-grid">
       <div class="metric-card">
-        <div class="metric-label">Spend (Jul 23–29)</div>
+        <div class="metric-label">Spend (Jul 23-29)</div>
         <div class="metric-value">$16.9K</div>
         <div class="metric-delta"><span class="delta-up">↑ 42%</span> vs prior wk</div>
       </div>
@@ -81,7 +81,7 @@
         <div class="metric-delta"><span class="delta-up">↑ 8%</span> vs 282 prior</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">CPVBB (Mature — 4d lag removed)</div>
+        <div class="metric-label">CPVBB (Mature - 4d lag removed)</div>
         <div class="metric-value">0.88</div>
         <div class="metric-delta"><span class="delta-down">↑ 22%</span> vs 0.72 prior · <span style="color:#71717a;font-size:11px">target ≤0.6</span></div>
       </div>
@@ -95,7 +95,7 @@
     <ul class="bullets">
       <li><span class="bullet-icon">⚠️</span> CPVBB trending up: 0.60 → 0.70 → 0.72 → 0.88 over last 4 weeks. Efficiency degrading as spend scales</li>
       <li><span class="bullet-icon">🚀</span> Spend jumped 42% ($11.9K→$16.9K). Signups up 8% but CPS rose $42→$56</li>
-      <li><span class="bullet-icon">📊</span> Best CPVBB week was Jul 2–8 at 0.60 (on target). All weeks since have been above target</li>
+      <li><span class="bullet-icon">📊</span> Best CPVBB week was Jul 2-8 at 0.60 (on target). All weeks since have been above target</li>
       <li><span class="bullet-icon">🔒</span> <strong>Data methodology:</strong> Each week = locked 7 days, ending 4 days ago to remove unmatured VBB data</li>
       <li><span class="bullet-icon">🔧</span> DACH Search Optimizer running daily scans. RSA optimization continuing on POOR/AVERAGE ads</li>
     </ul>
@@ -445,11 +445,21 @@
     <div class="process-card">
       <h3>📝 RSA Optimization</h3>
       <div class="progress-bar"><div class="progress-fill progress-green" style="width: 75%"></div></div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+        <div style="background: #27272a; border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; color: #71717a; text-transform: uppercase; margin-bottom: 6px;">Before (Jul 19)</div>
+          <div style="font-size: 13px;"><span style="color: #f87171;">Poor 18%</span> · <span style="color: #fbbf24;">Avg 40%</span> · <span style="color: #60a5fa;">Good 28%</span> · <span style="color: #4ade80;">Exc 14%</span></div>
+        </div>
+        <div style="background: #27272a; border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; color: #71717a; text-transform: uppercase; margin-bottom: 6px;">Today (Aug 3)</div>
+          <div style="font-size: 13px;"><span style="color: #4ade80;">Poor 10%</span> · <span style="color: #4ade80;">Avg 15%</span> · <span style="color: #60a5fa;">Good 55%</span> · <span style="color: #4ade80;">Exc 12%</span> · <span style="color: #a1a1aa;">Pending 9%</span></div>
+        </div>
+      </div>
       <ul class="bullets compact">
-        <li><span class="bullet-icon">✅</span> Weekly health scans running via cron on DACH Locals account</li>
-        <li><span class="bullet-icon">📊</span> DACH: 48 AVERAGE ads addressed Jul 21 with theme-specific copy. POOR ads down to single digits</li>
+        <li><span class="bullet-icon">📉</span> POOR down 18% → 10%, AVERAGE down 40% → 15% (−25pp — biggest shift)</li>
+        <li><span class="bullet-icon">📈</span> GOOD surged 28% → 55% — bulk of improvements landed here</li>
         <li><span class="bullet-icon">🌍</span> Multi-region: FR, BR, LATAM, DAPULSE accounts also optimized</li>
-        <li><span class="bullet-icon">⚠️</span> Brand account still heavy on POOR (58%) - needs dedicated pass</li>
+        <li><span class="bullet-icon">⚠️</span> Brand account still heavy on POOR (58%) — needs dedicated pass</li>
       </ul>
     </div>
     <div class="process-card">
@@ -597,7 +607,7 @@ function singleChart(id, labels, data, label, color, targetLine) {
   });
 }
 
-// SEM DACH (mature weeks — locked 7d, 4d VBB lag removed)
+// SEM DACH (mature weeks - locked 7d, 4d VBB lag removed)
 dualAxisChart('semSpendChart',
   ["Jun 25", "Jul 02", "Jul 09", "Jul 16", "Jul 23"],
   [8555, 9338, 12831, 11905, 16871], 'Spend ($)', '#3b82f6',
