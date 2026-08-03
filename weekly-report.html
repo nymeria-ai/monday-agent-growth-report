@@ -67,35 +67,36 @@
   <div class="section">
     <div class="section-header">
       <span class="section-title">🔍 SEM DACH</span>
-      <span class="status-badge status-red">🔴 Alert - CPVBB 1.31 (VBB lag likely)</span>
+      <span class="status-badge status-yellow">🟡 Watch — CPVBB 0.88 (latest mature wk)</span>
     </div>
     <div class="metrics-grid">
       <div class="metric-card">
-        <div class="metric-label">Spend (Latest Full Week)</div>
-        <div class="metric-value">$26.9K</div>
-        <div class="metric-delta"><span class="delta-up">↑ 144%</span> vs prior wk</div>
+        <div class="metric-label">Spend (Jul 23–29)</div>
+        <div class="metric-value">$16.9K</div>
+        <div class="metric-delta"><span class="delta-up">↑ 42%</span> vs prior wk</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Hard Signups</div>
-        <div class="metric-value">370</div>
-        <div class="metric-delta"><span class="delta-up">↑ 29%</span></div>
+        <div class="metric-value">304</div>
+        <div class="metric-delta"><span class="delta-up">↑ 8%</span> vs 282 prior</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">CPVBB (Cost / VBB Value)</div>
-        <div class="metric-value">0.71 <span style="font-size:12px;color:#71717a">(Jul 20 wk)</span></div>
-        <div class="metric-delta"><span class="delta-neutral">→ 0%</span> vs prior · <span style="color:#71717a;font-size:11px">Jul 27 = 1.31 (VBB lag ~4d)</span></div>
+        <div class="metric-label">CPVBB (Mature — 4d lag removed)</div>
+        <div class="metric-value">0.88</div>
+        <div class="metric-delta"><span class="delta-down">↑ 22%</span> vs 0.72 prior · <span style="color:#71717a;font-size:11px">target ≤0.6</span></div>
       </div>
       <div class="metric-card">
         <div class="metric-label">CPS (Hard SU)</div>
-        <div class="metric-value">$73</div>
-        <div class="metric-delta"><span class="delta-down">↑ 92%</span> vs $38 prior</div>
+        <div class="metric-value">$56</div>
+        <div class="metric-delta"><span class="delta-down">↑ 33%</span> vs $42 prior</div>
       </div>
     </div>
     <div class="chart-row"><div class="chart-box"><h3>Spend & Hard Signups</h3><canvas id="semSpendChart"></canvas></div><div class="chart-box"><h3>CPVBB - Cost / VBB Value (target ≤ 0.6)</h3><canvas id="semCpvbbChart"></canvas></div></div>
     <ul class="bullets">
-      <li><span class="bullet-icon">🚀</span> Massive scaling: $26.9K (Jul 27) vs $11.0K prior - campaigns scaled aggressively</li>
-      <li><span class="bullet-icon">📊</span> Hard signups up 29% to 370, but CPS jumped $38→$73 - efficiency degraded with scale</li>
-      <li><span class="bullet-icon">⚠️</span> CPVBB 1.31 for Jul 27 is unreliable (VBB ~4-day lag). Last reliable: 0.71 (Jul 20)</li>
+      <li><span class="bullet-icon">⚠️</span> CPVBB trending up: 0.60 → 0.70 → 0.72 → 0.88 over last 4 weeks. Efficiency degrading as spend scales</li>
+      <li><span class="bullet-icon">🚀</span> Spend jumped 42% ($11.9K→$16.9K). Signups up 8% but CPS rose $42→$56</li>
+      <li><span class="bullet-icon">📊</span> Best CPVBB week was Jul 2–8 at 0.60 (on target). All weeks since have been above target</li>
+      <li><span class="bullet-icon">🔒</span> <strong>Data methodology:</strong> Each week = locked 7 days, ending 4 days ago to remove unmatured VBB data</li>
       <li><span class="bullet-icon">🔧</span> DACH Search Optimizer running daily scans. RSA optimization continuing on POOR/AVERAGE ads</li>
     </ul>
   </div>
@@ -255,7 +256,7 @@
       <div class="section-header">
         <span class="section-title">🏢 Company-Level Performance (90d Sample)</span>
       </div>
-      <p style="font-size: 13px; color: #a1a1aa; margin-bottom: 12px;">Via LinkedIn Company Intelligence API — which companies see, click, and convert on our ads:</p>
+      <p style="font-size: 13px; color: #a1a1aa; margin-bottom: 12px;">Via LinkedIn Company Intelligence API - which companies see, click, and convert on our ads:</p>
       <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
           <thead>
@@ -339,9 +340,9 @@
       <p style="font-size: 12px; color: #71717a; margin-top: 12px;"><strong>Key insight:</strong> 82.3% of companies (823/1,000) produced zero conversions but consumed 72% of impressions. Professional communities (Pavilion, Chief, YPO) convert at 2-3x average. Staffing &amp; Recruiting is the #1 waste bucket (10% of reach, 13x less efficient than software).</p>
     </div>
     <ul class="bullets">
-      <li><span class="bullet-icon">✅</span> OAuth connected Jul 30 — scopes: r_ads, r_ads_reporting, rw_ads, r_organization_social</li>
+      <li><span class="bullet-icon">✅</span> OAuth connected Jul 30 - scopes: r_ads, r_ads_reporting, rw_ads, r_organization_social</li>
       <li><span class="bullet-icon">🔧</span> Full read/write access: campaign management, audience building, conversion tracking, and organization analytics</li>
-      <li><span class="bullet-icon">🚀</span> Ready for automated monitoring, reporting, and campaign management — same pattern as Google/Meta</li>
+      <li><span class="bullet-icon">🚀</span> Ready for automated monitoring, reporting, and campaign management - same pattern as Google/Meta</li>
     </ul>
   </div>
   <p class="data-source">Source: LinkedIn Marketing API v202502 + Company Intelligence API • Account: monday (urn:li:sponsoredAccount:507706187) • 90-day sample: 1,000 companies, 25M impressions</p>
@@ -596,14 +597,14 @@ function singleChart(id, labels, data, label, color, targetLine) {
   });
 }
 
-// SEM DACH
+// SEM DACH (mature weeks — locked 7d, 4d VBB lag removed)
 dualAxisChart('semSpendChart',
-  ["Jun 22", "Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"],
-  [8252, 9485, 10232, 13669, 10993, 26877], 'Spend ($)', '#3b82f6',
-  [204, 256, 264, 299, 286, 370], 'Hard Signups', '#22c55e');
+  ["Jun 25", "Jul 02", "Jul 09", "Jul 16", "Jul 23"],
+  [8555, 9338, 12831, 11905, 16871], 'Spend ($)', '#3b82f6',
+  [227, 238, 289, 282, 304], 'Hard Signups', '#22c55e');
 singleChart('semCpvbbChart',
-  ["Jun 22", "Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"],
-  [0.88, 0.71, 0.69, 0.73, 0.71, 1.31], 'CPVBB', '#f97316', 0.6);
+  ["Jun 25", "Jul 02", "Jul 09", "Jul 16", "Jul 23"],
+  [0.70, 0.60, 0.70, 0.72, 0.88], 'CPVBB', '#f97316', 0.6);
 
 // Meta DACH
 dualAxisChart('metaDachSpend',
