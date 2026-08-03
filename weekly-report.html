@@ -215,6 +215,51 @@
   </div>
   <p class="data-source">Source: Google Ads API • Account: 7193445013 • DemandGen campaigns with "de-" prefix • Hard SU: "YT - Hard Signup - DDA - 7d (MCC)"</p>
 
+  <!-- LinkedIn Ads -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">🔗 LinkedIn Ads</span>
+      <span class="status-badge status-green">🟢 API Connected</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Campaigns (28d)</div>
+        <div class="metric-value">146</div>
+        <div class="metric-delta"><span class="delta-neutral">Account: monday (507706187)</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Impressions (28d)</div>
+        <div class="metric-value">80.3M</div>
+        <div class="metric-delta"><span class="delta-neutral">Jul 6 – Aug 3</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Clicks (28d)</div>
+        <div class="metric-value">151.7K</div>
+        <div class="metric-delta"><span class="delta-neutral">CTR: 0.19%</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Daily Avg Imps (Last 7d)</div>
+        <div class="metric-value">2.76M</div>
+        <div class="metric-delta"><span class="delta-neutral">Jul 28 – Aug 3</span></div>
+      </div>
+    </div>
+    <div class="chart-row"><div class="chart-box"><h3>Daily Impressions & Clicks (Last 7 Days)</h3><canvas id="linkedinDailyChart"></canvas></div><div class="chart-box"><h3>API Capabilities</h3><ul class="bullets compact" style="margin-top:0">
+      <li><span class="bullet-icon">📊</span> <strong>Reporting:</strong> Campaign, ad group, ad-level analytics by day/all</li>
+      <li><span class="bullet-icon">📝</span> <strong>Management:</strong> Create, update, pause/enable campaigns & ads (rw_ads)</li>
+      <li><span class="bullet-icon">👥</span> <strong>Audiences:</strong> Matched audiences, lookalikes, company lists</li>
+      <li><span class="bullet-icon">🎯</span> <strong>Targeting:</strong> Job title, industry, company size, seniority facets</li>
+      <li><span class="bullet-icon">🔄</span> <strong>Conversions:</strong> CAPI integration, conversion tracking, attribution</li>
+      <li><span class="bullet-icon">🏢</span> <strong>Company Intel:</strong> Follower stats, organization analytics</li>
+    </ul></div></div>
+    <ul class="bullets">
+      <li><span class="bullet-icon">✅</span> OAuth connected Jul 30 — scopes: r_ads, r_ads_reporting, rw_ads, r_organization_social</li>
+      <li><span class="bullet-icon">📊</span> <strong>Company-level report example (28d):</strong> 146 campaigns active, 80.3M impressions, 151.7K clicks, 0.19% CTR across monday account</li>
+      <li><span class="bullet-icon">🔧</span> Can pull campaign-level breakdowns, audience insights, and conversion data programmatically</li>
+      <li><span class="bullet-icon">🚀</span> Ready for automated monitoring, reporting, and campaign management — same pattern as Google/Meta</li>
+    </ul>
+  </div>
+  <p class="data-source">Source: LinkedIn Marketing API v202502 • Account: monday (urn:li:sponsoredAccount:507706187) • Scopes: r_ads, r_ads_reporting, rw_ads</p>
+
   <!-- Process & Creative Projects -->
   <h2 style="font-size: 22px; font-weight: 600; margin: 32px 0 16px; color: #fff;">🔧 Process & Creative Projects</h2>
   <div class="process-grid">
@@ -399,6 +444,12 @@ dualAxisChart('metaAuSpend',
 singleChart('metaAuCpa',
   ["Jun 22", "Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"],
   [36, 35, 34, 24, 30, 35], 'CPA ($)', '#f97316');
+
+// LinkedIn Ads
+dualAxisChart('linkedinDailyChart',
+  ["Jul 28", "Jul 29", "Jul 30", "Jul 31", "Aug 1", "Aug 2", "Aug 3"],
+  [4208869, 4002158, 3897527, 3226122, 1460118, 1357764, 1140640], 'Impressions', '#0a66c2',
+  [11256, 8226, 10110, 8862, 6798, 6680, 2661], 'Clicks', '#22c55e');
 
 // YouTube DACH
 dualAxisChart('ytSpendChart',
