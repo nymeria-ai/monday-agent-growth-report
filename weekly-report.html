@@ -91,7 +91,7 @@
         <div class="metric-delta"><span class="delta-down">↑ 73%</span> vs $41 prior</div>
       </div>
     </div>
-    <div class="chart-row"><div class="chart-box"><h3>Spend & Hard Signups</h3><canvas id="semSpendChart"></canvas></div><div class="chart-box"><h3>CPVBB - Cost / VBB Value (target ≤ 0.6)</h3><canvas id="semCpvbbChart"></canvas></div></div>
+    <div class="chart-row"><div class="chart-box"><h3>Hard Signups & CPS</h3><canvas id="semSpendChart"></canvas></div><div class="chart-box"><h3>CPVBB - Cost / VBB Value (target ≤ 0.6)</h3><canvas id="semCpvbbChart"></canvas></div></div>
     <ul class="bullets">
       <li><span class="bullet-icon">⚠️</span> CPVBB elevated above target: 0.69 → 0.73 → 0.71 → 0.82 over last 4 mature weeks. Spend scaling faster than VBB value</li>
       <li><span class="bullet-icon">🚀</span> Spend surged 143% ($11.0K→$26.7K). Signups up 41% (268→378) but CPS rose $41→$71</li>
@@ -618,8 +618,8 @@ function singleChart(id, labels, data, label, color, targetLine) {
 // SEM DACH (mature weeks - locked 7d, 4d VBB lag removed)
 dualAxisChart('semSpendChart',
   ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"],
-  [9485, 10232, 13669, 10993, 26717], 'Spend ($)', '#3b82f6',
-  [256, 248, 301, 268, 378], 'Hard Signups', '#22c55e');
+  [256, 248, 301, 268, 378], 'Hard Signups', '#22c55e',
+  [37, 41, 45, 41, 71], 'CPS ($)', '#f97316');
 singleChart('semCpvbbChart',
   ["Jun 29", "Jul 06", "Jul 13", "Jul 20", "Jul 27"],
   [0.71, 0.69, 0.73, 0.71, 0.82], 'CPVBB', '#f97316', 0.6);
