@@ -442,7 +442,7 @@ th.kpi-hi {
     </tbody>
 </table>
 <div style="text-align:center;margin:8px 0">
-    <button class="reset-btn" id="expand-weeks-btn" onclick="toggleWeeks()">Show All Weeks</button>
+    <button class="reset-btn" id="expand-weeks-btn">Show All Weeks</button>
 </div>
 
 <!-- ═══ Section 1B: Funnel & Paying Analysis ═══ -->
@@ -2003,8 +2003,8 @@ var TOTAL_WEEKS = 8;
     if (btn) btn.textContent = expanded ? 'Show Last 6 Weeks' : 'Show All Weeks';
     if (rows.length <= 6 && btn) btn.style.display = 'none';
   }
-  if (btn) btn.addEventListener('click', function() { expanded = !expanded; applyVisibility(); });
-  window.toggleWeeks = function() { if(btn) btn.click(); };
+  window.toggleWeeks = function() { expanded = !expanded; applyVisibility(); };
+  if (btn) btn.addEventListener('click', window.toggleWeeks);
   applyVisibility();
 })();
 
