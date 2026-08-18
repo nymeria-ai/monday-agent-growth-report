@@ -463,9 +463,9 @@ th.kpi-hi {
 
 <div class="date-filter-row">
     <label>From</label>
-    <input type="date" id="funnel-date-start" value="" min="2026-05-06" max="2026-08-10">
+    <input type="date" id="funnel-date-start" value="" min="2026-05-06">
     <label>To</label>
-    <input type="date" id="funnel-date-end" value="2026-08-10" min="2026-05-06" max="2026-08-10">
+    <input type="date" id="funnel-date-end" value="" min="2026-05-06">
     <button class="reset-btn" id="funnel-date-reset">All Data</button>
 </div>
 
@@ -1962,7 +1962,15 @@ th.kpi-hi {
 <script>
 (function() {
   const ALL_DATA_START = '2026-05-06';
-  const ALL_DATA_END = '2026-08-10';
+  // Derive ALL_DATA_END dynamically from the latest week in CAMPAIGN_WEEKLY
+  var _latestEnd = ALL_DATA_START;
+  for (var _cn in CAMPAIGN_WEEKLY) {
+    var _wks = CAMPAIGN_WEEKLY[_cn].weeks;
+    for (var _wi = 0; _wi < _wks.length; _wi++) {
+      if (_wks[_wi].end > _latestEnd) _latestEnd = _wks[_wi].end;
+    }
+  }
+  const ALL_DATA_END = _latestEnd;
   function toLast7() {
     var end = new Date(ALL_DATA_END + 'T00:00:00');
     var start = new Date(end);
@@ -2075,6 +2083,8 @@ th.kpi-hi {
 
   var startInput = document.getElementById('funnel-date-start');
   var endInput = document.getElementById('funnel-date-end');
+  startInput.max = ALL_DATA_END;
+  endInput.max = ALL_DATA_END;
   var resetBtn = document.getElementById('funnel-date-reset');
   function onDateChange() {
     var s = startInput.value;
@@ -2184,7 +2194,7 @@ var AG_WEEKLY = {"work_builder":{"AI Business Generator":[{"start":"2026-06-15",
       setTimeout(function() { filterAG(startInput.value, endInput.value); }, 10);
     });
     // Initial filter
-    filterAG(startInput.value || '2026-05-06', endInput.value || '2026-08-10');
+    filterAG(startInput.value || ALL_DATA_START, endInput.value || ALL_DATA_END);
   }
 })();
 </script>
