@@ -129,6 +129,11 @@ def pull_data():
         "spend": 0, "imp": 0, "clicks": 0, "signups": 0, "payers": 0, "ac": 0
     }))
 
+    # {agent_name: {ag_id: {name, spend, imp, clicks, signups, payers, ac}}}
+    ag_data = defaultdict(lambda: defaultdict(lambda: {
+        "name": "", "spend": 0, "imp": 0, "clicks": 0, "signups": 0, "payers": 0, "ac": 0
+    }))
+
     for acct_id, acct_name in ACCOUNTS.items():
         print(f"=== {acct_name} ({acct_id}) ===")
 
@@ -170,6 +175,45 @@ def pull_data():
         agents_rows = run_gaql(acct_id, agents_query)
         print(f"  Got {len(agents_rows)} agents_created rows")
 
+        # Ad group level performance (for breakdown tables)
+        ag_perf_query = (
+            f"SELECT campaign.name, ad_group.id, ad_group.name, "
+            f"metrics.cost_micros, metrics.impressions, metrics.clicks "
+            f"FROM ad_group "
+            f"WHERE segments.date BETWEEN '{START_DATE}' AND '{end_date}' "
+            f"AND campaign.advertising_channel_type = 'SEARCH'"
+        )
+        print(f"  Pulling ad group performance...")
+        ag_perf_rows = run_gaql(acct_id, ag_perf_query)
+        print(f"  Got {len(ag_perf_rows)} ad group perf rows")
+
+        # Ad group level conversions
+        ag_conv_query = (
+            f"SELECT campaign.name, ad_group.id, ad_group.name, "
+            f"segments.conversion_action_name, metrics.all_conversions "
+            f"FROM ad_group "
+            f"WHERE segments.date BETWEEN '{START_DATE}' AND '{end_date}' "
+            f"AND campaign.advertising_channel_type = 'SEARCH' "
+            f"AND segments.conversion_action_name IN ("
+            f"'{HARD_SIGNUP_ACTION}', '{PAYER_ACTION}')"
+        )
+        print(f"  Pulling ad group conversions...")
+        ag_conv_rows = run_gaql(acct_id, ag_conv_query)
+        print(f"  Got {len(ag_conv_rows)} ad group conv rows")
+
+        # Ad group level agents created
+        ag_ac_query = (
+            f"SELECT campaign.name, ad_group.id, ad_group.name, "
+            f"segments.conversion_action, metrics.all_conversions "
+            f"FROM ad_group "
+            f"WHERE segments.date BETWEEN '{START_DATE}' AND '{end_date}' "
+            f"AND campaign.advertising_channel_type = 'SEARCH' "
+            f"AND segments.conversion_action = 'customers/{acct_id}/conversionActions/{AGENTS_CREATED_CT_ID}'"
+        )
+        print(f"  Pulling ad group agents_created...")
+        ag_ac_rows = run_gaql(acct_id, ag_ac_query)
+        print(f"  Got {len(ag_ac_rows)} ad group AC rows")
+
         # Process performance
         for row in perf_rows:
             camp_name = row.get("campaign", {}).get("name", "")
@@ -210,7 +254,48 @@ def pull_data():
             week = week_start_monday(date)
             agent_data[agent][week]["ac"] += float(metrics.get("allConversions", 0))
 
-    return agent_data
+        # Process ad group performance (aggregate by ad group ID)
+        for row in ag_perf_rows:
+            camp_name = row.get("campaign", {}).get("name", "")
+            agent = extract_agent(camp_name)
+            if agent is None:
+                continue
+            ag_id = str(row.get("adGroup", {}).get("id", ""))
+            ag_name = row.get("adGroup", {}).get("name", "")
+            metrics = row.get("metrics", {})
+            ag_data[agent][ag_id]["name"] = ag_name  # latest name wins
+            ag_data[agent][ag_id]["spend"] += float(metrics.get("costMicros", 0)) / 1_000_000
+            ag_data[agent][ag_id]["imp"] += int(metrics.get("impressions", 0))
+            ag_data[agent][ag_id]["clicks"] += int(metrics.get("clicks", 0))
+
+        # Process ad group conversions
+        for row in ag_conv_rows:
+            camp_name = row.get("campaign", {}).get("name", "")
+            agent = extract_agent(camp_name)
+            if agent is None:
+                continue
+            ag_id = str(row.get("adGroup", {}).get("id", ""))
+            ag_name = row.get("adGroup", {}).get("name", "")
+            conv_name = row.get("segments", {}).get("conversionActionName", "")
+            conversions = float(row.get("metrics", {}).get("allConversions", 0))
+            ag_data[agent][ag_id]["name"] = ag_name
+            if conv_name == HARD_SIGNUP_ACTION:
+                ag_data[agent][ag_id]["signups"] += conversions
+            elif conv_name == PAYER_ACTION:
+                ag_data[agent][ag_id]["payers"] += conversions
+
+        # Process ad group agents created
+        for row in ag_ac_rows:
+            camp_name = row.get("campaign", {}).get("name", "")
+            agent = extract_agent(camp_name)
+            if agent is None:
+                continue
+            ag_id = str(row.get("adGroup", {}).get("id", ""))
+            ag_name = row.get("adGroup", {}).get("name", "")
+            ag_data[agent][ag_id]["name"] = ag_name
+            ag_data[agent][ag_id]["ac"] += float(row.get("metrics", {}).get("allConversions", 0))
+
+    return agent_data, ag_data
 
 
 def build_campaign_weekly(agent_data: dict) -> dict:
@@ -248,8 +333,33 @@ def build_campaign_weekly(agent_data: dict) -> dict:
     return result
 
 
-def update_html(campaign_weekly: dict):
-    """Update CAMPAIGN_WEEKLY in index.html and the title date."""
+def build_ag_breakdown_html(agent_name: str, ag_dict: dict) -> str:
+    """Build ad group breakdown HTML table for a campaign."""
+    if not ag_dict:
+        return ""
+    # Sort by spend descending
+    sorted_ags = sorted(ag_dict.items(), key=lambda x: -x[1]["spend"])
+    rows = []
+    for ag_id, d in sorted_ags:
+        name = d["name"] or f"AG {ag_id}"
+        spend = f"${d['spend']:,.2f}" if d['spend'] < 1000 else f"${d['spend']:,.0f}"
+        rows.append(
+            f'<tr><td>{name}</td><td>{spend}</td><td>{d["imp"]:,}</td>'
+            f'<td>{d["clicks"]:,}</td><td>{d["signups"]:.1f}</td>'
+            f'<td>{d["payers"]:.1f}</td><td>{d["ac"]:.1f}</td></tr>'
+        )
+    table = (
+        '<div class="kw-note"><strong>Ad group breakdown</strong>'
+        '<table class="comp1-table ag-table">'
+        '<thead><tr><th>Ad Group</th><th>Spend</th><th>Imp</th>'
+        '<th>Clicks</th><th>Signups</th><th>Payers</th><th>AC</th></tr></thead>'
+        f'<tbody>{"".join(rows)}</tbody></table></div>'
+    )
+    return table
+
+
+def update_html(campaign_weekly: dict, ag_data: dict = None):
+    """Update CAMPAIGN_WEEKLY in index.html, ad group breakdowns, and title date."""
     html = INDEX_HTML.read_text()
 
     # Update CAMPAIGN_WEEKLY line
@@ -260,6 +370,21 @@ def update_html(campaign_weekly: dict):
         html,
         flags=re.DOTALL
     )
+
+    # Update ad group breakdown tables if ag_data provided
+    if ag_data:
+        for agent_name, ags in ag_data.items():
+            new_table = build_ag_breakdown_html(agent_name, ags)
+            # Replace existing ag-table for this campaign
+            pattern = re.compile(
+                r'(<div class="section-label">'
+                + re.escape(agent_name)
+                + r'.*?</div>.*?)'
+                r'(<div class="kw-note"><strong>Ad group breakdown</strong>'
+                r'<table class="comp1-table ag-table"[^>]*>.*?</table></div>)',
+                re.DOTALL
+            )
+            html = pattern.sub(lambda m: m.group(1) + new_table, html)
 
     # Update title date
     today_str = datetime.now().strftime("%b %-d, %Y")
@@ -274,16 +399,17 @@ def update_html(campaign_weekly: dict):
 
 
 def main():
-    agent_data = pull_data()
+    agent_data, ag_data = pull_data()
 
     print(f"\n📊 Summary: {len(agent_data)} agent campaigns")
     for name in sorted(agent_data.keys()):
         weeks = agent_data[name]
         total_spend = sum(w["spend"] for w in weeks.values())
-        print(f"  {name}: {len(weeks)} weeks, ${total_spend:,.0f} total spend")
+        ag_count = len(ag_data.get(name, {}))
+        print(f"  {name}: {len(weeks)} weeks, ${total_spend:,.0f} total spend, {ag_count} ad groups")
 
     campaign_weekly = build_campaign_weekly(agent_data)
-    update_html(campaign_weekly)
+    update_html(campaign_weekly, ag_data)
 
     # Git commit + push
     subprocess.run(["git", "add", "index.html"], cwd=SCRIPT_DIR)
