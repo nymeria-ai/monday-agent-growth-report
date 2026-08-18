@@ -175,28 +175,28 @@ def pull_data():
         agents_rows = run_gaql(acct_id, agents_query)
         print(f"  Got {len(agents_rows)} agents_created rows")
 
-        # Ad group level performance (for breakdown tables — both campaign + ad group ENABLED)
+        # Ad group level performance (for breakdown tables)
+        # Filter: ad_group ENABLED + campaign ENABLED (except AI Comp — lives in general comp campaigns)
+        ag_status_filter = "AND campaign.status = 'ENABLED' AND ad_group.status = 'ENABLED'"
         ag_perf_query = (
-            f"SELECT campaign.name, ad_group.id, ad_group.name, "
+            f"SELECT campaign.name, campaign.status, ad_group.id, ad_group.name, "
             f"metrics.cost_micros, metrics.impressions, metrics.clicks "
             f"FROM ad_group "
             f"WHERE segments.date BETWEEN '{START_DATE}' AND '{end_date}' "
             f"AND campaign.advertising_channel_type = 'SEARCH' "
-            f"AND campaign.status = 'ENABLED' "
             f"AND ad_group.status = 'ENABLED'"
         )
         print(f"  Pulling ad group performance...")
         ag_perf_rows = run_gaql(acct_id, ag_perf_query)
         print(f"  Got {len(ag_perf_rows)} ad group perf rows")
 
-        # Ad group level conversions (both campaign + ad group ENABLED)
+        # Ad group level conversions (ad_group ENABLED; campaign check in processing)
         ag_conv_query = (
-            f"SELECT campaign.name, ad_group.id, ad_group.name, "
+            f"SELECT campaign.name, campaign.status, ad_group.id, ad_group.name, "
             f"segments.conversion_action_name, metrics.all_conversions "
             f"FROM ad_group "
             f"WHERE segments.date BETWEEN '{START_DATE}' AND '{end_date}' "
             f"AND campaign.advertising_channel_type = 'SEARCH' "
-            f"AND campaign.status = 'ENABLED' "
             f"AND ad_group.status = 'ENABLED' "
             f"AND segments.conversion_action_name IN ("
             f"'{HARD_SIGNUP_ACTION}', '{PAYER_ACTION}')"
@@ -205,14 +205,13 @@ def pull_data():
         ag_conv_rows = run_gaql(acct_id, ag_conv_query)
         print(f"  Got {len(ag_conv_rows)} ad group conv rows")
 
-        # Ad group level agents created (both campaign + ad group ENABLED)
+        # Ad group level agents created (ad_group ENABLED; campaign check in processing)
         ag_ac_query = (
-            f"SELECT campaign.name, ad_group.id, ad_group.name, "
+            f"SELECT campaign.name, campaign.status, ad_group.id, ad_group.name, "
             f"segments.conversion_action, metrics.all_conversions "
             f"FROM ad_group "
             f"WHERE segments.date BETWEEN '{START_DATE}' AND '{end_date}' "
             f"AND campaign.advertising_channel_type = 'SEARCH' "
-            f"AND campaign.status = 'ENABLED' "
             f"AND ad_group.status = 'ENABLED' "
             f"AND segments.conversion_action = 'customers/{acct_id}/conversionActions/{AGENTS_CREATED_CT_ID}'"
         )
@@ -261,10 +260,15 @@ def pull_data():
             agent_data[agent][week]["ac"] += float(metrics.get("allConversions", 0))
 
         # Process ad group performance (aggregate by ad group ID)
+        # AI Comp exempt from campaign.status check (lives in general comp campaigns)
+        CAMP_STATUS_EXEMPT = {"AI Comp"}
         for row in ag_perf_rows:
             camp_name = row.get("campaign", {}).get("name", "")
+            camp_status = row.get("campaign", {}).get("status", "")
             agent = extract_agent(camp_name)
             if agent is None:
+                continue
+            if agent not in CAMP_STATUS_EXEMPT and camp_status != "ENABLED":
                 continue
             ag_id = str(row.get("adGroup", {}).get("id", ""))
             ag_name = row.get("adGroup", {}).get("name", "")
@@ -277,8 +281,11 @@ def pull_data():
         # Process ad group conversions
         for row in ag_conv_rows:
             camp_name = row.get("campaign", {}).get("name", "")
+            camp_status = row.get("campaign", {}).get("status", "")
             agent = extract_agent(camp_name)
             if agent is None:
+                continue
+            if agent not in CAMP_STATUS_EXEMPT and camp_status != "ENABLED":
                 continue
             ag_id = str(row.get("adGroup", {}).get("id", ""))
             ag_name = row.get("adGroup", {}).get("name", "")
@@ -293,8 +300,11 @@ def pull_data():
         # Process ad group agents created
         for row in ag_ac_rows:
             camp_name = row.get("campaign", {}).get("name", "")
+            camp_status = row.get("campaign", {}).get("status", "")
             agent = extract_agent(camp_name)
             if agent is None:
+                continue
+            if agent not in CAMP_STATUS_EXEMPT and camp_status != "ENABLED":
                 continue
             ag_id = str(row.get("adGroup", {}).get("id", ""))
             ag_name = row.get("adGroup", {}).get("name", "")
