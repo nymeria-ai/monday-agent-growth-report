@@ -336,15 +336,42 @@ def build_campaign_weekly(agent_data: dict) -> dict:
     return result
 
 
+def normalize_ag_name(name: str) -> str:
+    """Normalize ad group name for merging: lowercase, underscores→spaces."""
+    return name.lower().replace("_", " ").strip()
+
+
+def pick_display_name(names: set) -> str:
+    """Pick the cleanest display name from a set of variants (prefer spaces over underscores)."""
+    for n in sorted(names, key=lambda x: (x.count("_"), -len(x))):
+        if "_" not in n:
+            return n
+    return sorted(names)[0]
+
+
+def merge_ag_by_name(ag_dict: dict) -> dict:
+    """Merge ad groups with same normalized name (e.g. 'AI Ads' + 'ai_Ads')."""
+    merged = {}  # normalized_name → {names: set, spend, imp, clicks, signups, payers, ac}
+    for ag_id, d in ag_dict.items():
+        norm = normalize_ag_name(d["name"] or f"AG {ag_id}")
+        if norm not in merged:
+            merged[norm] = {"names": set(), "spend": 0, "imp": 0, "clicks": 0,
+                           "signups": 0, "payers": 0, "ac": 0}
+        merged[norm]["names"].add(d["name"] or f"AG {ag_id}")
+        for k in ("spend", "imp", "clicks", "signups", "payers", "ac"):
+            merged[norm][k] += d[k]
+    return merged
+
+
 def build_ag_breakdown_html(agent_name: str, ag_dict: dict) -> str:
-    """Build ad group breakdown HTML table for a campaign."""
+    """Build ad group breakdown HTML table for a campaign (merged by normalized name)."""
     if not ag_dict:
         return ""
-    # Sort by spend descending
-    sorted_ags = sorted(ag_dict.items(), key=lambda x: -x[1]["spend"])
+    merged = merge_ag_by_name(ag_dict)
+    sorted_ags = sorted(merged.items(), key=lambda x: -x[1]["spend"])
     rows = []
-    for ag_id, d in sorted_ags:
-        name = d["name"] or f"AG {ag_id}"
+    for norm, d in sorted_ags:
+        name = pick_display_name(d["names"])
         spend = f"${d['spend']:,.2f}" if d['spend'] < 1000 else f"${d['spend']:,.0f}"
         rows.append(
             f'<tr><td>{name}</td><td>{spend}</td><td>{d["imp"]:,}</td>'
