@@ -175,26 +175,28 @@ def pull_data():
         agents_rows = run_gaql(acct_id, agents_query)
         print(f"  Got {len(agents_rows)} agents_created rows")
 
-        # Ad group level performance (for breakdown tables — enabled only)
+        # Ad group level performance (for breakdown tables — both campaign + ad group ENABLED)
         ag_perf_query = (
             f"SELECT campaign.name, ad_group.id, ad_group.name, "
             f"metrics.cost_micros, metrics.impressions, metrics.clicks "
             f"FROM ad_group "
             f"WHERE segments.date BETWEEN '{START_DATE}' AND '{end_date}' "
             f"AND campaign.advertising_channel_type = 'SEARCH' "
+            f"AND campaign.status = 'ENABLED' "
             f"AND ad_group.status = 'ENABLED'"
         )
         print(f"  Pulling ad group performance...")
         ag_perf_rows = run_gaql(acct_id, ag_perf_query)
         print(f"  Got {len(ag_perf_rows)} ad group perf rows")
 
-        # Ad group level conversions (enabled only)
+        # Ad group level conversions (both campaign + ad group ENABLED)
         ag_conv_query = (
             f"SELECT campaign.name, ad_group.id, ad_group.name, "
             f"segments.conversion_action_name, metrics.all_conversions "
             f"FROM ad_group "
             f"WHERE segments.date BETWEEN '{START_DATE}' AND '{end_date}' "
             f"AND campaign.advertising_channel_type = 'SEARCH' "
+            f"AND campaign.status = 'ENABLED' "
             f"AND ad_group.status = 'ENABLED' "
             f"AND segments.conversion_action_name IN ("
             f"'{HARD_SIGNUP_ACTION}', '{PAYER_ACTION}')"
@@ -203,13 +205,14 @@ def pull_data():
         ag_conv_rows = run_gaql(acct_id, ag_conv_query)
         print(f"  Got {len(ag_conv_rows)} ad group conv rows")
 
-        # Ad group level agents created (enabled only)
+        # Ad group level agents created (both campaign + ad group ENABLED)
         ag_ac_query = (
             f"SELECT campaign.name, ad_group.id, ad_group.name, "
             f"segments.conversion_action, metrics.all_conversions "
             f"FROM ad_group "
             f"WHERE segments.date BETWEEN '{START_DATE}' AND '{end_date}' "
             f"AND campaign.advertising_channel_type = 'SEARCH' "
+            f"AND campaign.status = 'ENABLED' "
             f"AND ad_group.status = 'ENABLED' "
             f"AND segments.conversion_action = 'customers/{acct_id}/conversionActions/{AGENTS_CREATED_CT_ID}'"
         )
