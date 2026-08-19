@@ -45,7 +45,8 @@ AGENT_CLUSTER_MAP = {
     "agent_aimarketing": "AI Marketing",
     "agent_ainote_taker": "AI Note Taker",
     "agent_aireal_estate": "AI Real Estate",
-    "agent_aiwork_builder": "Work Builder",
+    "agent_aiwork_builder": "Work Agent",
+    "agent_aiwork_agent": "Work Agent",
     "agent_aiwork_process": "AI Work Process",
     "agent_aigeneric": "AI Generic",
 }
