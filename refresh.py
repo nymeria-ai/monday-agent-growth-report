@@ -48,7 +48,9 @@ AGENT_CLUSTER_MAP = {
     "agent_aiwork_builder": "Work Agent",
     "agent_aiwork_agent": "Work Agent",
     "agent_aiwork_process": "AI Work Process",
+    "agent_aipmo_work_process": "AI Work Process",
     "agent_aigeneric": "AI Generic",
+    "agent_aipmo": "AI PMO",
 }
 
 
