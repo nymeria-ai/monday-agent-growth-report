@@ -87,6 +87,7 @@ Example: `us-en-prm-work_mgmt-search-agent_aihr-h-desktop-core-aw`
 | `agent_aiwork_builder` | Work Agent |
 | `agent_aiwork_agent` | Work Agent |
 | `agent_aiwork_process` | AI Work Process |
+| `agent_aipmo_work_process` | AI Work Process |
 | `agent_aigeneric` | AI Generic |
 | `agent_aipmo` | AI PMO |
 
@@ -421,7 +422,7 @@ To add a new metric column:
 
 | Date | Change |
 |---|---|
-| 2026-08-26 | Added AI PMO campaign (mapped from `agent_aipmo` cluster). Added CPAC column to funnel table. Added this spec file. |
+| 2026-08-26 | Added AI PMO campaign (mapped from `agent_aipmo` cluster). Added CPAC column to funnel table. Added this spec file. Added `agent_aipmo_work_process` → AI Work Process mapping (renamed cluster, aggregated with old `agent_aiwork_process`). |
 | 2026-08-24 | Weekly refresh: data through Aug 23, 2026 |
 | 2026-07-13 | Added AI Finance, AI Note Taker, AI Real Estate, AI Work Process, AI Construction campaigns |
 | 2026-06-22 | AI Comp restructured to use agent ad groups from comp1 campaigns |
