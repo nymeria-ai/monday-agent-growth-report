@@ -61,7 +61,7 @@
 <body>
 <div class="container">
   <h1>📊 Marketing X1000 - Weekly Report</h1>
-  <p class="subtitle">Generated August 31, 2026 • Data: Last 6 Weeks (Aug 30 is latest full week)</p>
+  <p class="subtitle">Generated August 31, 2026 • Data: Last 12 Weeks (Jun 8 – Aug 30)</p>
 
   <!-- SEM DACH -->
   <div class="section">
@@ -579,21 +579,21 @@ function singleChart(id, labels, data, label, color, targetLine) {
 
 // SEM DACH (mature weeks - locked 7d, 4d VBB lag removed)
 dualAxisChart('semSpendChart',
-  ["Jul 20", "Jul 27", "Aug 03", "Aug 10", "Aug 17", "Aug 24"],
-  [268, 98, 215, 158, 169, 237], 'Hard Signups', '#22c55e',
-  [41, 273, 165, 130, 140, 67], 'CPS ($)', '#f97316');
+  ["Jun 8", "Jun 15", "Jun 22", "Jun 29", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24"],
+  [473, 263, 206, 256, 250, 304, 271, 387, 470, 341, 400, 237], 'Hard Signups', '#22c55e',
+  [76, 45, 40, 37, 41, 45, 41, 69, 76, 60, 59, 67], 'CPS ($)', '#f97316');
 singleChart('semCpvbbChart',
-  ["Jul 20", "Jul 27", "Aug 03", "Aug 10", "Aug 17", "Aug 24"],
-  [0.71, 0.84, 1.49, 2.58, 4.00, 2.22], 'CPVBB', '#f97316', 0.6);
+  ["Jun 8", "Jun 15", "Jun 22", "Jun 29", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24"],
+  [1.69, 1.42, 0.87, 0.71, 0.69, 0.72, 0.71, 0.68, 0.95, 1.79, 0.89, 2.22], 'CPVBB', '#f97316', 0.6);
 
 // Meta DACH
 dualAxisChart('metaDachSpend',
-  ["Jul 21", "Jul 28", "Aug 04", "Aug 11", "Aug 18", "Aug 25"],
-  [12521, 19059, 16022, 14979, 12216, 16220], 'Spend ($)', '#a855f7',
-  [392, 291, 308, 264, 346, 314], 'Conversions', '#22c55e');
+  ["Jun 8", "Jun 15", "Jun 22", "Jun 29", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24"],
+  [6788, 6690, 6824, 7320, 6793, 12542, 12586, 17178, 18108, 13492, 16808, 16220], 'Spend ($)', '#a855f7',
+  [265, 231, 190, 187, 213, 310, 432, 298, 335, 251, 388, 314], 'Conversions', '#22c55e');
 singleChart('metaDachCpa',
-  ["Jul 21", "Jul 28", "Aug 04", "Aug 11", "Aug 18", "Aug 25"],
-  [32, 65, 52, 57, 35, 52], 'CPA ($)', '#f97316');
+  ["Jun 8", "Jun 15", "Jun 22", "Jun 29", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24"],
+  [26, 29, 36, 39, 32, 40, 29, 58, 54, 54, 43, 52], 'CPA ($)', '#f97316');
 
 dualAxisChart('linkedinDailyChart',
   ["Aug 17", "Aug 18", "Aug 19", "Aug 20", "Aug 21", "Aug 22", "Aug 23"],
@@ -602,12 +602,12 @@ dualAxisChart('linkedinDailyChart',
 
 // YouTube DACH
 dualAxisChart('ytSpendChart',
-  ["Jul 27", "Aug 03", "Aug 10", "Aug 17", "Aug 24"],
-  [4416, 12149, 16066, 13209, 11080], 'Spend ($)', '#ef4444',
-  [14.5, 57.9, 80.2, 48.3, 33.0], 'Hard Signups', '#22c55e');
+  ["Jun 8", "Jun 15", "Jun 22", "Jun 29", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24"],
+  [4509, 4368, 4141, 12085, 17725, 12352, 7339, 4416, 12149, 16066, 13179, 11080], 'Spend ($)', '#ef4444',
+  [12.0, 14.0, 28.2, 47.9, 58.2, 48.0, 27.4, 14.5, 57.9, 82.2, 62.3, 33.0], 'Hard Signups', '#22c55e');
 singleChart('ytCpsChart',
-  ["Jul 27", "Aug 03", "Aug 10", "Aug 17", "Aug 24"],
-  [304, 210, 200, 273, 336], 'CPS ($)', '#f97316', 240);
+  ["Jun 8", "Jun 15", "Jun 22", "Jun 29", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24"],
+  [376, 312, 147, 252, 305, 257, 268, 305, 210, 195, 212, 336], 'CPS ($)', '#f97316', 240);
 </script>
 </body>
 </html>
