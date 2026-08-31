@@ -313,48 +313,51 @@
   <div class="section">
     <div class="section-header">
       <span class="section-title">🤖 ChatGPT Ads (OpenAI)</span>
-      <span class="status-badge status-green">🟢 GB Active - $8.0K spend, 6 campaigns</span>
+      <span class="status-badge status-yellow">🟡 GB Spend ↓ 69% WoW - $8.0K (was $26.0K)</span>
     </div>
     <div class="metrics-grid">
       <div class="metric-card">
         <div class="metric-label">7d Spend (Aug 24-30, GB)</div>
         <div class="metric-value">$8.0K</div>
-        <div class="metric-delta"><span class="delta-neutral">6 active campaigns</span></div>
+        <div class="metric-delta"><span class="delta-down">↓ 69%</span> vs $26.0K prior</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Clicks (7d)</div>
         <div class="metric-value">3,453</div>
-        <div class="metric-delta"><span class="delta-neutral">Avg CPC $2.33</span></div>
+        <div class="metric-delta"><span class="delta-down">↓ 61%</span> vs 8,897 prior</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Avg CPC</div>
+        <div class="metric-value">$2.33</div>
+        <div class="metric-delta"><span class="delta-up">↓ 20%</span> vs $2.92 prior</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Impressions (7d)</div>
         <div class="metric-value">509K</div>
-        <div class="metric-delta"><span class="delta-neutral">CTR: 0.68%</span></div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Top Campaign</div>
-        <div class="metric-value">Brand</div>
-        <div class="metric-delta"><span class="delta-neutral">$2.4K • 1,151 clicks • CPC $2.09</span></div>
+        <div class="metric-delta"><span class="delta-down">↓ 60%</span> vs 1,267K prior</div>
       </div>
     </div>
+    <div class="chart-row"><div class="chart-box"><h3>GB Spend & Clicks (WoW)</h3><canvas id="gptSpendChart"></canvas></div><div class="chart-box"><h3>Avg CPC (WoW)</h3><canvas id="gptCpcChart"></canvas></div></div>
     <div class="chart-row">
       <div class="chart-box">
         <h3>🌟 GB Campaign Breakdown (W35)</h3>
         <ul class="bullets compact" style="margin-top:0">
-          <li><span class="bullet-icon">🇬🇧</span> <strong>Brand:</strong> $2,402 • 1,151 clicks • CPC $2.09 — top spender, strong CTR</li>
-          <li><span class="bullet-icon">🇬🇧</span> <strong>Chat Actions:</strong> $1,443 • 506 clicks • CPC $2.85 — highest CPC, intent-driven</li>
+          <li><span class="bullet-icon">🇬🇧</span> <strong>Brand:</strong> $2,402 • 1,151 clicks • CPC $2.09 — top spender</li>
+          <li><span class="bullet-icon">🇬🇧</span> <strong>Chat Actions:</strong> $1,443 • 506 clicks • CPC $2.85 — highest CPC</li>
           <li><span class="bullet-icon">🇬🇧</span> <strong>Industry:</strong> $1,223 • 527 clicks • CPC $2.32</li>
           <li><span class="bullet-icon">🇬🇧</span> <strong>Tools Seeker:</strong> $1,171 • 476 clicks • CPC $2.46</li>
+          <li><span class="bullet-icon">🇬🇧</span> <strong>Competitive:</strong> $1,122 • 548 clicks • CPC $2.05 — lowest CPC</li>
+          <li><span class="bullet-icon">🇬🇧</span> <strong>Solution Seeker:</strong> $677 • 245 clicks • CPC $2.76</li>
         </ul>
       </div>
       <div class="chart-box">
-        <h3>Performance Breakdown</h3>
+        <h3>📈 4-Week WoW Performance</h3>
         <ul class="bullets compact" style="margin-top:0">
-          <li><span class="bullet-icon">🇬🇧</span> <strong>Competitive:</strong> $1,122 • 548 clicks • CPC $2.05 — lowest CPC, good efficiency</li>
-          <li><span class="bullet-icon">🇬🇧</span> <strong>Solution Seeker:</strong> $677 • 245 clicks • CPC $2.76</li>
-          <li><span class="bullet-icon">💰</span> Avg CPC $2.33 across all GB campaigns. Brand + Competitive most efficient (&lt;$2.10)</li>
-          <li><span class="bullet-icon">🔧</span> Daily optimization cron active. WSU attribution from BigBrain pending for W35</li>
-          <li><span class="bullet-icon">📧</span> Context hints lab: 8 testing dimensions active, Phase 2 deep-dives ongoing</li>
+          <li><span class="bullet-icon">📅</span> <strong>W32 (Aug 3):</strong> $18.8K spend • 7,681 clicks • CPC $2.45 — launch week</li>
+          <li><span class="bullet-icon">📈</span> <strong>W33 (Aug 10):</strong> $26.5K spend • 9,249 clicks • CPC $2.86 — ramp up</li>
+          <li><span class="bullet-icon">📈</span> <strong>W34 (Aug 17):</strong> $26.0K spend • 8,897 clicks • CPC $2.92 — peak spend</li>
+          <li><span class="bullet-icon">⚠️</span> <strong>W35 (Aug 24):</strong> $8.0K spend • 3,453 clicks • CPC $2.33 — ↓69% spend drop</li>
+          <li><span class="bullet-icon">🔧</span> CPC improved $2.92→$2.33 (-20%) despite lower volume</li>
         </ul>
       </div>
     </div>
@@ -594,6 +597,15 @@ dualAxisChart('metaDachSpend',
 singleChart('metaDachCpa',
   ["Jun 8", "Jun 15", "Jun 22", "Jun 29", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24"],
   [26, 29, 36, 39, 32, 40, 29, 58, 54, 54, 43, 52], 'CPA ($)', '#f97316');
+
+// ChatGPT Ads GB (4 weeks since launch Aug 4)
+dualAxisChart('gptSpendChart',
+  ["Aug 3", "Aug 10", "Aug 17", "Aug 24"],
+  [18824, 26456, 25997, 8057], 'Spend ($)', '#10a37f',
+  [7681, 9249, 8897, 3453], 'Clicks', '#22c55e');
+singleChart('gptCpcChart',
+  ["Aug 3", "Aug 10", "Aug 17", "Aug 24"],
+  [2.45, 2.86, 2.92, 2.33], 'CPC ($)', '#f97316');
 
 dualAxisChart('linkedinDailyChart',
   ["Aug 17", "Aug 18", "Aug 19", "Aug 20", "Aug 21", "Aug 22", "Aug 23"],
