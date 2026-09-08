@@ -442,6 +442,16 @@ def update_html(campaign_weekly: dict, ag_data: dict = None):
         html
     )
 
+    # Auto-update date picker max to latest data date
+    all_ends = set()
+    for data in campaign_weekly.values():
+        for w in data.get('weeks', []):
+            all_ends.add(w['end'])
+    if all_ends:
+        max_date = max(all_ends)
+        html = re.sub(r'max="\d{4}-\d{2}-\d{2}"', f'max="{max_date}"', html)
+        html = re.sub(r'id="funnel-date-end" value="\d{4}-\d{2}-\d{2}"', f'id="funnel-date-end" value="{max_date}"', html)
+
     INDEX_HTML.write_text(html)
     print(f"\nUpdated index.html ({len(new_data):,} chars of CAMPAIGN_WEEKLY)")
 
