@@ -51,6 +51,8 @@ AGENT_CLUSTER_MAP = {
     "agent_aipmo_work_process": "AI Work Process",
     "agent_aigeneric": "AI Generic",
     "agent_aipmo": "AI PMO",
+    "agent_aifde": "AI FDE",
+    "agent_aiworkflow": "AI Workflow",
 }
 
 
@@ -411,8 +413,8 @@ def update_html(campaign_weekly: dict, ag_data: dict = None):
     # Update CAMPAIGN_WEEKLY line
     new_data = json.dumps(campaign_weekly, separators=(",", ":"))
     html = re.sub(
-        r'var CAMPAIGN_WEEKLY\s*=\s*\{.*?\};',
-        f'var CAMPAIGN_WEEKLY = {new_data};',
+        r'(?:const|var)\s+CAMPAIGN_WEEKLY\s*=\s*\{.*?\};',
+        f'const CAMPAIGN_WEEKLY = {new_data};',
         html,
         flags=re.DOTALL
     )
